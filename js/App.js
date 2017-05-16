@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import {View, StyleSheet} from 'react-native'
 
 export default class extends React.Component {
   render () {
@@ -12,7 +12,6 @@ export default class extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'red'
+    flex: 1
   }
 })

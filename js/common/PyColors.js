@@ -12,3 +12,22 @@ export function colorForLocation (loc) {
 export const DARK_TEXT = 'hsl(0, 0%, 24%)'
 export const LIGHT_TEXT = 'hsl(0, 0%, 90%)'
 export const LIGHT_BACKGROUND = 'hsl(0, 0%, 90%)'
+
+export const MAGIC_COLOR = 'hsl(195, 42%, 65%)'
+
+export const primary = {
+  BACKGROUND: '#132637'
+//   '#1697e5',
+//   '#5d91c9',
+//   '#ff8955',
+//   '#00ff96',
+//   '#fbda61'
+}
+export const secondary = {
+  BACKGROUND: '#0e4975',
+  // '#46c1ea',
+  FOREGROUND: '#7fb9cc',
+  ACCENT: '#f75b1c',
+  ACCENT_GREEN: '#00dfaf'
+  // '#e5d983'
+}
