@@ -31,7 +31,7 @@ function getHeadingStyles ({prefix = 'heading', otherStyles}) {
   const styles = {}
   ;[1, 2, 3, 4, 5, 6].forEach(i => {
     const fontSize = 28 - 2 * i
-    const lineHeight = fontSize * 1.375
+    const lineHeight = Math.round(fontSize * 1.375)
     const fontWeight = 'bold'
     styles[`${prefix}${i}`] = {fontSize, lineHeight, fontWeight, ...otherStyles}
   })
