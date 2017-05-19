@@ -14,15 +14,17 @@ const ApiUtils = {
   async getTalkDetail (detailId) {
     let detail = await AsyncStorage.getItem(keyGen(detailId))
     if (detail) {
-      return detail
+      return JSON.parse(detail)
     }
+
     detail = await this.getTalkDetailRemote(detailId)
     return detail
   },
 
   async getTalkDetailRemote (detailId) {
     const endpoint = `${BASE_URL}/events/${detailId}.json`
-    const detail = await fetch(endpoint).then(res => res.json())
+    const response = await fetch(endpoint)
+    const detail = await response.json()
 
     if (detail) {
       await AsyncStorage.setItem(keyGen(detailId), JSON.stringify(detail))
@@ -35,17 +37,18 @@ const ApiUtils = {
   async getTalkSchedule (date) {
     let schedule = await AsyncStorage.getItem(keyGen(date))
     if (schedule) {
-      return schedule
+      return JSON.parse(schedule)
     }
+
     schedule = await this.getTalkScheduleRemote(date)
     return schedule
   },
 
   async getTalkScheduleRemote (date) {
     const endpoint = `${BASE_URL}/schedule/${date}.json`
-    const schedule = await fetch(endpoint)
-      .then(res => res.json())
-      .then(json => json.slots)
+    const response = await fetch(endpoint)
+    const json = await response.json()
+    const schedule = json.slots
 
     if (schedule) {
       await AsyncStorage.setItem(keyGen(date), JSON.stringify(schedule))
