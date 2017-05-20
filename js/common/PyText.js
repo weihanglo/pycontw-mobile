@@ -19,6 +19,10 @@ export function Heading4 ({style, ...props}) { // eslint-disable-line
   return <RNText style={[styles.font, styles.h4, style]} {...props} />
 }
 
+export function Heading5 ({style, ...props}) { // eslint-disable-line
+  return <RNText style={[styles.font, styles.h5, style]} {...props} />
+}
+
 export function Paragraph ({style, ...props}) { // eslint-disable-line
   return <RNText style={[styles.font, styles.p, style]} {...props} />
 }
@@ -43,7 +47,7 @@ const headingStyles = getHeadingStyles({prefix: 'h'})
 const styles = StyleSheet.create({
   ...headingStyles,
   font: {
-    color: Colors.LIGHT_TEXT
+    color: Colors.DARK_TEXT
   },
   p: {
     fontSize: 15,
