@@ -21,7 +21,7 @@ export default function CategoryItem ({size = 28, icon, tag, text}) {
     borderRadius: size / 2
   }
   const fontSize = size / 8 * 5
-  const color = Colors.primary.BACKGROUND
+  const color = Colors.primaryDARK_BLUE
   return (
     <View style={styles.tagItem}>
       <View style={[styles.tag, dim]}>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     paddingVertical: 3
   },
   tag: {
-    backgroundColor: Colors.secondary.FOREGROUND,
+    backgroundColor: Colors.secondary.LIGHT_BLUE,
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center'

@@ -56,14 +56,14 @@ export default class extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.primary.BACKGROUND,
+    backgroundColor: Colors.primaryDARK_BLUE,
     flex: 1
   },
   scrollContainer: {
     padding: 20
   },
   title: {
-    color: Colors.secondary.FOREGROUND,
+    color: Colors.secondary.LIGHT_BLUE,
     width: '100%',
     textAlign: 'center',
     paddingVertical: 12

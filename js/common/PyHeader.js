@@ -84,13 +84,13 @@ const styles = StyleSheet.create({
     width: '100%',
     height: BUTTON_SIZE + 20,
     paddingTop: 20,
-    backgroundColor: Colors.secondary.ACCENT,
+    backgroundColor: Colors.secondary.ACCENT_ORANGE,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
   },
   scenetitle: {
-    color: Colors.secondary.BACKGROUND
+    color: Colors.secondaryDARK_BLUE
   },
   item: {
     width: BUTTON_SIZE,
