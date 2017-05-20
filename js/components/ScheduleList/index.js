@@ -12,7 +12,7 @@ import scheduleReducer from '../../reducers/events'
 
 export default class extends React.Component {
   static propTypes = {
-    style: PropTypes.shape()
+    style: PropTypes.object
   }
 
   state = {
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   sectionHeader: {
-    padding: 12,
+    padding: 15,
     backgroundColor: Colors.LIGHT_BACKGROUND
   },
   sectionHeaderText: {
