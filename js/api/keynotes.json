@@ -1,0 +1,18 @@
+{
+	"林軒田 Hsuan-Tien Lin": {
+  	"photo": "{% static 'pycontw-2017/images/keynotes/ht_lin.png' %}",
+		"title": "Choices for Smarter AI"
+  },
+	"Andrew Godwin": {
+  	"photo": "{% static 'pycontw-2017/images/keynotes/andrew_godwin.png' %}",
+		"title": "Building for Failure: Learning Lessons from Aviation"
+  },
+	"Carol Willing": {
+  	"photo": "{% static 'pycontw-2017/images/keynotes/carol_willing.png' %}",
+		"title": "The State of Python for Education"
+  },
+  "Russell Keith-Magee": {
+  	"photo": "{% static 'pycontw-2017/images/keynotes/russell_keith_magee.png' %}",
+		"title": "From Little Things, Big Things Grow"
+  }
+}

@@ -2,6 +2,8 @@
 
 import {AsyncStorage} from 'react-native'
 
+import processSchedule from './processSchedule'
+
 const BASE_URL = 'https://pycon-630b8.firebaseio.com/pycontw2017'
 
 const STOREKEY = 'pycontw2017'
@@ -10,7 +12,7 @@ function keyGen (input) {
   return `@${STOREKEY}:${input}`
 }
 
-const ApiUtils = {
+const Api = {
   async getTalkDetail (detailId) {
     let detail = await AsyncStorage.getItem(keyGen(detailId))
     if (detail) {
@@ -34,21 +36,21 @@ const ApiUtils = {
     return null
   },
 
-  async getTalkSchedule (date) {
+  async getSchedule (date) {
     let schedule = await AsyncStorage.getItem(keyGen(date))
     if (schedule) {
       return JSON.parse(schedule)
     }
 
-    schedule = await this.getTalkScheduleRemote(date)
+    schedule = await this.getScheduleRemote(date)
     return schedule
   },
 
-  async getTalkScheduleRemote (date) {
+  async getScheduleRemote (date) {
     const endpoint = `${BASE_URL}/schedule/${date}.json`
     const response = await fetch(endpoint)
     const json = await response.json()
-    const schedule = json.slots
+    const schedule = processSchedule(json.slots)
 
     if (schedule) {
       await AsyncStorage.setItem(keyGen(date), JSON.stringify(schedule))
@@ -59,4 +61,4 @@ const ApiUtils = {
   }
 }
 
-export {ApiUtils as default}
+export default Api
