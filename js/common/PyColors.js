@@ -13,6 +13,7 @@ export function colorForLocation (loc) {
 export const DARK_TEXT = 'hsl(0, 0%, 24%)'
 export const LIGHT_TEXT = 'hsl(0, 0%, 90%)'
 export const LIGHT_BACKGROUND = 'hsl(0, 0%, 90%)'
+export const ULTRALIGHT_BACKGROUND = 'hsl(0, 0%, 98%)'
 
 export const primary = {
   DARK_BLUE: '#132637',

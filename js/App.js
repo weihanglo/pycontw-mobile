@@ -1,20 +1,25 @@
-import React from 'react'
-import {View, StyleSheet} from 'react-native'
+import {TabNavigator, TabBarBottom} from 'react-navigation'
 
-import ScheduleList from './containers/ScheduleList'
+import * as Colors from './common/PyColors'
+import {About, Home, Schedule} from './screens'
 
-export default class extends React.Component {
-  render () {
-    return (
-      <View style={styles.container}>
-        <ScheduleList />
-      </View>
-    )
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
+const App = TabNavigator({
+  Home: {screen: Home},
+  Schedule: {screen: Schedule},
+  About: {screen: About}
+}, {
+  tabBarComponent: TabBarBottom,
+  tabBarPosition: 'bottom',
+  swipeEnabled: false,
+  animationEnabled: false,
+  backBehavior: 'none',
+  tabBarOptions: {
+    activeTintColor: Colors.secondary.ACCENT_ORANGE,
+    showIcon: true,
+    style: {
+      backgroundColor: Colors.ULTRALIGHT_BACKGROUND
+    }
   }
 })
+
+export default App
