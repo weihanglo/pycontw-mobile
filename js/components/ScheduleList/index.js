@@ -8,15 +8,23 @@ import ScheduleCell from './ScheduleCell'
 
 export default class extends React.Component {
   static propTypes = {
-    style: ViewPropTypes.style,
-    schedule: PropTypes.array
+    isFetching: PropTypes.bool,
+    error: PropTypes.object,
+    favoriteEvents: PropTypes.objectOf(PropTypes.bool),
+    schedule: PropTypes.array,
+    refreshing: PropTypes.bool,
+    onRefresh: PropTypes.func,
+    style: ViewPropTypes.style
   }
 
   componentDidMount () {
-    this.props.onLoad()
+    this.props.onRefresh()
   }
 
-  _renderItem = ({item}) => (<ScheduleCell {...item} />)
+  _renderItem = ({item}) => {
+    const checked = !!this.props.favoriteEvents[item.detailId]
+    return <ScheduleCell {...item} checked={checked} />
+  }
 
   _renderSectionHeader = ({section}) => (
     <View style={styles.sectionHeader}>
@@ -29,16 +37,26 @@ export default class extends React.Component {
   _keyExtractor = (item, index) => item.detailId
 
   render () {
-    const {schedule, isFetching, error , style, ...props} = this.props
+    const {
+      schedule,
+      isFetching,
+      error,
+      style,
+      onRefresh,
+      refreshing,
+      ...props
+    } = this.props
+
     return (
-      // TODO: fetching activity indicator
       <View style={[styles.container, style]} {...props}>
         {schedule && (
           <SectionList
             renderItem={this._renderItem}
             renderSectionHeader={this._renderSectionHeader}
             keyExtractor={this._keyExtractor}
+            onRefresh={onRefresh}
             sections={schedule}
+            refreshing={refreshing}
           />
         )}
       </View>

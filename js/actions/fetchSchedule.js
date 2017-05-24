@@ -35,3 +35,12 @@ export function fetchSchedule (date) {
       .catch(err => dispatch(fetchScheduleFailure(date, err)))
   }
 }
+
+export function fetchScheduleRemote (date) {
+  return dispatch => {
+    dispatch(fetchScheduleStart(date))
+    return Api.getScheduleRemote(date)
+      .then(res => dispatch(fetchScheduleSuccess(date, res)))
+      .catch(err => dispatch(fetchScheduleFailure(date, err)))
+  }
+}

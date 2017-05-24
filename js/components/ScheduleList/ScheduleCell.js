@@ -1,12 +1,17 @@
+// This component is connected to store
+
 import React from 'react'
 import PropTypes from 'prop-types'
 import {StyleSheet, View, ViewPropTypes} from 'react-native'
+import {connect} from 'react-redux'
 
+import {addToFavorites} from '../../actions/addToFavorites'
+import {removeFromFavorites} from '../../actions/removeFromFavorites'
 import {Text, Heading4} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
 import Bookmark from './Bookmark'
 
-Cell.propTypes = {
+ScheduleCell.propTypes = {
   beginTime: PropTypes.string,
   endTime: PropTypes.string,
   location: PropTypes.string,
@@ -17,10 +22,11 @@ Cell.propTypes = {
   // type: PropTypes.string
   tags: PropTypes.arrayOf(PropTypes.string),
   checked: PropTypes.bool,
+  dispatch: PropTypes.func,
   style: ViewPropTypes.style
 }
 
-export default function Cell ({
+function ScheduleCell ({
     beginTime,
     endTime,
     detailId,
@@ -30,6 +36,7 @@ export default function Cell ({
     title,
     tags,
     style,
+    dispatch,
     ...props
   }) {
   const locationColor = {color: Colors.colorForLocation(location)}
@@ -41,7 +48,16 @@ export default function Cell ({
         <Text>
           {beginTime} - {endTime} @ <Text style={locationColor}>{location}</Text>
         </Text>
-        <Bookmark style={styles.bookmark} size={30} checked={checked} />
+        <Bookmark
+          style={styles.bookmark}
+          size={30}
+          checked={checked}
+          onPress={() => {
+            checked
+            ? dispatch(removeFromFavorites(detailId))
+            : dispatch(addToFavorites(detailId))
+          }}
+        />
       </View>
       <View style={styles.tagWrapper}>
         {tags && tags.map(tag => {
@@ -57,6 +73,14 @@ export default function Cell ({
     </View>
   )
 }
+
+function mapStateToProps ({favoriteEvents}, {detailId}) {
+  return {
+    checked: !!favoriteEvents[detailId]
+  }
+}
+
+export default connect(mapStateToProps)(ScheduleCell)
 
 const styles = StyleSheet.create({
   container: {

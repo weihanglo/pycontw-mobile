@@ -4,7 +4,7 @@ import {selectDate} from '../actions/selectDate'
 
 import ScheduleList from '../components/ScheduleList'
 
-const mapStateToProps = ({scheduleByDate, selectDate}) => {
+const mapStateToProps = ({favoriteEvents, scheduleByDate, selectDate}) => {
   const {
     isFetching,
     error,
@@ -16,15 +16,16 @@ const mapStateToProps = ({scheduleByDate, selectDate}) => {
   }
 
   return {
-    isFetching,
+    favoriteEvents,
     error,
+    refreshing: isFetching,
     schedule
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onLoad: () => {
+    onRefresh: () => {
       dispatch(selectDate('2017-06-09'))
       dispatch(fetchSchedule('2017-06-09'))
     }
