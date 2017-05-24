@@ -44,8 +44,8 @@ const rawScheduleData = [
 
 const groupedScheduleData = [
   {
-    beginTime: '09:00',
-    events: [
+    key: '09:00',
+    data: [
       {
         beginTime: '09:00',
         detailId: '09:00-Announcement',
@@ -56,8 +56,8 @@ const groupedScheduleData = [
       }
     ]
   }, {
-    beginTime: '09:10',
-    events: [
+    key: '09:10',
+    data: [
       {
         beginTime: '09:10',
         detailId: 'Andrew Godwin',
@@ -69,8 +69,8 @@ const groupedScheduleData = [
       }
     ]
   }, {
-    beginTime: '10:40',
-    events: [
+    key: '10:40',
+    data: [
       {
         beginTime: '10:40',
         detailId: '322153690393739347',

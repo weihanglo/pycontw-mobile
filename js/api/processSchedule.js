@@ -66,5 +66,5 @@ export default function (events) {
   // Sort events by startTime to construct a real schedule array
   return Object.entries(map)
     .sort((startTimeA, startTimeB) => startTimeA < startTimeB ? -1 : 1)
-    .map(e => ({beginTime: e[0], events: e[1]}))
+    .map(e => ({key: e[0], data: e[1]}))
 }
