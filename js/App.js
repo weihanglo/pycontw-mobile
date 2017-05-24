@@ -1,10 +1,14 @@
-import {TabNavigator, TabBarBottom} from 'react-navigation'
+import {StackNavigator, TabNavigator, TabBarBottom} from 'react-navigation'
 
 import * as Colors from './common/PyColors'
-import {About, Home, Schedule} from './screens'
+import {About, Event, Home, Schedule} from './screens'
 
-const App = TabNavigator({
+const Stack = StackNavigator({
   Schedule: {screen: Schedule},
+  Event: {screen: Event}
+})
+const App = TabNavigator({
+  Schedule: {screen: Stack},
   Home: {screen: Home},
   About: {screen: About}
 }, {

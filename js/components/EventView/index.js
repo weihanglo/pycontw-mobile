@@ -5,7 +5,7 @@ import {ScrollView, StyleSheet, View} from 'react-native'
 import {Text, Heading1, Paragraph} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
 import Category from './Category'
-import TalkAvatar from './TalkAvatar'
+import Avatar from './EventAvatar'
 
 export default class extends React.Component {
   static propTypes = {
@@ -37,7 +37,7 @@ export default class extends React.Component {
           </Text>
           <Heading1 style={styles.title}>{title}</Heading1>
 
-          <TalkAvatar style={styles.avatarSection} speakers={speakers} />
+          <Avatar style={styles.avatarSection} speakers={speakers} />
           <View style={styles.category}>
             <Category
               style={{flex: 1}}
