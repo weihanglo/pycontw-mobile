@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, View, ViewPropTypes} from 'react-native'
 
 import {Text, Heading4} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
@@ -17,12 +17,19 @@ Cell.propTypes = {
   // type: PropTypes.string
   tags: PropTypes.arrayOf(PropTypes.string),
   checked: PropTypes.bool,
-  style: PropTypes.object
+  style: ViewPropTypes.style
 }
 
 export default function Cell ({
-    beginTime, endTime, location, speakers,
-    detailId, title, tags, checked, style,
+    beginTime,
+    endTime,
+    detailId,
+    checked,
+    location,
+    speakers,
+    title,
+    tags,
+    style,
     ...props
   }) {
   const locationColor = {color: Colors.colorForLocation(location)}

@@ -1,4 +1,4 @@
-export const SELECT_DATE = 'FETCH_SCHEDULE'
+export const SELECT_DATE = 'SELECT_DATE'
 
 export function selectDate (date) {
   return {

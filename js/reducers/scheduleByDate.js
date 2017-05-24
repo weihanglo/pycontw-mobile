@@ -1,5 +1,5 @@
 import {
-  FETCH_SCHEDULE,
+  FETCH_SCHEDULE_START,
   FETCH_SCHEDULE_SUCCESS,
   FETCH_SCHEDULE_FAILURE
 } from '../actions/fetchSchedule'
@@ -10,7 +10,7 @@ function schedule (state = {
   schedule: []
 }, action) {
   switch (action.type) {
-    case FETCH_SCHEDULE:
+    case FETCH_SCHEDULE_START:
       return {
         ...state,
         isFetching: true
@@ -34,7 +34,7 @@ function schedule (state = {
 
 export default function (state = {}, action) {
   switch (action.type) {
-    case FETCH_SCHEDULE:
+    case FETCH_SCHEDULE_START:
     case FETCH_SCHEDULE_SUCCESS:
     case FETCH_SCHEDULE_FAILURE:
       return {

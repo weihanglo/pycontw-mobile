@@ -4,8 +4,8 @@ import * as Colors from './common/PyColors'
 import {About, Home, Schedule} from './screens'
 
 const App = TabNavigator({
-  Home: {screen: Home},
   Schedule: {screen: Schedule},
+  Home: {screen: Home},
   About: {screen: About}
 }, {
   tabBarComponent: TabBarBottom,
