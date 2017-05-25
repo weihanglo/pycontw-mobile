@@ -1,13 +1,15 @@
 import React from 'react'
+import {StackNavigator} from 'react-navigation'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import ScheduleList from '../containers/ScheduleList'
+import Event from './Event'
 
 function tabBarIcon ({tintColor}) { // eslint-disable-line
   return <Icon name='schedule' size={30} color={tintColor} />
 }
 
-export default class extends React.Component {
+class Schedule extends React.Component {
   static navigationOptions = {
     tabBarIcon
   }
@@ -18,3 +20,10 @@ export default class extends React.Component {
     )
   }
 }
+
+export default StackNavigator({
+  ScheduleList: {screen: Schedule},
+  Event: {screen: Event}
+}, {
+  initialRouteName: 'ScheduleList'
+})

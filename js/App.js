@@ -1,29 +1,20 @@
-import {StackNavigator, TabNavigator, TabBarBottom} from 'react-navigation'
+import React from 'react'
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import {addNavigationHelpers} from 'react-navigation'
 
-import * as Colors from './common/PyColors'
-import {About, Event, Home, Schedule} from './screens'
+import AppNavigator from './navigators/AppNavigator'
 
-const Stack = StackNavigator({
-  Schedule: {screen: Schedule},
-  Event: {screen: Event}
-})
-const App = TabNavigator({
-  Schedule: {screen: Stack},
-  Home: {screen: Home},
-  About: {screen: About}
-}, {
-  tabBarComponent: TabBarBottom,
-  tabBarPosition: 'bottom',
-  swipeEnabled: false,
-  animationEnabled: false,
-  backBehavior: 'none',
-  tabBarOptions: {
-    activeTintColor: Colors.secondary.ACCENT_ORANGE,
-    showIcon: true,
-    style: {
-      backgroundColor: Colors.ULTRALIGHT_BACKGROUND
-    }
-  }
-})
+App.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  navState: PropTypes.object.isRequired
+}
 
-export default App
+function App ({dispatch, navState}) {
+  const navigation = addNavigationHelpers({dispatch, state: navState})
+  return <AppNavigator navigation={navigation} />
+}
+
+const mapStateToProps = ({navState}) => ({navState})
+
+export default connect(mapStateToProps)(App)
