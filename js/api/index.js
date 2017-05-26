@@ -1,11 +1,10 @@
 /* global fetch */
-
 import {AsyncStorage} from 'react-native'
 
+import processEvent from './processEvent'
 import processSchedule from './processSchedule'
 
 const BASE_URL = 'https://pycon-630b8.firebaseio.com/pycontw2017'
-
 const STOREKEY = 'pycontw2017'
 
 function keyGen (input) {
@@ -13,24 +12,25 @@ function keyGen (input) {
 }
 
 const Api = {
-  async getTalkDetail (detailId) {
-    let detail = await AsyncStorage.getItem(keyGen(detailId))
-    if (detail) {
-      return JSON.parse(detail)
+  async getEvent (eventId) {
+    let event = await AsyncStorage.getItem(keyGen(eventId))
+    if (event) {
+      return JSON.parse(event)
     }
 
-    detail = await this.getTalkDetailRemote(detailId)
-    return detail
+    event = await this.getEventRemote(eventId)
+    return event
   },
 
-  async getTalkDetailRemote (detailId) {
-    const endpoint = `${BASE_URL}/events/${detailId}.json`
+  async getEventRemote (eventId) {
+    const endpoint = `${BASE_URL}/events/${eventId}.json`
     const response = await fetch(endpoint)
-    const detail = await response.json()
+    const json = await response.json()
+    const event = processEvent(json)
 
-    if (detail) {
-      await AsyncStorage.setItem(keyGen(detailId), JSON.stringify(detail))
-      return detail
+    if (event) {
+      await AsyncStorage.setItem(keyGen(eventId), JSON.stringify(event))
+      return event
     }
 
     return null
