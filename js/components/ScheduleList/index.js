@@ -1,6 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {View, ViewPropTypes, StyleSheet, SectionList} from 'react-native'
+import {
+  SectionList,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ViewPropTypes
+} from 'react-native'
 
 import {Heading4} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
@@ -14,6 +20,7 @@ export default class extends React.Component {
     schedule: PropTypes.array,
     refreshing: PropTypes.bool,
     onRefresh: PropTypes.func,
+    onCellPress: PropTypes.func,
     style: ViewPropTypes.style
   }
 
@@ -22,8 +29,13 @@ export default class extends React.Component {
   }
 
   _renderItem = ({item}) => {
-    const checked = !!this.props.favoriteEvents[item.detailId]
-    return <ScheduleCell {...item} checked={checked} />
+    const {detailId} = item
+    const checked = !!this.props.favoriteEvents[detailId]
+    return (
+      <TouchableOpacity onPress={() => this.props.onCellPress(detailId)}>
+        <ScheduleCell {...item} checked={checked} />
+      </TouchableOpacity>
+    )
   }
 
   _renderSectionHeader = ({section}) => (
@@ -66,7 +78,9 @@ export default class extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+     // TODO: remove this color and find where is my color defined
+    backgroundColor: 'hsl(0, 0%, 100%)'
   },
   sectionHeader: {
     padding: 15,

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {ScrollView, StyleSheet, View} from 'react-native'
+import {ScrollView, StyleSheet, View, ViewPropTypes} from 'react-native'
 
 import {Text, Heading1, Paragraph} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
@@ -9,25 +9,45 @@ import Avatar from './EventAvatar'
 
 export default class extends React.Component {
   static propTypes = {
-    talk: PropTypes.objectOf(PropTypes.shape()).isRequired,
-    location: PropTypes.string.isRequired,
-    duration: PropTypes.string.isRequired
+    eventId: PropTypes.string,
+    event: PropTypes.object,
+    error: PropTypes.object,
+    isFetching: PropTypes.bool,
+    // location: PropTypes.string.isRequired,
+    // duration: PropTypes.string.isRequired,
+    style: ViewPropTypes.style,
   }
 
   render () {
     const {
-      abstract, category, language, speakers, title,
-      python_level: level,
-      recording_policy: recording,
-      detailed_description: detail
-    } = this.props.talk
+      eventId,
+      event,
+      error,
+      isFetching,
+      style,
+    } = this.props
+    // const {
+    //   abstract, category, language, speakers, title,
+    //   python_level: level,
+    //   recording_policy: recording,
+    //   detailed_description: detail
+    // } = this.props.talk
 
     // FIXME: temporary given value
-    const {location = 'R0', duration = '20 MIN'} = this.props
+    const location = 'R0'
+    const duration = '20 MIN'
+
+    if (isFetching) {
+      return (
+        <View sytle={[styles.container]}>
+          <Text>Loading...</Text>
+        </View>
+      )
+    }
 
     return (
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {/* <ScrollView contentContainerStyle={styles.scrollContainer}>
           <Text style={{marginTop: 3}}>
             <Text style={{color: Colors.colorForLocation(location)}}>
               {location}
@@ -48,7 +68,7 @@ export default class extends React.Component {
             />
           </View>
           <Paragraph style={styles.abstract}>{abstract}</Paragraph>
-        </ScrollView>
+        </ScrollView> */}
       </View>
     )
   }

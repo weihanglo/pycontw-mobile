@@ -4,11 +4,13 @@ import {
   FETCH_SCHEDULE_FAILURE
 } from '../actions/fetchSchedule'
 
-function schedule (state = {
+const initialState = {
   isFetching: false,
   error: null,
   schedule: []
-}, action) {
+}
+
+function schedule (state = initialState, action) {
   switch (action.type) {
     case FETCH_SCHEDULE_START:
       return {

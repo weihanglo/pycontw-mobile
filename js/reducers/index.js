@@ -4,12 +4,14 @@ import favoriteEvents from './favoriteEvents'
 import navState from './navState'
 import scheduleByDate from './scheduleByDate'
 import selectDate from './selectDate'
+import selectEvent from './selectEvent'
 
-const reducers = combineReducers({
+const reducer = combineReducers({
   favoriteEvents,
   navState,
   scheduleByDate,
-  selectDate
+  selectDate,
+  selectEvent
 })
 
-export default reducers
+export default reducer
