@@ -1,15 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {View} from 'react-native'
+import {View, ViewPropTypes} from 'react-native'
 
-import {default as Item} from './CategoryItem'
+import Item from './CategoryItem'
 
 Category.propTypes = {
   category: PropTypes.string,
   language: PropTypes.string,
   level: PropTypes.string,
   recording: PropTypes.bool,
-  style: PropTypes.any
+  slideLink: PropTypes.string,
+  style: ViewPropTypes.style
 }
 
 function mapLanguage (language, isTag = false) {
@@ -37,14 +38,23 @@ function mapLevel (level, isTag = false) {
 }
 
 export default function Category ({
-    style, category, language: lang, level, recording, ...props
+    category,
+    language,
+    level,
+    recording,
+    slideLink,
+    style,
+    ...props
   }) {
   return (
     <View style={[{flex: 1}, style]} {...props}>
       {category && <Item icon='tag' text={category} />}
-      {lang && <Item tag={mapLanguage(lang, true)} text={mapLanguage(lang)} /> }
+      {language &&
+        <Item tag={mapLanguage(language, true)} text={mapLanguage(language)} />
+      }
       {level && <Item tag={mapLevel(level, true)} text={mapLevel(level)} />}
-      {recording || <Item icon='microphone-slash' text='No recording' />}
+      {recording || <Item icon='microphone-off' text='No recording' />}
+      {slideLink && <Item icon='presentation' text={slideLink} />}
     </View>
   )
 }

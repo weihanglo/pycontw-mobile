@@ -15,39 +15,31 @@ export default class extends React.Component {
     isFetching: PropTypes.bool,
     // location: PropTypes.string.isRequired,
     // duration: PropTypes.string.isRequired,
-    style: ViewPropTypes.style,
+    style: ViewPropTypes.style
   }
 
   render () {
-    const {
-      eventId,
-      event,
-      error,
-      isFetching,
-      style,
-    } = this.props
-    // const {
-    //   abstract, category, language, speakers, title,
-    //   python_level: level,
-    //   recording_policy: recording,
-    //   detailed_description: detail
-    // } = this.props.talk
+    const {eventId, event, error, isFetching, style} = this.props
 
     // FIXME: temporary given value
     const location = 'R0'
     const duration = '20 MIN'
 
-    if (isFetching) {
+    if (isFetching || error) {
+      // TODO: customized Error/Loading Page
       return (
-        <View sytle={[styles.container]}>
-          <Text>Loading...</Text>
+        <View sytle={[styles.container]} >
+          <Heading1>{isFetching ? 'Loading...' : 'Error!!!!!!!'}</Heading1>
         </View>
       )
     }
 
+    // TODO: Determine where to display description
+    const {abstract, description, speakers, title, ...remains} = event
+
     return (
-      <View style={styles.container}>
-        {/* <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={[styles.container, style]}>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
           <Text style={{marginTop: 3}}>
             <Text style={{color: Colors.colorForLocation(location)}}>
               {location}
@@ -59,16 +51,10 @@ export default class extends React.Component {
 
           <Avatar style={styles.avatarSection} speakers={speakers} />
           <View style={styles.category}>
-            <Category
-              style={{flex: 1}}
-              category={category}
-              language={language}
-              level={level}
-              recording={recording}
-            />
+            <Category style={{flex: 1}} {...remains} />
           </View>
           <Paragraph style={styles.abstract}>{abstract}</Paragraph>
-        </ScrollView> */}
+        </ScrollView>
       </View>
     )
   }

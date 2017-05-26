@@ -2,7 +2,6 @@ export default function (event) {
   const {
     detailed_description: description,
     python_level: level,
-    language,
     recording_policy: recording,
     slide_link: slideLink,
     speakers,
@@ -27,17 +26,12 @@ export default function (event) {
     }
   })
 
-  const talkLanguage = language.slice(0, 2)
-  const slideLanguage = language.slice(2, language.length)
-
   return {
     description,
     level,
     recording,
     slideLink,
-    slideLanguage,
     speakers: allSpeakers,
-    talkLanguage,
     ...others
   }
 }

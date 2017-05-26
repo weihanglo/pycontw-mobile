@@ -40,8 +40,7 @@ const processedEventData = {
   ],
   abstract: 'Talk Abstract',
   category: 'SCI',
-  talkLanguage: 'ZH',
-  slideLanguage: 'ZH',
+  language: 'ZHZH',
   title: 'Talk Title'
 }
 

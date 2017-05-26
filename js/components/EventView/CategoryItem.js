@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {StyleSheet, View} from 'react-native'
-
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import {Text} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
@@ -30,8 +29,14 @@ export default function CategoryItem ({size = 28, icon, tag, text}) {
           : <Text style={{color, fontSize}}>{tag}</Text>
         }
       </View>
-      <View style={styles.text}>
-        <Text style={{fontSize}}>{text}</Text>
+      <View style={styles.textWrapper}>
+        <Text
+          style={{fontSize, flex: 1}}
+          numberOfLines={1}
+          ellipsizeMode='tail'
+        >
+          {text}
+        </Text>
       </View>
     </View>
   )
@@ -48,9 +53,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  text: {
+  textWrapper: {
+    flex: 1,
     marginLeft: 8,
     justifyContent: 'center',
-    alignItems: 'center'
+    right: 0
   }
 })
