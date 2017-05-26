@@ -1,6 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Animated, StyleSheet, TouchableHighlight} from 'react-native'
+import {
+  Animated,
+  StyleSheet,
+  TouchableHighlight,
+  ViewPropTypes
+} from 'react-native'
 
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -11,7 +16,7 @@ export default class extends React.Component {
     onPress: PropTypes.func,
     checked: PropTypes.bool,
     size: PropTypes.number,
-    style: PropTypes.object
+    style: ViewPropTypes.style
   }
 
   static defaultProps = {

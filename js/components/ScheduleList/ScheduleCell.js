@@ -18,8 +18,7 @@ ScheduleCell.propTypes = {
   speakers: PropTypes.arrayOf(PropTypes.string),
   detailId: PropTypes.string,
   title: PropTypes.string,
-  // TODO: handle this prop
-  // type: PropTypes.string
+  type: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
   checked: PropTypes.bool,
   dispatch: PropTypes.func,
@@ -60,6 +59,7 @@ function ScheduleCell ({
         />
       </View>
       <View style={styles.tagWrapper}>
+        {/* FIXME: This prop is always be null now. */}
         {tags && tags.map(tag => {
           // TODO: map tag (category) to correspondent color
           const style = {backgroundColor: 'green'}
