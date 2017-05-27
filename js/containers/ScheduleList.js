@@ -33,11 +33,11 @@ const mapDispatchToProps = dispatch => ({
     dispatch(selectDate('2017-06-09'))
     dispatch(fetchSchedule('2017-06-09'))
   },
-  onCellPress: eventId => {
+  onCellPress: (eventId, location, duration) => {
     dispatch(fetchEvent(eventId))
     dispatch(NavigationActions.navigate({
       routeName: 'Event',
-      params: {eventId}
+      params: {eventId, location, duration}
     }))
   }
 })

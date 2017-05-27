@@ -7,6 +7,7 @@ import {
   View,
   ViewPropTypes
 } from 'react-native'
+import moment from 'moment'
 
 import {Heading4} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
@@ -28,11 +29,18 @@ export default class extends React.Component {
     this.props.onRefresh()
   }
 
+  _onCellPress ({detailId, location, beginTime, endTime}) {
+    const begin = moment(beginTime, 'hh:mm')
+    const end = moment(endTime, 'hh:mm')
+    const duration = moment.duration(end.diff(begin)).humanize()
+    this.props.onCellPress(detailId, location, duration)
+  }
+
   _renderItem = ({item}) => {
     const {detailId} = item
     const checked = !!this.props.favoriteEvents[detailId]
     return (
-      <TouchableOpacity onPress={() => this.props.onCellPress(detailId)}>
+      <TouchableOpacity onPress={() => this._onCellPress(item)}>
         <ScheduleCell {...item} checked={checked} />
       </TouchableOpacity>
     )

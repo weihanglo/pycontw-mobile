@@ -10,6 +10,7 @@
     "lint": "eslint .; exit 0"
   },
   "dependencies": {
+    "moment": "^2.18.1",
     "prop-types": "^15.5.10",
     "react": "16.0.0-alpha.6",
     "react-native": "^0.44.2",

@@ -17,8 +17,8 @@ export default class extends React.Component {
     isFetching: PropTypes.bool,
     addToFavorites: PropTypes.func,
     removeFromFavorites: PropTypes.func,
-    // location: PropTypes.string.isRequired,
-    // duration: PropTypes.string.isRequired,
+    location: PropTypes.string,
+    duration: PropTypes.string,
     style: ViewPropTypes.style
   }
 
@@ -29,11 +29,15 @@ export default class extends React.Component {
   }
 
   render () {
-    const {checked, event, error, isFetching, style} = this.props
-
-    // FIXME: temporary given value
-    const location = 'R0'
-    const duration = '20 MIN'
+    const {
+      checked,
+      event,
+      error,
+      isFetching,
+      location,
+      duration,
+      style
+    } = this.props
 
     if (isFetching || error) {
       // TODO: customized Error/Loading Page
