@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {View, ViewPropTypes} from 'react-native'
+import {Linking, View, ViewPropTypes} from 'react-native'
 
 import Item from './CategoryItem'
 
@@ -48,13 +48,21 @@ export default function Category ({
   }) {
   return (
     <View style={[{flex: 1}, style]} {...props}>
-      {category && <Item icon='tag' text={category} />}
-      {language &&
+      {category.length === 0 || <Item icon='tag' text={category} />}
+
+      {language.length === 0 ||
         <Item tag={mapLanguage(language, true)} text={mapLanguage(language)} />
       }
-      {level && <Item tag={mapLevel(level, true)} text={mapLevel(level)} />}
+
+      {level.length === 0 ||
+        <Item tag={mapLevel(level, true)} text={mapLevel(level)} />
+      }
+
       {recording || <Item icon='microphone-off' text='No recording' />}
-      {slideLink && <Item icon='presentation' text={slideLink} />}
+
+      {slideLink.length === 0 ||
+        <Item icon='presentation' text={slideLink} isLink />
+      }
     </View>
   )
 }
