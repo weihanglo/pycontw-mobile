@@ -11,12 +11,11 @@ EventAvatar.propTypes = {
 }
 
 export default function EventAvatar ({speakers, style, ...props}) {
-  const randomAvatar = 'https://api.adorable.io/avatars/50/'
   return (
     <View style={[styles.container, style]} {...props}>
       {speakers.map((speaker, idx) => (
         <View key={speaker.name} style={styles.avatarWrapper}>
-          <Avatar uri={`${randomAvatar}${speaker.name}`} />
+          <Avatar uri={speaker.photoURL} text={speaker.name} />
           <View style={{width: `${100 / speakers.length}%`}}>
             <SmallText
               numberOfLines={speaker.name.length > 12 ? 3 : 2}

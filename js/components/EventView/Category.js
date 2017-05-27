@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Linking, View, ViewPropTypes} from 'react-native'
+import {View, ViewPropTypes} from 'react-native'
 
 import Item from './CategoryItem'
 
