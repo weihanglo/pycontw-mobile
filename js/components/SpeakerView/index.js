@@ -2,43 +2,57 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Image, StyleSheet, ScrollView, View, ViewPropTypes} from 'react-native'
 
+import Avatar from '../../common/Avatar'
 import {Heading1, Paragraph} from '../../common/PyText'
+import * as Colors from '../../common/PyColors'
 import SocialIcon from './SocialIcon'
 
 SpeakerView.propTypes = {
-  speaker: PropTypes.shape(),
+  bio: PropTypes.string,
+  email: PropTypes.string,
+  facebookURL: PropTypes.string,
+  githubId: PropTypes.string,
+  name: PropTypes.string,
+  photoURL: PropTypes.string,
+  twitterId: PropTypes.string,
   style: ViewPropTypes.style
 }
 
-function getIcons ({email, facebookURL, githubId, twitterId}) {
-  const icons = []
-  email && icons.push(<SocialIcon type='email' info={email} />)
-  facebookURL && icons.push(<SocialIcon type='facebook' info={facebookURL} />)
-  twitterId && icons.push(<SocialIcon type='twitter' info={twitterId} />)
-  githubId && icons.push(<SocialIcon type='github' info={githubId} />)
-  return icons
-}
-
-export default function SpeakerView ({speaker, style, ...props}) {
+export default function SpeakerView ({
+  bio,
+  email,
+  facebookURL,
+  githubId,
+  name,
+  photoURL,
+  twitterId,
+  style,
+  ...props
+}) {
   // Determine if biography field should scroll
-  // const bio = speaker.bio && speaker.bio.trim()
-  // let bioText = <Paragraph style={{textAlign: 'center'}}>{bio}</Paragraph>
-  // if (bio.length < 150 || /(\n)/.exec(bio).length > 1) {
-  //   bioText = <ScrollView style={styles.bioWrapper}>{bioText}</ScrollView>
-  // }
-  console.warn(JSON.stringify(props, null, 2));
+  const bioText = bio && bio.trim()
+  let bioP = <Paragraph style={{textAlign: 'center'}}>{bioText}</Paragraph>
+  const newlines = /(\n)/.exec(bioText)
+  const newlineCountExceeded = newlines && newlines.lenght > 1
+  if (bioText.length > 150 || newlineCountExceeded) {
+    bioP = <ScrollView style={styles.bioWrapper}>{bioP}</ScrollView>
+  }
+
   return (
     <View style={[styles.container, style]} {...props}>
-      {/* <View style={styles.photoWrapper}>
-        <Image style={styles.photo} source={{uri: speaker.photo_url}} />
+      <View style={styles.photoWrapper}>
+        <Avatar size={120} uri={photoURL} text={name} />
       </View>
-      <Heading1 style={styles.name}>{speaker.speaker_name}</Heading1>
+      <Heading1 style={styles.name}>{name}</Heading1>
       <View style={styles.iconWrapper}>
-        {getIcons(speaker)}
+        {!!email && <SocialIcon type='email' info={email} />}
+        {!!facebookURL && <SocialIcon type='facebook' info={facebookURL} />}
+        {!!twitterId && <SocialIcon type='twitter' info={twitterId} />}
+        {!!githubId && <SocialIcon type='github' info={githubId} />}
       </View>
       <View style={styles.bioWrapper}>
-        {bioText}
-      </View> */}
+        {bioP}
+      </View>
     </View>
   )
 }
@@ -73,7 +87,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     flex: 3,
     padding: 4,
-    width: '100%',
-    backgroundColor: 'hsl(0, 0%, 97%)'
+    width: '100%'
   }
 })
