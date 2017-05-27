@@ -12,7 +12,7 @@
   "dependencies": {
     "prop-types": "^15.5.10",
     "react": "16.0.0-alpha.6",
-    "react-native": "0.44.0",
+    "react-native": "^0.44.2",
     "react-native-vector-icons": "^4.1.1",
     "react-navigation": "^1.0.0-beta.9",
     "react-redux": "^5.0.5",
@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
-    "babel-jest": "20.0.1",
+    "babel-jest": "^20.0.3",
     "babel-preset-react-native": "1.9.2",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.1",
@@ -31,7 +31,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^7.0.1",
     "eslint-plugin-standard": "^3.0.1",
-    "jest": "20.0.1",
+    "jest": "^20.0.4",
     "react-test-renderer": "16.0.0-alpha.6",
     "remote-redux-devtools": "^0.5.11"
   },
