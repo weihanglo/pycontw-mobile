@@ -4,22 +4,32 @@ import {ScrollView, StyleSheet, View, ViewPropTypes} from 'react-native'
 
 import {Text, Heading1, Paragraph} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
+import Bookmark from '../../common/Bookmark'
 import Category from './Category'
 import Avatar from './EventAvatar'
 
 export default class extends React.Component {
   static propTypes = {
+    checked: PropTypes.bool,
     eventId: PropTypes.string,
     event: PropTypes.object,
     error: PropTypes.object,
     isFetching: PropTypes.bool,
+    addToFavorites: PropTypes.func,
+    removeFromFavorites: PropTypes.func,
     // location: PropTypes.string.isRequired,
     // duration: PropTypes.string.isRequired,
     style: ViewPropTypes.style
   }
 
+  _onBookmarkPress = () => {
+    this.props.checked
+    ? this.props.removeFromFavorites(this.props.eventId)
+    : this.props.addToFavorites(this.props.eventId)
+  }
+
   render () {
-    const {eventId, event, error, isFetching, style} = this.props
+    const {checked, event, error, isFetching, style} = this.props
 
     // FIXME: temporary given value
     const location = 'R0'
@@ -40,13 +50,19 @@ export default class extends React.Component {
     return (
       <View style={[styles.container, style]}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <Text style={{marginTop: 3}}>
-            <Text style={{color: Colors.colorForLocation(location)}}>
-              {location}
+          <View style={styles.timeLocation}>
+            <Text>
+              <Text style={{color: Colors.colorForLocation(location)}}>
+                {location}
+              </Text>
+              <Text> - {duration}</Text>
             </Text>
-            {' - '}
-            <Text>{duration}</Text>
-          </Text>
+            <Bookmark
+              checked={checked}
+              onPress={this._onBookmarkPress}
+            />
+          </View>
+
           <Heading1 style={styles.title}>{title}</Heading1>
 
           <Avatar style={styles.avatarSection} speakers={speakers} />
@@ -62,11 +78,16 @@ export default class extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: Colors.primary.DARK_BLUE,
+    backgroundColor: 'white',
     flex: 1
   },
   scrollContainer: {
     padding: 20
+  },
+  timeLocation: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   title: {
     color: Colors.secondary.MIDDLE_BLUE,

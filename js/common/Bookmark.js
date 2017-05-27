@@ -6,10 +6,9 @@ import {
   TouchableHighlight,
   ViewPropTypes
 } from 'react-native'
-
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-import * as Colors from '../../common/PyColors'
+import * as Colors from './PyColors'
 
 export default class extends React.Component {
   static propTypes = {
@@ -22,29 +21,27 @@ export default class extends React.Component {
   static defaultProps = {
     onPress: null,
     checked: false,
-    size: 60
+    size: 30
   }
 
   state = {
-    checked: false,
     rotateAnim: new Animated.Value(0)
   }
 
-  componentWillReceiveProps ({checked}) {
-    if (checked === this.state.checked) {
-      return
-    }
+  _animate = (toChecked) => {
+    const toValue = toChecked ? 1 : 0
+    const duration = 250
+    Animated.timing(this.state.rotateAnim, {toValue, duration}).start()
+  }
 
-    this.setState((prevState, props) => {
-      const toValue = prevState.checked ? 0 : 1
-      const duration = 250
-      Animated.timing(this.state.rotateAnim, {toValue, duration}).start()
-      return {checked}
-    })
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.checked !== this.props.checked) {
+      this._animate(nextProps.checked)
+    }
   }
 
   render () {
-    const {onPress, size, style, ...props} = this.props
+    const {checked, onPress, size, style, ...props} = this.props
 
     // Dynamic styling & animations
     const wrapperStyle = {width: size, height: size, borderRadius: size * 0.3}
@@ -62,6 +59,8 @@ export default class extends React.Component {
       inputRange: [0, 1],
       outputRange: [1, 0]
     })
+
+    this._animate(checked)
 
     return (
       <TouchableHighlight

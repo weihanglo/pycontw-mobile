@@ -1,4 +1,4 @@
-// This component is connected to store
+// This component is a container component (connected to store)
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -8,8 +8,8 @@ import {connect} from 'react-redux'
 import {addToFavorites} from '../../actions/addToFavorites'
 import {removeFromFavorites} from '../../actions/removeFromFavorites'
 import {Text, Heading4} from '../../common/PyText'
+import Bookmark from '../../common/Bookmark'
 import * as Colors from '../../common/PyColors'
-import Bookmark from './Bookmark'
 
 ScheduleCell.propTypes = {
   beginTime: PropTypes.string,
@@ -49,7 +49,6 @@ function ScheduleCell ({
         </Text>
         <Bookmark
           style={styles.bookmark}
-          size={30}
           checked={checked}
           onPress={() => {
             checked

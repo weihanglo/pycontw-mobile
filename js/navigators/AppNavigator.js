@@ -19,10 +19,7 @@ const AppNavigator = TabNavigator({
   backBehavior: 'none',
   tabBarOptions: {
     activeTintColor: Colors.secondary.ACCENT_ORANGE,
-    showIcon: true,
-    style: {
-      backgroundColor: Colors.ULTRALIGHT_BACKGROUND
-    }
+    showIcon: true
   }
 })
 
