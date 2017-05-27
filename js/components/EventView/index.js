@@ -17,8 +17,8 @@ export default class extends React.Component {
     isFetching: PropTypes.bool,
     addToFavorites: PropTypes.func,
     removeFromFavorites: PropTypes.func,
-    location: PropTypes.string,
-    duration: PropTypes.string,
+    showSpeaker: PropTypes.func,
+    navigation: PropTypes.object,
     style: ViewPropTypes.style
   }
 
@@ -29,15 +29,7 @@ export default class extends React.Component {
   }
 
   render () {
-    const {
-      checked,
-      event,
-      error,
-      isFetching,
-      location,
-      duration,
-      style
-    } = this.props
+    const {checked, event, error, isFetching, showSpeaker, style} = this.props
 
     if (isFetching || error) {
       // TODO: customized Error/Loading Page
@@ -50,6 +42,7 @@ export default class extends React.Component {
 
     // TODO: Determine where to display description
     const {abstract, description, speakers, title, ...remains} = event
+    const {location, duration} = this.props.navigation.state.params
 
     return (
       <View style={[styles.container, style]}>
@@ -69,7 +62,11 @@ export default class extends React.Component {
 
           <Heading1 style={styles.title}>{title}</Heading1>
 
-          <Avatar style={styles.avatarSection} speakers={speakers} />
+          <Avatar
+            style={styles.avatarSection}
+            speakers={speakers}
+            showSpeaker={showSpeaker}
+          />
           <View style={styles.category}>
             <Category style={{flex: 1}} {...remains} />
           </View>

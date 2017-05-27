@@ -1,29 +1,41 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {StyleSheet, View, ViewPropTypes} from 'react-native'
+import {
+  StyleSheet,
+  TouchableHighlight,
+  View,
+  ViewPropTypes
+} from 'react-native'
 
 import {SmallText} from '../../common/PyText'
 import Avatar from '../../common/Avatar'
 
 EventAvatar.propTypes = {
   speakers: PropTypes.array,
+  showSpeaker: PropTypes.func,
   style: ViewPropTypes.style
 }
 
-export default function EventAvatar ({speakers, style, ...props}) {
+export default function EventAvatar ({speakers, style, showSpeaker, ...props}) {
   return (
     <View style={[styles.container, style]} {...props}>
       {speakers.map((speaker, idx) => (
-        <View key={speaker.name} style={styles.avatarWrapper}>
-          <Avatar uri={speaker.photoURL} text={speaker.name} />
-          <View style={{width: `${100 / speakers.length}%`}}>
-            <SmallText
-              numberOfLines={speaker.name.length > 12 ? 3 : 2}
-              style={styles.avatarText}>
-              {speaker.name}
-            </SmallText>
+        <TouchableHighlight
+          onPress={() => showSpeaker(speaker.name)}
+          underlayColor='#dddddd'
+          key={speaker.name}
+        >
+          <View style={styles.avatarWrapper}>
+            <Avatar uri={speaker.photoURL} text={speaker.name} />
+            <View style={{width: `${100 / speakers.length}%`}}>
+              <SmallText
+                numberOfLines={speaker.name.length > 12 ? 3 : 2}
+                style={styles.avatarText}>
+                {speaker.name}
+              </SmallText>
+            </View>
           </View>
-        </View>
+        </TouchableHighlight>
       ))}
     </View>
   )

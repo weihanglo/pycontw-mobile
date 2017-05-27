@@ -37,7 +37,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(fetchEvent(eventId))
     dispatch(NavigationActions.navigate({
       routeName: 'Event',
-      params: {eventId, location, duration}
+      params: {location, duration}
     }))
   }
 })

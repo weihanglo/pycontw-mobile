@@ -15,7 +15,11 @@ const mapStateToProps = ({selectEvent, favoriteEvents}) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  onAvatarPress: () => {
+  showSpeaker: speakerName => {
+    dispatch(NavigationActions.navigate({
+      routeName: 'Speaker',
+      params: {speakerName}
+    }))
   },
   ...bindActionCreators({
     addToFavorites,
