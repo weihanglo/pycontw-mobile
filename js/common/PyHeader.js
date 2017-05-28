@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   scenetitle: {
-    color: Colors.secondaryDARK_BLUE
+    color: Colors.secondary.DARK_BLUE
   },
   item: {
     width: BUTTON_SIZE,

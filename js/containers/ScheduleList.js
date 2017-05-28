@@ -1,14 +1,14 @@
 import {connect} from 'react-redux'
 import {NavigationActions} from 'react-navigation'
 
-import {fetchSchedule} from '../actions/fetchSchedule'
+import {
+  fetchSchedule,
+  fetchScheduleRemote
+} from '../actions/fetchSchedule'
 import {fetchEvent} from '../actions/fetchEvent'
-import {selectDate} from '../actions/selectDate'
-
 import ScheduleList from '../components/ScheduleList'
 
 const initialState = {
-  isFetching: false,
   error: null,
   schedule: []
 }
@@ -23,15 +23,14 @@ const mapStateToProps = ({favoriteEvents, scheduleByDate, selectDate}) => {
   return {
     favoriteEvents,
     error,
-    refreshing: isFetching,
-    schedule
+    schedule: isFetching ? [] : schedule,
+    date: selectDate
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  onRefresh: () => {
-    dispatch(selectDate('2017-06-09'))
-    dispatch(fetchSchedule('2017-06-09'))
+  onDidMount: date => {
+    dispatch(fetchSchedule(date))
   },
   onCellPress: (eventId, location, duration) => {
     dispatch(fetchEvent(eventId))

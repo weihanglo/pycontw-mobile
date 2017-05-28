@@ -10,10 +10,6 @@ import App from './App'
 
 // Redux Store Configuration
 
-const initialState = {
-  selectDate: '2017-06-09'
-}
-
 const middlewares = [thunk]
 
 const composeEnhancers = composeWithDevTools({
@@ -21,7 +17,7 @@ const composeEnhancers = composeWithDevTools({
   realtime: true
 })(applyMiddleware(...middlewares))
 
-const store = createStore(reducer, initialState, composeEnhancers)
+const store = createStore(reducer, /* initialState, */ composeEnhancers)
 
 class Root extends React.Component {
   render () {

@@ -24,8 +24,18 @@ export default function (events) {
   // Temporary container for re-mapping data
   const map = {}
 
+  // A hashmap to check if this event is added or not
+  // (fxxk duplicated data)
+  const detailIds = {}
+
   events.forEach(({
-      begin_time, detail_id, end_time, location, speakers, title, type
+      begin_time,
+      detail_id,
+      end_time,
+      location,
+      speakers,
+      title,
+      type
     }) => {
     const noTitle = !title || title === ' '
 
@@ -51,6 +61,12 @@ export default function (events) {
     if (typeof detailId === 'undefined') {
       detailId = `${beginTime}-${title}`
     }
+
+    // Data should be unique
+    if (detailIds[detailId]) {
+      return
+    }
+    detailIds[detailId] = true
 
     bag.push({
       beginTime,

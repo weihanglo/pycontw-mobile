@@ -4,13 +4,7 @@ import {
   FETCH_SCHEDULE_FAILURE
 } from '../actions/fetchSchedule'
 
-const initialState = {
-  isFetching: false,
-  error: null,
-  schedule: []
-}
-
-function schedule (state = initialState, action) {
+export default function (state = {}, action) {
   switch (action.type) {
     case FETCH_SCHEDULE_START:
       return {
@@ -21,27 +15,14 @@ function schedule (state = initialState, action) {
       return {
         ...state,
         isFetching: false,
-        schedule: action.schedule
+        error: null,
+        [action.date]: {schedule: action.schedule}
       }
     case FETCH_SCHEDULE_FAILURE:
       return {
         ...state,
         isFetching: false,
         error: action.error
-      }
-    default:
-      return state
-  }
-}
-
-export default function (state = {}, action) {
-  switch (action.type) {
-    case FETCH_SCHEDULE_START:
-    case FETCH_SCHEDULE_SUCCESS:
-    case FETCH_SCHEDULE_FAILURE:
-      return {
-        ...state,
-        [action.date]: schedule(state[action.date], action)
       }
     default:
       return state

@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import moment from 'moment'
 
-import {Heading4} from '../../common/PyText'
+import {Heading5} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
 import ScheduleCell from './ScheduleCell'
 
@@ -19,14 +19,14 @@ export default class extends React.Component {
     error: PropTypes.object,
     favoriteEvents: PropTypes.objectOf(PropTypes.bool),
     schedule: PropTypes.array,
-    refreshing: PropTypes.bool,
-    onRefresh: PropTypes.func,
+    date: PropTypes.string,
+    onDidMount: PropTypes.func,
     onCellPress: PropTypes.func,
     style: ViewPropTypes.style
   }
 
   componentDidMount () {
-    this.props.onRefresh()
+    this.props.onDidMount(this.props.date)
   }
 
   _onCellPress ({detailId, location, beginTime, endTime}) {
@@ -48,9 +48,9 @@ export default class extends React.Component {
 
   _renderSectionHeader = ({section}) => (
     <View style={styles.sectionHeader}>
-      <Heading4 style={styles.sectionHeaderText}>
+      <Heading5 style={styles.sectionHeaderText}>
         {section.key}
-      </Heading4>
+      </Heading5>
     </View>
   )
 
@@ -61,9 +61,8 @@ export default class extends React.Component {
       schedule,
       isFetching,
       error,
+      date,
       style,
-      onRefresh,
-      refreshing,
       ...props
     } = this.props
 
@@ -74,9 +73,8 @@ export default class extends React.Component {
             renderItem={this._renderItem}
             renderSectionHeader={this._renderSectionHeader}
             keyExtractor={this._keyExtractor}
-            onRefresh={onRefresh}
             sections={schedule}
-            refreshing={refreshing}
+            stickySectionHeadersEnabled={false}
           />
         )}
       </View>
@@ -91,7 +89,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'hsl(0, 0%, 100%)'
   },
   sectionHeader: {
-    padding: 15,
+    paddingHorizontal: 15,
+    paddingVertical: 8,
     backgroundColor: Colors.LIGHT_BACKGROUND
   },
   sectionHeaderText: {
