@@ -11,7 +11,7 @@ import {Text, Heading4} from '../../common/PyText'
 import Bookmark from '../../common/Bookmark'
 import * as Colors from '../../common/PyColors'
 
-ScheduleCell.propTypes = {
+Cell.propTypes = {
   beginTime: PropTypes.string,
   endTime: PropTypes.string,
   location: PropTypes.string,
@@ -21,11 +21,11 @@ ScheduleCell.propTypes = {
   type: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
   checked: PropTypes.bool,
-  dispatch: PropTypes.func,
+  toggleCheck: PropTypes.func,
   style: ViewPropTypes.style
 }
 
-function ScheduleCell ({
+function Cell ({
     beginTime,
     endTime,
     detailId,
@@ -34,8 +34,8 @@ function ScheduleCell ({
     speakers,
     title,
     tags,
+    toggleCheck,
     style,
-    dispatch,
     ...props
   }) {
   const locationColor = {color: Colors.colorForLocation(location)}
@@ -50,17 +50,11 @@ function ScheduleCell ({
         <Bookmark
           style={styles.bookmark}
           checked={checked}
-          onPress={() => {
-            checked
-            ? dispatch(removeFromFavorites(detailId))
-            : dispatch(addToFavorites(detailId))
-          }}
+          onPress={() => toggleCheck(checked)}
         />
       </View>
       <View style={styles.tagWrapper}>
-        {/* FIXME: This prop is always be null now. */}
         {tags && tags.map(tag => {
-          // TODO: map tag (category) to correspondent color
           const style = {backgroundColor: 'green'}
           return (
             <View style={[styles.tag, style]} key={tag}>
@@ -73,20 +67,13 @@ function ScheduleCell ({
   )
 }
 
-function mapStateToProps ({favoriteEvents}, {detailId}) {
-  return {
-    checked: !!favoriteEvents[detailId]
-  }
-}
-
-export default connect(mapStateToProps)(ScheduleCell)
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.LIGHT_BACKGROUND
+    borderBottomColor: Colors.LIGHT_BACKGROUND,
+    backgroundColor: 'white'
   },
   infoWrapper: {
     flexDirection: 'row',
@@ -110,3 +97,22 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 })
+
+// react-redux part --------------------
+
+const mapStateToProps = ({favoriteEvents}, {detailId}) => ({
+  checked: !!favoriteEvents[detailId]
+})
+
+const mapDispatchToProps = (dispatch, {detailId}) => ({
+  toggleCheck: checked => {
+    checked
+    ? dispatch(removeFromFavorites(detailId))
+    : dispatch(addToFavorites(detailId))
+  }
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Cell)

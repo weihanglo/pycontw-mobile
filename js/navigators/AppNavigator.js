@@ -9,12 +9,7 @@ import Schedule from './Schedule'
 
 const AppNavigator = TabNavigator({
   Schedule: {
-    screen: Schedule,
-    navigationOptions: {
-      tabBarIcon: ({tintColor}) => ( // eslint-disable-line
-        <Icon name='schedule' size={30} color={tintColor} />
-      )
-    }
+    screen: Schedule
   },
   Home: {
     screen: Home,

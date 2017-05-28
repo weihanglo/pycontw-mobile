@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
+  Animated,
+  Modal,
   SectionList,
   StyleSheet,
-  TouchableOpacity,
+  TouchableHighlight,
   View,
   ViewPropTypes
 } from 'react-native'
@@ -11,7 +13,9 @@ import moment from 'moment'
 
 import {Heading5} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
-import ScheduleCell from './ScheduleCell'
+import Cell from './Cell'
+import Header from './Header'
+import Filter from './Filter'
 
 export default class extends React.Component {
   static propTypes = {
@@ -23,11 +27,24 @@ export default class extends React.Component {
     tagMapping: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
     onDidMount: PropTypes.func,
     onCellPress: PropTypes.func,
+    navigation: PropTypes.object,
     style: ViewPropTypes.style
+  }
+
+  state = {
+    modalVisible: false,
+    scaleAnim: new Animated.Value(1)
   }
 
   componentDidMount () {
     this.props.onDidMount()
+  }
+
+  _setModalVisible = visible => {
+    this.setState({modalVisible: visible})
+    const toValue = visible ? 0.95 : 1.0
+    const duration = 400
+    Animated.timing(this.state.scaleAnim, {toValue, duration}).start()
   }
 
   _onCellPress ({detailId, location, beginTime, endTime}) {
@@ -42,9 +59,11 @@ export default class extends React.Component {
     const checked = !!this.props.favoriteEvents[detailId]
     const tags = this.props.tagMapping[detailId]
     return (
-      <TouchableOpacity onPress={() => this._onCellPress(item)}>
-        <ScheduleCell {...item} tags={tags} checked={checked} />
-      </TouchableOpacity>
+      <TouchableHighlight onPress={() => this._onCellPress(item)}>
+        <View>
+          <Cell {...item} tags={tags} checked={checked} />
+        </View>
+      </TouchableHighlight>
     )
   }
 
@@ -59,19 +78,47 @@ export default class extends React.Component {
   _keyExtractor = (item, index) => item.detailId
 
   render () {
-    const {schedule, tagMapping, style, ...props} = this.props
+    const {navigation, schedule, tagMapping, style, ...props} = this.props
+    const {routeName} = navigation.state
+    const headerBgColor = Colors.colorForRoute(routeName)
+
+    const transform = [{scale: this.state.scaleAnim}]
+
+    const opacity = this.state.scaleAnim.interpolate({
+      inputRange: [0.95, 1],
+      outputRange: [0.5, 1]
+    })
 
     return (
-      <View style={[styles.container, style]} {...props}>
-        {schedule && (
-          <SectionList
-            renderItem={this._renderItem}
-            renderSectionHeader={this._renderSectionHeader}
-            keyExtractor={this._keyExtractor}
-            sections={schedule}
-            stickySectionHeadersEnabled={false}
+      <View style={[styles.container, style]} {...props} >
+        <Modal
+          animationType='slide'
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => this._setModalVisible(false)}
+        >
+          <Filter
+            headerBackgroundColor={headerBgColor}
+            onPressDone={() => this._setModalVisible(false)}
           />
-        )}
+        </Modal>
+
+        <Animated.View style={{transform, opacity}}>
+          <Header
+            centerItem={routeName}
+            backgroundColor={headerBgColor}
+            onFilterPress={() => this._setModalVisible(true)}
+          />
+          {schedule && (
+            <SectionList
+              renderItem={this._renderItem}
+              renderSectionHeader={this._renderSectionHeader}
+              keyExtractor={this._keyExtractor}
+              sections={schedule}
+              stickySectionHeadersEnabled={false}
+            />
+          )}
+        </Animated.View>
       </View>
     )
   }

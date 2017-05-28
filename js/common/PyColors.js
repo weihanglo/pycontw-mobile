@@ -32,3 +32,12 @@ const LOCATION_COLORS = {
 export function colorForLocation (loc) {
   return LOCATION_COLORS[loc]
 }
+
+const ROUTE_COLORS = {
+  Schedule: primary.MIDDLE_BLUE,
+  ScheduleList: primary.MIDDLE_BLUE
+}
+
+export function colorForRoute (routeName) {
+  return ROUTE_COLORS[routeName]
+}

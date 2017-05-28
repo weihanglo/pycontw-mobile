@@ -88,7 +88,8 @@ const styles = StyleSheet.create({
   timeLocation: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 8
   },
   title: {
     color: Colors.secondary.MIDDLE_BLUE,

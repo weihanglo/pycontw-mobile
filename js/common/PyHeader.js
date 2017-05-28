@@ -1,43 +1,61 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native'
+import {
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ViewPropTypes
+} from 'react-native'
 
-import * as Colors from './PyColors'
 import {Heading4} from './PyText'
 
 import EvilIcon from 'react-native-vector-icons/EvilIcons'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 
+const ItemWrapper = ({children}) => ( // eslint-disable-line
+  <View style={styles.itemWrapper}>
+    {children}
+  </View>
+)
+
 export default class PyHeader extends React.Component {
   static propTypes = {
     leftItem: PropTypes.element,
-    title: PropTypes.string,
-    titleColor: PropTypes.string,
+    centerItem: PropTypes.node,
     rightItem: PropTypes.element,
-    onPageChange: PropTypes.func,
-    style: PropTypes.shape()
+    titleColor: PropTypes.string,
+    style: ViewPropTypes.style
   }
   render () {
     const {
       leftItem,
-      title,
-      titleColor,
+      centerItem,
       rightItem,
+      titleColor,
       style,
-      onPageChange,
       ...props
     } = this.props
 
+    let content = centerItem
+    if (typeof centerItem === 'string') {
+      content = (
+        <Heading4 style={{color: titleColor}}>
+          {content}
+        </Heading4>
+      )
+    }
+
     return (
       <View style={[styles.container, style]} {...props}>
-        <View style={[styles.item, {marginRight: 'auto'}]}>
-          {leftItem}
+        <View style={styles.leftItem}>
+          <ItemWrapper>{leftItem}</ItemWrapper>
         </View>
-        <Heading4 style={[styles.scenetitle, {color: titleColor}]}>
-          {title}
-        </Heading4>
-        <View style={[styles.item, {marginLeft: 'auto'}]}>
-          {rightItem}
+        <View style={styles.centerItem}>
+          {content}
+        </View>
+        <View style={styles.rightItem}>
+          <ItemWrapper>{rightItem}</ItemWrapper>
         </View>
       </View>
     )
@@ -46,7 +64,7 @@ export default class PyHeader extends React.Component {
 
 PyHeader.BackButton = function ({...props}) {
   return (
-    <TouchableOpacity {...props}>
+    <TouchableOpacity>
       <FontAwesomeIcon {...props} name='angle-left' size={36} />
     </TouchableOpacity>
   )
@@ -55,7 +73,7 @@ PyHeader.BackButton = function ({...props}) {
 PyHeader.ShareButton = function ({...props}) {
   const name = Platform.OS === 'ios' ? 'share-apple' : 'share-google'
   return (
-    <TouchableOpacity {...props}>
+    <TouchableOpacity>
       <EvilIcon {...props} name={name} size={36} />
     </TouchableOpacity>
   )
@@ -63,39 +81,46 @@ PyHeader.ShareButton = function ({...props}) {
 
 PyHeader.MapButton = function ({...props}) {
   return (
-    <TouchableOpacity {...props}>
+    <TouchableOpacity>
       <FontAwesomeIcon {...props} name='map' size={25} />
     </TouchableOpacity>
   )
 }
 
-PyHeader.FilterButton = function ({...props}) {
+PyHeader.FilterButton = function ({onPress, ...props}) { // eslint-disable-line
   return (
-    <TouchableOpacity {...props}>
+    <TouchableOpacity onPress={onPress}>
       <FontAwesomeIcon {...props} name='filter' size={25} />
     </TouchableOpacity>
   )
 }
 
-const BUTTON_SIZE = 44
+const BUTTON_SIZE = 50
 
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: BUTTON_SIZE + 20,
-    paddingTop: 20,
-    backgroundColor: Colors.secondary.ACCENT_ORANGE,
+    height: BUTTON_SIZE + (Platform.OS === 'ios' ? 20 : 0),
+    paddingTop: Platform.OS === 'ios' ? 20 : 0,
+    backgroundColor: 'transparent',
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  leftItem: {
+    flex: 3,
+    alignItems: 'flex-start'
+  },
+  centerItem: {
+    flex: 5,
     justifyContent: 'center',
     alignItems: 'center'
   },
-  scenetitle: {
-    color: Colors.secondary.DARK_BLUE
+  rightItem: {
+    flex: 3,
+    alignItems: 'flex-end'
   },
-  item: {
-    width: BUTTON_SIZE,
-    height: BUTTON_SIZE,
-    justifyContent: 'center',
-    alignItems: 'center'
+  itemWrapper: {
+    padding: 12
   }
 })
