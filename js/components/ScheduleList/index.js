@@ -17,10 +17,12 @@ import Cell from './Cell'
 import Header from './Header'
 import Filter from './Filter'
 
+const SCALE_MIN_FACTOR = 0.95
+
 export default class extends React.Component {
   static propTypes = {
     error: PropTypes.object,
-    favoriteEvents: PropTypes.objectOf(PropTypes.objectOf(PropTypes.bool)),
+    favoriteEvents: PropTypes.objectOf(PropTypes.bool),
     filter: PropTypes.objectOf(PropTypes.bool),
     isFetching: PropTypes.bool,
     schedule: PropTypes.array,
@@ -43,7 +45,7 @@ export default class extends React.Component {
 
   _setModalVisible = visible => {
     this.setState({modalVisible: visible})
-    const toValue = visible ? 0.95 : 1.0
+    const toValue = visible ? SCALE_MIN_FACTOR : 1.0
     const duration = 400
     Animated.timing(this.state.scaleAnim, {toValue, duration}).start()
   }
@@ -56,9 +58,10 @@ export default class extends React.Component {
   }
 
   _renderItem = ({item}) => {
-    const {detailId} = item
+    const {detailId, type} = item
     const checked = !!this.props.favoriteEvents[detailId]
-    const tags = this.props.tagMapping[detailId]
+    // HACK to check type is `CUSTOM` or `KEYNOTE`
+    const tags = this.props.tagMapping[detailId] || [type.toUpperCase()]
     return (
       <TouchableHighlight onPress={() => this._onCellPress(item)}>
         <View>
@@ -104,7 +107,7 @@ export default class extends React.Component {
     const transform = [{scale: this.state.scaleAnim}]
 
     const opacity = this.state.scaleAnim.interpolate({
-      inputRange: [0.95, 1],
+      inputRange: [SCALE_MIN_FACTOR, 1],
       outputRange: [0.5, 1]
     })
 
@@ -130,7 +133,7 @@ export default class extends React.Component {
           />
         </Modal>
 
-        <Animated.View style={{transform, opacity}}>
+        <Animated.View style={{flex: 1, transform, opacity}}>
           <Header
             centerItem={routeName}
             backgroundColor={headerBgColor}

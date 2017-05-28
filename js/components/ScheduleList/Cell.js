@@ -55,10 +55,10 @@ function Cell ({
       </View>
       <View style={styles.tagWrapper}>
         {tags && tags.map(tag => {
-          const style = {backgroundColor: 'green'}
+          const style = {backgroundColor: Colors.colorForTag(tag)}
           return (
             <View style={[styles.tag, style]} key={tag}>
-              <Text style={{color: Colors.LIGHT_TEXT}}>{tag}</Text>
+              <Text style={{color: 'white'}}>{tag}</Text>
             </View>
           )
         })}
@@ -70,7 +70,9 @@ function Cell ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    paddingTop: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 15,
     borderBottomWidth: 1,
     borderBottomColor: Colors.LIGHT_BACKGROUND,
     backgroundColor: 'white'

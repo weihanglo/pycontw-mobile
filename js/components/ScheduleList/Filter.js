@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
+  Animated,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -22,10 +23,6 @@ export default class extends React.Component {
 
   state = {
     filter: {}
-  }
-
-  componentWillUpdate () {
-
   }
 
   componentDidMount () {
@@ -51,7 +48,7 @@ export default class extends React.Component {
   _getFilteredStyle = tag => (
     this.state.filter[tag]
     ? {backgroundColor: 'red'}
-    : {backgroundColor: 'green'}
+    : {backgroundColor: Colors.colorForTag(tag)}
   )
 
   render () {
@@ -101,8 +98,10 @@ const styles = StyleSheet.create({
     color: Colors.LIGHT_TEXT
   },
   tagPlayground: {
+    flex: 1,
     flexDirection: 'row',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    justifyContent: 'center'
   },
   tag: {
     margin: 8,
@@ -111,6 +110,6 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   tagText: {
-    color: Colors.LIGHT_TEXT
+    color: 'white'
   }
 })

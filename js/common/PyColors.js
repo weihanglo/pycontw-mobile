@@ -41,3 +41,34 @@ const ROUTE_COLORS = {
 export function colorForRoute (routeName) {
   return ROUTE_COLORS[routeName]
 }
+
+const TAGS_COLORS = {
+  ADMIN: primary.DARK_BLUE,
+  COM: primary.MIDDLE_BLUE,
+  CORE: primary.LIGHT_BLUE,
+  DATA: primary.ACCENT_ORANGE,
+  EDU: primary.ACCENT_ORANGE,
+  EMBED: primary.ACCENT_YELLOW,
+  FIN: secondary.DARK_BLUE,
+  GAME: secondary.MIDDLE_BLUE,
+  GRAPH: secondary.LIGHT_BLUE,
+  INTNL: secondary.ACCENT_ORANGE,
+  LIBS: secondary.ACCENT_GREEN,
+  OTHER: secondary.ACCENT_YELLOW,
+  PRAC: primary.DARK_BLUE,
+  SCI: primary.MIDDLE_BLUE,
+  SEC: primary.LIGHT_BLUE,
+  WEB: primary.ACCENT_ORANGE,
+
+  // HACK add these
+  CUSTOM: secondary.ACCENT_GREEN,
+  'NO-REC': primary.ACCENT_YELLOW,
+  KEYNOTE: secondary.DARK_BLUE,
+  NOVICE: secondary.MIDDLE_BLUE,
+  INTERMEDIATE: secondary.LIGHT_BLUE,
+  EXPERIENCED: secondary.ACCENT_ORANGE
+}
+
+export function colorForTag (tag) {
+  return TAGS_COLORS[tag]
+}
