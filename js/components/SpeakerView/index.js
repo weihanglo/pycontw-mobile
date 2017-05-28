@@ -1,10 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Image, StyleSheet, ScrollView, View, ViewPropTypes} from 'react-native'
+import {StyleSheet, ScrollView, View, ViewPropTypes} from 'react-native'
 
 import Avatar from '../../common/Avatar'
 import {Heading1, Paragraph} from '../../common/PyText'
-import * as Colors from '../../common/PyColors'
 import SocialIcon from './SocialIcon'
 
 SpeakerView.propTypes = {

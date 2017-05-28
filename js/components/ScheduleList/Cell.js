@@ -2,7 +2,12 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import {StyleSheet, View, ViewPropTypes} from 'react-native'
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ViewPropTypes
+} from 'react-native'
 import {connect} from 'react-redux'
 
 import {addToFavorites} from '../../actions/addToFavorites'
@@ -60,9 +65,9 @@ function Cell ({
         {tags && tags.map(tag => {
           const style = {backgroundColor: Colors.colorForTag(tag)}
           return (
-            <View style={[styles.tag, style]} key={tag}>
+            <TouchableOpacity style={[styles.tag, style]} key={tag}>
               <Text style={{color: 'white'}}>{tag}</Text>
-            </View>
+            </TouchableOpacity>
           )
         })}
       </View>

@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Linking, StyleSheet, TouchableHighlight} from 'react-native'
-
 import Icon from 'react-native-vector-icons/FontAwesome'
+
+import * as Colors from '../../common/PyColors'
 
 SocialIcon.propTypes = {
   type: PropTypes.string.isRequired,
@@ -38,7 +39,7 @@ function linkToSocial ({type, payload}) {
     .catch(err => console.error('An error occurred', err))
 }
 
-export default function SocialIcon ({type, info, color}) {
+export default function SocialIcon ({type, info, color = Colors.DARK_TEXT}) {
   let name
   let payload = info
   switch (type) {

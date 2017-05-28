@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Image, Text, View, ViewPropTypes} from 'react-native'
+import {Image, View, ViewPropTypes} from 'react-native'
+
+import {Text} from './PyText'
 
 Avatar.propTypes = {
   size: PropTypes.number,

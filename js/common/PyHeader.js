@@ -2,17 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Platform,
+  StatusBar,
   StyleSheet,
   TouchableOpacity,
   View,
   ViewPropTypes
 } from 'react-native'
-
-import {Heading4} from './PyText'
-
 import EvilIcon from 'react-native-vector-icons/EvilIcons'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
+
+import {Heading4} from './PyText'
+
+const BUTTON_SIZE = 50
 
 const ItemWrapper = ({children}) => ( // eslint-disable-line
   <View style={styles.itemWrapper}>
@@ -96,13 +98,11 @@ PyHeader.FilterButton = function ({onPress, ...props}) { // eslint-disable-line
   )
 }
 
-const BUTTON_SIZE = 50
-
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: BUTTON_SIZE + (Platform.OS === 'ios' ? 20 : 0),
-    paddingTop: Platform.OS === 'ios' ? 20 : 0,
+    height: BUTTON_SIZE + (Platform.OS === 'ios' ? 20 : StatusBar.currentHeight),
+    paddingTop: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight,
     backgroundColor: 'transparent',
     flexDirection: 'row',
     justifyContent: 'space-between',

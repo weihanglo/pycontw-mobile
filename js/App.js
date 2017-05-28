@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {Platform, StatusBar} from 'react-native'
 import {connect} from 'react-redux'
 import {addNavigationHelpers} from 'react-navigation'
 
@@ -12,6 +13,11 @@ App.propTypes = {
 
 function App ({dispatch, navState}) {
   const navigation = addNavigationHelpers({dispatch, state: navState})
+  StatusBar.setBarStyle('light-content')
+  if (Platform.OS === 'android') {
+    StatusBar.setBackgroundColor('hsla(0, 0%, 0%, 0.3)')
+    StatusBar.setTranslucent(true)
+  }
   return <AppNavigator navigation={navigation} />
 }
 

@@ -36,8 +36,8 @@ export function colorForLocation (loc) {
 const ROUTE_COLORS = {
   Schedule: primary.MIDDLE_BLUE,
   ScheduleList: primary.MIDDLE_BLUE,
-  My: secondary.LIGHT_BLUE,
-  MyScheduleList: secondary.LIGHT_BLUE
+  My: primary.LIGHT_BLUE,
+  MyScheduleList: primary.LIGHT_BLUE
 }
 
 export function colorForRoute (routeName) {

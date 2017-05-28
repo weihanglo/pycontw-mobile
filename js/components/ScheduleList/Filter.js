@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
+  StatusBar,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -66,6 +67,7 @@ export default class extends React.Component {
 
     return (
       <View style={[styles.container, style]}>
+        <StatusBar translucent={false} />
         <Header
           leftItem={leftItem}
           centerItem='Filter'
