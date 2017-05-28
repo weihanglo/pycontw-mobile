@@ -12,6 +12,7 @@ import {Heading4} from './PyText'
 
 import EvilIcon from 'react-native-vector-icons/EvilIcons'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 
 const ItemWrapper = ({children}) => ( // eslint-disable-line
   <View style={styles.itemWrapper}>
@@ -90,7 +91,7 @@ PyHeader.MapButton = function ({...props}) {
 PyHeader.FilterButton = function ({onPress, ...props}) { // eslint-disable-line
   return (
     <TouchableOpacity onPress={onPress}>
-      <FontAwesomeIcon {...props} name='filter' size={25} />
+      <MaterialIcon {...props} name='filter-list' size={25} />
     </TouchableOpacity>
   )
 }

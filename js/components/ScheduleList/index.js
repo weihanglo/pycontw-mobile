@@ -19,14 +19,15 @@ import Filter from './Filter'
 
 export default class extends React.Component {
   static propTypes = {
-    date: PropTypes.string,
     error: PropTypes.object,
-    favoriteEvents: PropTypes.objectOf(PropTypes.bool),
+    favoriteEvents: PropTypes.objectOf(PropTypes.objectOf(PropTypes.bool)),
+    filter: PropTypes.objectOf(PropTypes.bool),
     isFetching: PropTypes.bool,
     schedule: PropTypes.array,
     tagMapping: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
     onDidMount: PropTypes.func,
     onCellPress: PropTypes.func,
+    updateFilter: PropTypes.func,
     navigation: PropTypes.object,
     style: ViewPropTypes.style
   }
@@ -75,13 +76,31 @@ export default class extends React.Component {
     </View>
   )
 
-  _keyExtractor = (item, index) => item.detailId
+  _keyExtractor = item => item.detailId
+
+  _getUniqueTags = () => {
+    const uniqueTags = {}
+    Object.values(this.props.tagMapping)
+      .forEach(tags => {
+        tags.forEach(tag => { uniqueTags[tag] = true })
+      })
+    // HACK: harcode added two categories
+    uniqueTags['KEYNOTE'] = true
+    uniqueTags['CUSTOM'] = true
+    return Object.keys(uniqueTags)
+  }
 
   render () {
-    const {navigation, schedule, tagMapping, style, ...props} = this.props
-    const {routeName} = navigation.state
+    const {
+      filter,
+      navigation: {state: {routeName}},
+      schedule,
+      updateFilter,
+      style
+    } = this.props
     const headerBgColor = Colors.colorForRoute(routeName)
 
+    // Animated states
     const transform = [{scale: this.state.scaleAnim}]
 
     const opacity = this.state.scaleAnim.interpolate({
@@ -89,17 +108,25 @@ export default class extends React.Component {
       outputRange: [0.5, 1]
     })
 
+    const {modalVisible} = this.state
+
     return (
-      <View style={[styles.container, style]} {...props} >
+      <View style={[styles.container, style]}>
         <Modal
           animationType='slide'
           transparent={false}
-          visible={this.state.modalVisible}
+          visible={modalVisible}
           onRequestClose={() => this._setModalVisible(false)}
         >
           <Filter
             headerBackgroundColor={headerBgColor}
-            onPressDone={() => this._setModalVisible(false)}
+            filter={filter}
+            onFilterDone={tags => {
+              updateFilter(tags)
+              this._setModalVisible(false)
+            }}
+            // Only calcuate tags when visible
+            tags={modalVisible ? this._getUniqueTags() : []}
           />
         </Modal>
 

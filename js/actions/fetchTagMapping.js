@@ -32,12 +32,3 @@ export function fetchTagMapping () {
       .catch(err => dispatch(fetchTagMappingFailure(err)))
   }
 }
-
-export function fetchEventRemote (eventId) {
-  return dispatch => {
-    dispatch(fetchEventStart(eventId))
-    return Api.getEventRemote(eventId)
-      .then(res => dispatch(fetchEventSuccess(eventId, res)))
-      .catch(err => dispatch(fetchEventFailure(eventId, err)))
-  }
-}

@@ -1,4 +1,4 @@
-// This component is also a presentational component
+// This presentational + container component
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'

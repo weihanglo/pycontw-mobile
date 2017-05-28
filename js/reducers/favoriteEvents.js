@@ -7,7 +7,6 @@ export default function (state = {}, action) {
       return {...state, [action.eventId]: true}
     case REMOVE_FROM_FAVORITES:
       const newState = {...state}
-      // TODO: Is this an immutable solution?
       delete newState[action.eventId]
       return newState
     default:
