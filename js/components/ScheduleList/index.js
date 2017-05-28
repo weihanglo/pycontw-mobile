@@ -51,10 +51,7 @@ export default class extends React.Component {
   }
 
   _onCellPress ({eventId, location, beginTime, endTime}) {
-    const begin = moment(beginTime, 'hh:mm')
-    const end = moment(endTime, 'hh:mm')
-    const duration = moment.duration(end.diff(begin)).humanize()
-    this.props.onCellPress(eventId, location, duration)
+    this.props.onCellPress(eventId, location, beginTime, endTime)
   }
 
   _renderItem = ({item}) => {

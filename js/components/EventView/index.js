@@ -1,24 +1,39 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {ScrollView, StyleSheet, View, ViewPropTypes} from 'react-native'
+import {
+  Share,
+  StatusBar,
+  ScrollView,
+  StyleSheet,
+  View,
+  ViewPropTypes
+} from 'react-native'
 
-import {Text, Heading1, Paragraph} from '../../common/PyText'
+import {Heading1, Text, SmallText, Paragraph} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
+import Header from '../../common/PyHeader'
 import Bookmark from '../../common/Bookmark'
+import Py404 from '../../common/Py404'
 import Category from './Category'
 import Avatar from './Avatar'
 
+const ENDPOINT = 'https://tw.pycon.org/2017/en-us/events/talk/'
+
 export default class extends React.Component {
   static propTypes = {
+    dayIndex: PropTypes.number,
+    hhmmTime: PropTypes.string,
     checked: PropTypes.bool,
-    eventId: PropTypes.string,
-    event: PropTypes.object,
+    duration: PropTypes.string,
     error: PropTypes.object,
+    event: PropTypes.object,
+    eventId: PropTypes.string,
+    location: PropTypes.string,
     isFetching: PropTypes.bool,
     addToFavorites: PropTypes.func,
     removeFromFavorites: PropTypes.func,
     showSpeaker: PropTypes.func,
-    navigation: PropTypes.object,
+    goBack: PropTypes.func,
     style: ViewPropTypes.style
   }
 
@@ -28,28 +43,81 @@ export default class extends React.Component {
     : this.props.addToFavorites(this.props.eventId)
   }
 
+  _showShareResult = ({action}) => {
+    if (!action) {
+      // Failed to share...
+      return
+    }
+    if (action === Share.sharedAction) {
+      // Share succeeded
+    }
+  }
+
+  _share = () => {
+    const {title} = this.props.event
+    const message = `${ENDPOINT}${this.props.eventId}`
+    Share.share({
+      title,
+      message,
+      url: message
+    }, {
+      dialogTitle: title,
+      tintColor: 'green'
+    })/* TODO: unhandled promise here */
+  }
+
   render () {
-    const {checked, event, error, isFetching, showSpeaker, style} = this.props
+    const {
+      dayIndex,
+      hhmmTime,
+      checked,
+      duration,
+      event,
+      error,
+      location,
+      isFetching,
+      showSpeaker,
+      goBack,
+      style
+    } = this.props
+    const color = Colors.colorForLocation(location)
 
     if (isFetching || error) {
-      // TODO: customized Error/Loading Page
-      return (
-        <View sytle={[styles.container]} >
-          <Heading1>{isFetching ? 'Loading...' : 'Error!!!!!!!'}</Heading1>
-        </View>
-      )
+      return <Py404 headerColor={color} />
     }
 
     // TODO: Determine where to display description
     const {abstract, description, speakers, title, ...remains} = event
-    const {location, duration} = this.props.navigation.state.params
+
+    // Configure Header
+    const leftItem = (
+      <Header.BackButton onPress={goBack} color={Colors.DARK_TEXT} />
+    )
+    const centerItem = (
+      <View>
+        <SmallText style={{textAlign: 'center'}}>Day {dayIndex + 1}</SmallText>
+        <Text style={styles.headerTitle}>{hhmmTime}</Text>
+      </View>
+    )
+    const rightItem = (
+      <Header.ShareButton onPress={this._share} color={Colors.DARK_TEXT} />
+    )
 
     return (
       <View style={[styles.container, style]}>
+        <StatusBar barStyle='dark-content' animated />
+        <Header
+          leftItem={leftItem}
+          centerItem={centerItem} // TODO: title centerItem
+          rightItem={rightItem}
+          titleColor={Colors.DARK_TEXT}
+          style={{backgroundColor: color}}
+        />
         <ScrollView contentContainerStyle={styles.scrollContainer}>
+
           <View style={styles.timeLocation}>
             <Text>
-              <Text style={{color: Colors.colorForLocation(location)}}>
+              <Text style={{color, fontWeight: 'bold'}}>
                 {location}
               </Text>
               <Text> - {duration}</Text>
@@ -67,10 +135,13 @@ export default class extends React.Component {
             speakers={speakers}
             showSpeaker={showSpeaker}
           />
+
           <View style={styles.category}>
             <Category style={{flex: 1}} {...remains} />
           </View>
+
           <Paragraph style={styles.abstract}>{abstract}</Paragraph>
+
         </ScrollView>
       </View>
     )
@@ -82,14 +153,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     flex: 1
   },
+  headerTitle: {
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
   scrollContainer: {
-    padding: 20
+    paddingVertical: 12,
+    paddingHorizontal: 20
   },
   timeLocation: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 8
+    alignItems: 'center'
   },
   title: {
     color: Colors.secondary.MIDDLE_BLUE,

@@ -57,11 +57,11 @@ const mapDispatchToProps = dispatch => ({
     dispatch(fetchTagMapping())
     dispatch(fetchSchedules())
   },
-  onCellPress: (eventId, location, duration) => {
+  onCellPress: (eventId, location, beginTime, endTime) => {
     dispatch(fetchEvent(eventId))
     dispatch(NavigationActions.navigate({
       routeName: 'Event',
-      params: {location, duration}
+      params: {location, beginTime, endTime}
     }))
   },
   ...bindActionCreators({

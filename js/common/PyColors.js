@@ -1,4 +1,5 @@
 export const DARK_TEXT = 'hsl(0, 0%, 24%)'
+export const GRAY_TEXT = 'hsl(0, 0%, 50%)'
 export const LIGHT_TEXT = 'hsl(0, 0%, 90%)'
 export const LIGHT_BACKGROUND = 'hsl(0, 0%, 90%)'
 export const ULTRALIGHT_BACKGROUND = 'hsl(0, 0%, 98%)'
@@ -22,10 +23,10 @@ export const secondary = {
 }
 
 const LOCATION_COLORS = {
-  R0: primary.ACCENT_GREEN,
-  R1: primary.LIGHT_BLUE,
-  R2: primary.ACCENT_YELLOW,
-  R4: primary.MIDDLE_BLUE,
+  R0: secondary.ACCENT_GREEN,
+  R1: primary.ACCENT_YELLOW,
+  R2: secondary.MIDDLE_BLUE,
+  R4: secondary.ACCENT_ORANGE,
   ALL: primary.ACCENT_ORANGE
 }
 

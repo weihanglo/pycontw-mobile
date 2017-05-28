@@ -65,38 +65,32 @@ export default class PyHeader extends React.Component {
   }
 }
 
-PyHeader.BackButton = function ({...props}) {
-  return (
-    <TouchableOpacity>
-      <FontAwesomeIcon {...props} name='angle-left' size={36} />
-    </TouchableOpacity>
-  )
-}
+PyHeader.BackButton = ({onPress, ...props}) => ( // eslint-disable-line
+  <TouchableOpacity style={styles.button} onPress={onPress}>
+    <FontAwesomeIcon {...props} name='angle-left' size={36} />
+  </TouchableOpacity>
+)
 
-PyHeader.ShareButton = function ({...props}) {
+PyHeader.ShareButton = ({onPress, ...props}) => { // eslint-disable-line
   const name = Platform.OS === 'ios' ? 'share-apple' : 'share-google'
   return (
-    <TouchableOpacity>
+    <TouchableOpacity style={styles.button} onPress={onPress}>
       <EvilIcon {...props} name={name} size={36} />
     </TouchableOpacity>
   )
 }
 
-PyHeader.MapButton = function ({...props}) {
-  return (
-    <TouchableOpacity>
-      <FontAwesomeIcon {...props} name='map' size={25} />
-    </TouchableOpacity>
-  )
-}
+PyHeader.MapButton = ({onPress, ...props}) => ( // eslint-disable-line
+  <TouchableOpacity style={styles.button} onPress={onPress}>
+    <FontAwesomeIcon {...props} name='map' size={25} />
+  </TouchableOpacity>
+)
 
-PyHeader.FilterButton = function ({onPress, ...props}) { // eslint-disable-line
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <MaterialIcon {...props} name='filter-list' size={25} />
-    </TouchableOpacity>
-  )
-}
+PyHeader.FilterButton = ({onPress, ...props}) => ( // eslint-disable-line
+  <TouchableOpacity style={styles.button} onPress={onPress}>
+    <MaterialIcon {...props} name='filter-list' size={25} />
+  </TouchableOpacity>
+)
 
 const styles = StyleSheet.create({
   container: {
@@ -106,6 +100,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  button: {
+    minWidth: 36,
+    minHeight: 36,
+    justifyContent: 'center',
     alignItems: 'center'
   },
   leftItem: {

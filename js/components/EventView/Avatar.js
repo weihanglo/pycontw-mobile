@@ -28,6 +28,7 @@ export default function EventAvatar ({speakers, style, showSpeaker, ...props}) {
           <View style={styles.avatarWrapper}>
             <Avatar uri={speaker.photoURL} text={speaker.name} />
             <View style={{width: `${100 / speakers.length}%`}}>
+              {/* FIXME: what a mess when there are multiple talker */}
               <SmallText
                 numberOfLines={speaker.name.length > 12 ? 3 : 2}
                 style={styles.avatarText}>
