@@ -4,21 +4,12 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import * as Colors from '../common/PyColors'
 import About from './About'
-import Home from './Home'
+import My from './My'
 import Schedule from './Schedule'
 
 const AppNavigator = TabNavigator({
-  Schedule: {
-    screen: Schedule
-  },
-  Home: {
-    screen: Home,
-    navigationOptions: {
-      tabBarIcon: ({tintColor}) => ( // eslint-disable-line
-        <Icon name='face' size={30} color={tintColor} />
-      )
-    }
-  },
+  Schedule: {screen: Schedule},
+  My: {screen: My},
   About: {
     screen: About,
     navigationOptions: {

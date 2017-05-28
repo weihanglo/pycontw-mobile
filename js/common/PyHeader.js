@@ -41,7 +41,7 @@ export default class PyHeader extends React.Component {
     let content = centerItem
     if (typeof centerItem === 'string') {
       content = (
-        <Heading4 style={{color: titleColor}}>
+        <Heading4 style={{color: titleColor}} numberOfLines={1}>
           {content}
         </Heading4>
       )
