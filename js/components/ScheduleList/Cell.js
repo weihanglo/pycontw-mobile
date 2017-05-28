@@ -16,7 +16,7 @@ Cell.propTypes = {
   endTime: PropTypes.string,
   location: PropTypes.string,
   speakers: PropTypes.arrayOf(PropTypes.string),
-  detailId: PropTypes.string,
+  eventId: PropTypes.string,
   title: PropTypes.string,
   type: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
@@ -28,7 +28,7 @@ Cell.propTypes = {
 function Cell ({
     beginTime,
     endTime,
-    detailId,
+    eventId,
     checked,
     location,
     speakers,
@@ -38,14 +38,17 @@ function Cell ({
     style,
     ...props
   }) {
-  const locationColor = {color: Colors.colorForLocation(location)}
+  const locationStyle = {
+    color: Colors.colorForLocation(location),
+    fontWeight: 'bold'
+  }
 
   return (
     <View style={[styles.container, style]} {...props}>
       <Heading4>{title}</Heading4>
       <View style={styles.infoWrapper}>
         <Text>
-          {beginTime} - {endTime} @ <Text style={locationColor}>{location}</Text>
+          {beginTime} - {endTime} @ <Text style={locationStyle}>{location}</Text>
         </Text>
         <Bookmark
           style={styles.bookmark}
@@ -102,15 +105,15 @@ const styles = StyleSheet.create({
 
 // react-redux part --------------------
 
-const mapStateToProps = ({favoriteEvents}, {detailId}) => ({
-  checked: !!favoriteEvents[detailId]
+const mapStateToProps = ({favoriteEvents}, {eventId}) => ({
+  checked: !!favoriteEvents[eventId]
 })
 
-const mapDispatchToProps = (dispatch, {detailId}) => ({
+const mapDispatchToProps = (dispatch, {eventId}) => ({
   toggleCheck: checked => {
     checked
-    ? dispatch(removeFromFavorites(detailId))
-    : dispatch(addToFavorites(detailId))
+    ? dispatch(removeFromFavorites(eventId))
+    : dispatch(addToFavorites(eventId))
   }
 })
 

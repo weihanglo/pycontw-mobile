@@ -26,7 +26,7 @@ export default function (events) {
 
   // A hashmap to check if this event is added or not
   // (fxxk duplicated data)
-  const detailIds = {}
+  const eventIds = {}
 
   events.forEach(({
       begin_time,
@@ -54,23 +54,23 @@ export default function (events) {
 
     // Compose missing detail_id
     const isKeynote = type === 'keynote'
-    let detailId = detail_id // eslint-disable-line
+    let eventId = detail_id // eslint-disable-line
     if (isKeynote) {
-      detailId = speakers[0]
+      eventId = speakers[0]
     }
-    if (typeof detailId === 'undefined') {
-      detailId = `${beginTime}-${title}`
+    if (typeof eventId === 'undefined') {
+      eventId = `${beginTime}-${title}`
     }
 
     // Data should be unique
-    if (detailIds[detailId]) {
+    if (eventIds[eventId]) {
       return
     }
-    detailIds[detailId] = true
+    eventIds[eventId] = true
 
     bag.push({
       beginTime,
-      detailId,
+      eventId,
       endTime: hhmm(end_time),
       location: location.replace(/.*-/, '').toUpperCase(),
       speakers,

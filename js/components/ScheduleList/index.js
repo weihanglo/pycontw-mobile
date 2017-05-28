@@ -50,18 +50,18 @@ export default class extends React.Component {
     Animated.timing(this.state.scaleAnim, {toValue, duration}).start()
   }
 
-  _onCellPress ({detailId, location, beginTime, endTime}) {
+  _onCellPress ({eventId, location, beginTime, endTime}) {
     const begin = moment(beginTime, 'hh:mm')
     const end = moment(endTime, 'hh:mm')
     const duration = moment.duration(end.diff(begin)).humanize()
-    this.props.onCellPress(detailId, location, duration)
+    this.props.onCellPress(eventId, location, duration)
   }
 
   _renderItem = ({item}) => {
-    const {detailId, type} = item
-    const checked = !!this.props.favoriteEvents[detailId]
+    const {eventId, type} = item
+    const checked = !!this.props.favoriteEvents[eventId]
     // HACK to check type is `CUSTOM` or `KEYNOTE`
-    const tags = this.props.tagMapping[detailId] || [type.toUpperCase()]
+    const tags = this.props.tagMapping[eventId] || [type.toUpperCase()]
     return (
       <TouchableHighlight onPress={() => this._onCellPress(item)}>
         <View>
@@ -79,7 +79,7 @@ export default class extends React.Component {
     </View>
   )
 
-  _keyExtractor = item => item.detailId
+  _keyExtractor = item => item.eventId
 
   _getUniqueTags = () => {
     const uniqueTags = {}

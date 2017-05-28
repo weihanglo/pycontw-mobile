@@ -6,7 +6,7 @@ import {Text, Heading1, Paragraph} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
 import Bookmark from '../../common/Bookmark'
 import Category from './Category'
-import Avatar from './EventAvatar'
+import Avatar from './Avatar'
 
 export default class extends React.Component {
   static propTypes = {

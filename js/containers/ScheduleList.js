@@ -15,12 +15,12 @@ function filterSchedule (schedule, filter, tagMapping) {
 
   return schedule.map(({key, data}) => ({
     key,
-    data: data.filter(({detailId, type}) => {
+    data: data.filter(({eventId, type}) => {
       if (filter[type.toUpperCase()]) {
         return true
       }
 
-      const tags = tagMapping[detailId] || []
+      const tags = tagMapping[eventId] || []
 
       for (let tag of tags) {
         if (filter[tag]) {

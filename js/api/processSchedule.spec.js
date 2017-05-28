@@ -48,7 +48,7 @@ const groupedScheduleData = [
     data: [
       {
         beginTime: '09:00',
-        detailId: '09:00-Announcement',
+        eventId: '09:00-Announcement',
         endTime: '09:10',
         location: 'ALL',
         title: 'Announcement',
@@ -60,7 +60,7 @@ const groupedScheduleData = [
     data: [
       {
         beginTime: '09:10',
-        detailId: 'Andrew Godwin',
+        eventId: 'Andrew Godwin',
         endTime: '10:10',
         location: 'ALL',
         speakers: ['Andrew Godwin'],
@@ -73,7 +73,7 @@ const groupedScheduleData = [
     data: [
       {
         beginTime: '10:40',
-        detailId: '322153690393739347',
+        eventId: '322153690393739347',
         endTime: '11:10',
         location: 'R0',
         speakers: ['Kilik Kuo'],
@@ -82,7 +82,7 @@ const groupedScheduleData = [
       },
       {
         beginTime: '10:40',
-        detailId: '319284977214685262',
+        eventId: '319284977214685262',
         endTime: '11:10',
         location: 'R1',
         speakers: ['Wei Lin'],
