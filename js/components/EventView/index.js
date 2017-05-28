@@ -43,16 +43,6 @@ export default class extends React.Component {
     : this.props.addToFavorites(this.props.eventId)
   }
 
-  _showShareResult = ({action}) => {
-    if (!action) {
-      // Failed to share...
-      return
-    }
-    if (action === Share.sharedAction) {
-      // Share succeeded
-    }
-  }
-
   _share = () => {
     const {title} = this.props.event
     const message = `${ENDPOINT}${this.props.eventId}`
@@ -61,8 +51,7 @@ export default class extends React.Component {
       message,
       url: message
     }, {
-      dialogTitle: title,
-      tintColor: 'green'
+      dialogTitle: title
     })/* TODO: unhandled promise here */
   }
 

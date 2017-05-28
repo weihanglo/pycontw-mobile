@@ -7,6 +7,7 @@ import {
   ViewPropTypes
 } from 'react-native'
 
+import * as Colors from '../../common/PyColors'
 import {SmallText} from '../../common/PyText'
 import Avatar from '../../common/Avatar'
 
@@ -23,12 +24,12 @@ export default function EventAvatar ({speakers, style, showSpeaker, ...props}) {
         <TouchableHighlight
           onPress={() => showSpeaker(speaker.name)}
           underlayColor='#dddddd'
+          style={{flex: 1}}
           key={speaker.name}
         >
           <View style={styles.avatarWrapper}>
             <Avatar uri={speaker.photoURL} text={speaker.name} />
-            <View style={{width: `${100 / speakers.length}%`}}>
-              {/* FIXME: what a mess when there are multiple talker */}
+            <View>
               <SmallText
                 numberOfLines={speaker.name.length > 12 ? 3 : 2}
                 style={styles.avatarText}>
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
   avatarText: {
     width: '100%',
     textAlign: 'center',
-    paddingTop: 3
+    paddingTop: 3,
+    textDecorationLine: 'underline'
   }
 })
