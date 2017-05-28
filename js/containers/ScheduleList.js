@@ -3,22 +3,25 @@ import {NavigationActions} from 'react-navigation'
 
 import {fetchSchedules} from '../actions/fetchSchedules'
 import {fetchEvent} from '../actions/fetchEvent'
+import {fetchTagMapping} from '../actions/fetchTagMapping'
 import ScheduleList from '../components/ScheduleList'
 
 const mapStateToProps = ({
   allSchedules,
   favoriteEvents,
-  selectDate
+  selectDate,
+  tagMapping
 }) => ({
   error: allSchedules.error,
-  date: selectDate,
   favoriteEvents,
   isFetching: allSchedules.isFetching,
-  schedule: allSchedules[selectDate]
+  schedule: allSchedules[selectDate],
+  tagMapping
 })
 
 const mapDispatchToProps = dispatch => ({
   onDidMount: () => {
+    dispatch(fetchTagMapping())
     dispatch(fetchSchedules())
   },
   onCellPress: (eventId, location, duration) => {

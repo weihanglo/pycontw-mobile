@@ -36,6 +36,30 @@ const Api = {
     return null
   },
 
+  async getTagMapping () {
+    const endpoint = `${BASE_URL}/events.json`
+    const response = await fetch(endpoint)
+    const json = await response.json()
+
+    const mapping = {}
+
+    Object.entries(json).forEach(([
+      id, {
+        category,
+        python_level: level,
+        recording_policy: recoding
+      }
+    ]) => {
+      const tags = []
+      category && tags.push(category)
+      level && tags.push(level)
+      recoding || tags.push('NO-REC')
+      mapping[id] = tags
+    })
+
+    return mapping
+  },
+
   async getAllSchedules () {
     const endpoint = `${BASE_URL}/schedule.json`
     const response = await fetch(endpoint)

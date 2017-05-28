@@ -15,11 +15,12 @@ import ScheduleCell from './ScheduleCell'
 
 export default class extends React.Component {
   static propTypes = {
-    isFetching: PropTypes.bool,
+    date: PropTypes.string,
     error: PropTypes.object,
     favoriteEvents: PropTypes.objectOf(PropTypes.bool),
+    isFetching: PropTypes.bool,
     schedule: PropTypes.array,
-    date: PropTypes.string,
+    tagMapping: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
     onDidMount: PropTypes.func,
     onCellPress: PropTypes.func,
     style: ViewPropTypes.style
@@ -39,9 +40,10 @@ export default class extends React.Component {
   _renderItem = ({item}) => {
     const {detailId} = item
     const checked = !!this.props.favoriteEvents[detailId]
+    const tags = this.props.tagMapping[detailId]
     return (
       <TouchableOpacity onPress={() => this._onCellPress(item)}>
-        <ScheduleCell {...item} checked={checked} />
+        <ScheduleCell {...item} tags={tags} checked={checked} />
       </TouchableOpacity>
     )
   }
@@ -57,7 +59,7 @@ export default class extends React.Component {
   _keyExtractor = (item, index) => item.detailId
 
   render () {
-    const {schedule, isFetching, error, date, style, ...props} = this.props
+    const {schedule, tagMapping, style, ...props} = this.props
 
     return (
       <View style={[styles.container, style]} {...props}>
