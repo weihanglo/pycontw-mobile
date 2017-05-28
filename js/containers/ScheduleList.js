@@ -1,36 +1,25 @@
 import {connect} from 'react-redux'
 import {NavigationActions} from 'react-navigation'
 
-import {
-  fetchSchedule,
-  fetchScheduleRemote
-} from '../actions/fetchSchedule'
+import {fetchSchedules} from '../actions/fetchSchedules'
 import {fetchEvent} from '../actions/fetchEvent'
 import ScheduleList from '../components/ScheduleList'
 
-const initialState = {
-  error: null,
-  schedule: []
-}
-
-const mapStateToProps = ({favoriteEvents, scheduleByDate, selectDate}) => {
-  const {
-    isFetching,
-    error,
-    schedule
-  } = scheduleByDate[selectDate] || initialState
-
-  return {
-    favoriteEvents,
-    error,
-    schedule: isFetching ? [] : schedule,
-    date: selectDate
-  }
-}
+const mapStateToProps = ({
+  allSchedules,
+  favoriteEvents,
+  selectDate
+}) => ({
+  error: allSchedules.error,
+  date: selectDate,
+  favoriteEvents,
+  isFetching: allSchedules.isFetching,
+  schedule: allSchedules[selectDate]
+})
 
 const mapDispatchToProps = dispatch => ({
-  onDidMount: date => {
-    dispatch(fetchSchedule(date))
+  onDidMount: () => {
+    dispatch(fetchSchedules())
   },
   onCellPress: (eventId, location, duration) => {
     dispatch(fetchEvent(eventId))

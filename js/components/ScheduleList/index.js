@@ -26,7 +26,7 @@ export default class extends React.Component {
   }
 
   componentDidMount () {
-    this.props.onDidMount(this.props.date)
+    this.props.onDidMount()
   }
 
   _onCellPress ({detailId, location, beginTime, endTime}) {
@@ -57,14 +57,7 @@ export default class extends React.Component {
   _keyExtractor = (item, index) => item.detailId
 
   render () {
-    const {
-      schedule,
-      isFetching,
-      error,
-      date,
-      style,
-      ...props
-    } = this.props
+    const {schedule, isFetching, error, date, style, ...props} = this.props
 
     return (
       <View style={[styles.container, style]} {...props}>
@@ -85,7 +78,6 @@ export default class extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-     // TODO: remove this color and find where is my color defined
     backgroundColor: 'hsl(0, 0%, 100%)'
   },
   sectionHeader: {

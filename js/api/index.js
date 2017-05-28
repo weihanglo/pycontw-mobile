@@ -36,28 +36,17 @@ const Api = {
     return null
   },
 
-  async getSchedule (date) {
-    let schedule = await AsyncStorage.getItem(keyGen(date))
-    if (schedule) {
-      return JSON.parse(schedule)
-    }
-
-    schedule = await this.getScheduleRemote(date)
-    return schedule
-  },
-
-  async getScheduleRemote (date) {
-    const endpoint = `${BASE_URL}/schedule/${date}.json`
+  async getAllSchedules () {
+    const endpoint = `${BASE_URL}/schedule.json`
     const response = await fetch(endpoint)
     const json = await response.json()
-    const schedule = processSchedule(json.slots)
 
-    if (schedule) {
-      await AsyncStorage.setItem(keyGen(date), JSON.stringify(schedule))
-      return schedule
-    }
+    const schedules = {}
 
-    return null
+    Object.values(json)
+      .forEach(obj => { schedules[obj.date] = processSchedule(obj.slots) })
+
+    return schedules
   }
 }
 

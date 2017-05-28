@@ -1,28 +1,19 @@
-// This component is also a presentaional component
-
+// This component is also a presentational component
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {StyleSheet, TouchableHighlight, View} from 'react-native'
 
 import {Heading5} from '../common/PyText'
+import Header from '../common/PyHeader'
 
 import {selectDate} from '../actions/selectDate'
-import {fetchSchedule} from '../actions/fetchSchedule'
-import Header from '../common/PyHeader'
 
 class ScheduleHeader extends React.Component {
   static propTypes = {
-    isFetching: PropTypes.bool,
+    dates: PropTypes.arrayOf(PropTypes.string),
     selectDate: PropTypes.string,
     onSelectDate: PropTypes.func
-  }
-
-  _onPress = date => {
-    if (this.props.isFetching) {
-      return
-    }
-    this.props.onSelectDate(date)
   }
 
   _borderWidthByDate = date => ({
@@ -32,15 +23,15 @@ class ScheduleHeader extends React.Component {
   })
 
   render () {
-    const dates = ['2017-06-09', '2017-06-10', '2017-06-11']
+    const {dates, onSelectDate} = this.props
     return (
       <View>
         <Header />
         <View style={styles.tabbar}>
-          {dates.map((date, index) => (
+          {dates && dates.map((date, index) => (
             <TouchableHighlight
               key={date}
-              onPress={() => this._onPress(date)}
+              onPress={() => onSelectDate(date)}
               style={[styles.tab, this._borderWidthByDate(date)]}
               underlayColor='#dddddd'
             >
@@ -54,23 +45,6 @@ class ScheduleHeader extends React.Component {
     )
   }
 }
-
-const mapStateToProps = ({scheduleByDate: {isFetching}, selectDate}) => ({
-  isFetching,
-  selectDate
-})
-
-const mapDispatchToProps = dispatch => ({
-  onSelectDate: date => {
-    dispatch(selectDate(date))
-    dispatch(fetchSchedule(date))
-  }
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ScheduleHeader)
 
 const styles = StyleSheet.create({
   tabbar: {
@@ -86,3 +60,21 @@ const styles = StyleSheet.create({
     height: 40
   }
 })
+
+// Redux container part ----------------
+
+const mapStateToProps = ({allSchedules: {dates}, selectDate}) => ({
+  selectDate,
+  dates
+})
+
+const mapDispatchToProps = dispatch => ({
+  onSelectDate: date => {
+    dispatch(selectDate(date))
+  }
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ScheduleHeader)
