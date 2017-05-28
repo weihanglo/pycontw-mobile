@@ -30,7 +30,7 @@ class Header extends React.Component {
 
   _borderWidthByDate = date => ({
     borderColor: this.props.selectDate === date
-      ? 'hsl(273, 75%, 33%)' // TODO: replace with other colors
+      ? Colors.secondary.DARK_BLUE
       : 'transparent'
   })
 

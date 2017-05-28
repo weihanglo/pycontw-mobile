@@ -97,7 +97,7 @@ export default class extends React.Component {
         <StatusBar barStyle='dark-content' animated />
         <Header
           leftItem={leftItem}
-          centerItem={centerItem} // TODO: title centerItem
+          centerItem={centerItem}
           rightItem={rightItem}
           titleColor={Colors.DARK_TEXT}
           style={{backgroundColor: color}}
