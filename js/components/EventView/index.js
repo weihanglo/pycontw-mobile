@@ -6,7 +6,6 @@ import {
   StatusBar,
   ScrollView,
   StyleSheet,
-  TouchableWithoutFeedback,
   TouchableOpacity,
   View,
   ViewPropTypes
@@ -20,8 +19,6 @@ import Py404 from '../../common/Py404'
 import Category from './Category'
 import Avatar from './Avatar'
 import SpeakerView from '../../components/SpeakerView'
-
-const AnimTouchable = Animated.createAnimatedComponent(TouchableOpacity)
 
 const ENDPOINT = 'https://tw.pycon.org/2017/en-us/events/talk/'
 
@@ -62,18 +59,21 @@ export default class extends React.Component {
     const transform = [{scale: this.state.scaleAnim}]
     const style = {transform}
 
+    const AnimTouchable = Animated
+      .createAnimatedComponent(TouchableOpacity)
+
     return (
-      <AnimTouchable
-        style={[styles.speaker, {backgroundColor}]}
-        activeOpacity={1}
-        focusedOpacity={1}
-        onPress={this._closeSpeaker}>
-        <TouchableWithoutFeedback onPress={null}>
-          <Animated.View style={[styles.animWrapper, style]}>
-            <SpeakerView onClose={this._closeSpeaker} {...speaker} />
-          </Animated.View>
-        </TouchableWithoutFeedback>
-      </AnimTouchable>
+      <View style={styles.speaker}>
+        <AnimTouchable
+          style={[styles.speaker, {backgroundColor}]}
+          activeOpacity={1}
+          focusedOpacity={1}
+          onPress={this._closeSpeaker}
+        />
+        <Animated.View style={[styles.animWrapper, style]}>
+          <SpeakerView onClose={this._closeSpeaker} {...speaker} />
+        </Animated.View>
+      </View>
     )
   }
 

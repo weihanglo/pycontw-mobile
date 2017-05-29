@@ -42,7 +42,7 @@ export default function SpeakerView ({
   let bioP = <Paragraph style={{textAlign: 'center'}}>{bioText}</Paragraph>
   const newlines = /(\n)/.exec(bioText)
   const newlineCountExceeded = newlines && newlines.lenght > 1
-  if (bioText.length > 100 || newlineCountExceeded) {
+  if (bioText.length > 130 || newlineCountExceeded) {
     bioP = <ScrollView style={styles.bioWrapper}>{bioP}</ScrollView>
   }
 

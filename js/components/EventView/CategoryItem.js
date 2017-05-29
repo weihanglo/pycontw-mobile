@@ -23,6 +23,7 @@ function renderText (text, fontSize, onPress) {
   const style = {fontSize}
   if (onPress) {
     style.color = Colors.secondary.DARK_BLUE
+    style.textDecorationLine = 'underline'
   }
   const textNode = (
     <Text style={style} numberOfLines={1} ellipsizeMode='tail'>
