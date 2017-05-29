@@ -60,7 +60,11 @@ export default function CategoryItem ({size = 28, icon, tag, text, isLink}) {
       <View style={[styles.tag, dim]}>
         {icon
           ? <Icon name={icon} size={fontSize} color={color} />
-          : <Text style={{color, fontSize}}>{tag}</Text>
+          : (
+            <Text allowFontScaling={false} style={{color, fontSize}}>
+              {tag}
+            </Text>
+          )
         }
       </View>
       <View style={styles.textWrapper}>

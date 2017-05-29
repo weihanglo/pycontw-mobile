@@ -39,7 +39,7 @@ export default function Avatar ({size = 50, uri, text, style, ...props}) {
 
   return (
     <View style={[styles.container, style]} {...props}>
-      <Text style={styles.text}>{firstChar}</Text>
+      <Text style={styles.text} allowFontScaling={false}>{firstChar}</Text>
       <Image style={styles.image} source={{uri}} />
     </View>
   )

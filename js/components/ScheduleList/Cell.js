@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
   tag: {
     margin: 3,
-    maxHeight: 25,
+    maxHeight: 30,
     borderRadius: 10,
     paddingVertical: 3,
     paddingHorizontal: 8,

@@ -34,6 +34,7 @@ My.navigationOptions = ({navigation: {state}}) => {
     tabBarLabel: ({focused, tintColor}) => ( // eslint-disable-line
       <SmallText
         style={{textAlign: 'center', color: focused ? color : tintColor}}
+        allowFontScaling={false}
       >
         {state.routeName}
       </SmallText>

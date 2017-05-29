@@ -9,7 +9,6 @@ import {
   View,
   ViewPropTypes
 } from 'react-native'
-import moment from 'moment'
 
 import {Heading5} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
