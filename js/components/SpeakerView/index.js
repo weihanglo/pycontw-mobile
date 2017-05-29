@@ -1,6 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {StyleSheet, ScrollView, View, ViewPropTypes} from 'react-native'
+import {
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  View,
+  ViewPropTypes
+} from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 import Avatar from '../../common/Avatar'
 import {Heading1, Paragraph} from '../../common/PyText'
@@ -14,6 +21,7 @@ SpeakerView.propTypes = {
   name: PropTypes.string,
   photoURL: PropTypes.string,
   twitterId: PropTypes.string,
+  onClose: PropTypes.func,
   style: ViewPropTypes.style
 }
 
@@ -25,6 +33,7 @@ export default function SpeakerView ({
   name,
   photoURL,
   twitterId,
+  onClose,
   style,
   ...props
 }) {
@@ -33,7 +42,7 @@ export default function SpeakerView ({
   let bioP = <Paragraph style={{textAlign: 'center'}}>{bioText}</Paragraph>
   const newlines = /(\n)/.exec(bioText)
   const newlineCountExceeded = newlines && newlines.lenght > 1
-  if (bioText.length > 150 || newlineCountExceeded) {
+  if (bioText.length > 100 || newlineCountExceeded) {
     bioP = <ScrollView style={styles.bioWrapper}>{bioP}</ScrollView>
   }
 
@@ -52,6 +61,11 @@ export default function SpeakerView ({
       <View style={styles.bioWrapper}>
         {bioP}
       </View>
+
+      <TouchableOpacity style={styles.close} onPress={onClose}>
+        <Icon name='close' size={25} />
+      </TouchableOpacity>
+
     </View>
   )
 }
@@ -60,7 +74,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 8,
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'white'
   },
   photoWrapper: {
     flex: 1,
@@ -87,5 +102,15 @@ const styles = StyleSheet.create({
     flex: 3,
     padding: 4,
     width: '100%'
+  },
+  close: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    width: 44,
+    height: 44,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })

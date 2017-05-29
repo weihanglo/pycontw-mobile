@@ -6,7 +6,6 @@ import * as Colors from '../common/PyColors'
 import {SmallText} from '../common/PyText'
 import ScheduleList from '../containers/ScheduleList'
 import EventView from '../containers/EventView'
-import SpeakerView from '../containers/SpeakerView'
 
 const Schedule = StackNavigator({
   ScheduleList: {
@@ -14,8 +13,7 @@ const Schedule = StackNavigator({
   },
   Event: {
     screen: EventView
-  },
-  Speaker: {screen: SpeakerView}
+  }
 }, {
   initialRouteName: 'ScheduleList',
   headerMode: 'none'

@@ -2,12 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   StyleSheet,
-  TouchableHighlight,
+  TouchableOpacity,
   View,
   ViewPropTypes
 } from 'react-native'
 
-import * as Colors from '../../common/PyColors'
 import {SmallText} from '../../common/PyText'
 import Avatar from '../../common/Avatar'
 
@@ -21,9 +20,8 @@ export default function EventAvatar ({speakers, style, showSpeaker, ...props}) {
   return (
     <View style={[styles.container, style]} {...props}>
       {speakers.map((speaker, idx) => (
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => showSpeaker(speaker.name)}
-          underlayColor='#dddddd'
           style={{flex: 1}}
           key={speaker.name}
         >
@@ -37,7 +35,7 @@ export default function EventAvatar ({speakers, style, showSpeaker, ...props}) {
               </SmallText>
             </View>
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
       ))}
     </View>
   )

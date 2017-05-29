@@ -12,7 +12,7 @@ const mapStateToProps = (
   {navigation: {state: {params: {location, beginTime, endTime}}}} // ownProps
 ) => {
   // Calculate human-readable datetime
-  // TODO: handle locale 
+  // TODO: handle locale
   const begin = moment(beginTime, 'hh:mm')
   const end = moment(endTime, 'hh:mm')
   const duration = moment.duration(end.diff(begin)).humanize()
@@ -29,12 +29,6 @@ const mapStateToProps = (
 
 const mapDispatchToProps = dispatch => ({
   goBack: () => { dispatch(NavigationActions.back()) },
-  showSpeaker: speakerName => {
-    dispatch(NavigationActions.navigate({
-      routeName: 'Speaker',
-      params: {speakerName}
-    }))
-  },
   ...bindActionCreators({
     addToFavorites,
     removeFromFavorites

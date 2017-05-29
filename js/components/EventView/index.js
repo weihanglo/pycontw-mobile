@@ -1,10 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
+  Animated,
   Share,
   StatusBar,
   ScrollView,
   StyleSheet,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
   View,
   ViewPropTypes
 } from 'react-native'
@@ -16,6 +19,9 @@ import Bookmark from '../../common/Bookmark'
 import Py404 from '../../common/Py404'
 import Category from './Category'
 import Avatar from './Avatar'
+import SpeakerView from '../../components/SpeakerView'
+
+const AnimTouchable = Animated.createAnimatedComponent(TouchableOpacity)
 
 const ENDPOINT = 'https://tw.pycon.org/2017/en-us/events/talk/'
 
@@ -32,10 +38,64 @@ export default class extends React.Component {
     isFetching: PropTypes.bool,
     addToFavorites: PropTypes.func,
     removeFromFavorites: PropTypes.func,
-    showSpeaker: PropTypes.func,
     goBack: PropTypes.func,
     style: ViewPropTypes.style
   }
+
+  state = {
+    modalVisible: false,
+    name: null,
+    scaleAnim: new Animated.Value(0)
+  }
+
+  // Speaker view modal animations -----
+
+  _renderSpeakView = () => {
+    const backgroundColor = this.state.scaleAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['transparent', 'hsla(0, 0%, 0%, 0.5)']
+    })
+
+    const {speakers} = this.props.event
+    const {name} = this.state
+    const speaker = speakers.filter(speaker => speaker.name === name)[0]
+    const transform = [{scale: this.state.scaleAnim}]
+    const style = {transform}
+
+    return (
+      <AnimTouchable
+        style={[styles.speaker, {backgroundColor}]}
+        activeOpacity={1}
+        focusedOpacity={1}
+        onPress={this._closeSpeaker}>
+        <TouchableWithoutFeedback onPress={null}>
+          <Animated.View style={[styles.animWrapper, style]}>
+            <SpeakerView onClose={this._closeSpeaker} {...speaker} />
+          </Animated.View>
+        </TouchableWithoutFeedback>
+      </AnimTouchable>
+    )
+  }
+
+  _setModalVisible = (visible, name) => {
+    if (visible) {
+      this.setState({modalVisible: visible, name})
+    }
+    const toValue = visible ? 1.0 : 0
+    const duration = 250
+    Animated.timing(this.state.scaleAnim, {toValue, duration})
+      .start(() => this.setState({modalVisible: visible, name}))
+  }
+
+  _closeSpeaker = () => {
+    this._setModalVisible(false, this.state.name)
+  }
+
+  _showSpeaker = name => {
+    this._setModalVisible(true, name)
+  }
+
+  // Other handlers
 
   _onBookmarkPress = () => {
     this.props.checked
@@ -44,15 +104,11 @@ export default class extends React.Component {
   }
 
   _share = () => {
-    const {title} = this.props.event
-    const message = `${ENDPOINT}${this.props.eventId}`
-    Share.share({
-      title,
-      message,
-      url: message
-    }, {
-      dialogTitle: title
-    })/* TODO: unhandled promise here */
+    const {title, speakers} = this.props.event
+    const message = `${title} by ${JSON.stringify(speakers)}: ` +
+      `${ENDPOINT}${this.props.eventId}`
+    Share.share({title, message, url: message}, {dialogTitle: title})
+    /* TODO: unhandled promise here */
   }
 
   render () {
@@ -65,7 +121,6 @@ export default class extends React.Component {
       error,
       location,
       isFetching,
-      showSpeaker,
       goBack,
       style
     } = this.props
@@ -78,7 +133,7 @@ export default class extends React.Component {
     // TODO: Determine where to display description
     const {abstract, description, speakers, title, ...remains} = event
 
-    // Configure Header
+    // Configure Header ----------------
     const leftItem = (
       <Header.BackButton onPress={goBack} color={Colors.DARK_TEXT} />
     )
@@ -118,20 +173,18 @@ export default class extends React.Component {
           </View>
 
           <Heading1 style={styles.title}>{title}</Heading1>
-
           <Avatar
             style={styles.avatarSection}
             speakers={speakers}
-            showSpeaker={showSpeaker}
+            showSpeaker={name => this._showSpeaker(name)}
           />
 
           <View style={styles.category}>
             <Category style={{flex: 1}} {...remains} />
           </View>
-
           <Paragraph style={styles.abstract}>{abstract}</Paragraph>
-
         </ScrollView>
+        {this.state.modalVisible && this._renderSpeakView()}
       </View>
     )
   }
@@ -172,5 +225,18 @@ const styles = StyleSheet.create({
   },
   abstract: {
     textAlign: 'justify'
+  },
+  speaker: {
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  animWrapper: {
+    width: '80%',
+    height: '80%'
   }
 })
