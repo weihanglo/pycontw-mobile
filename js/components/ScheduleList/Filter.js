@@ -17,6 +17,7 @@ export default class extends React.Component {
     headerBackgroundColor: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string),
     filter: PropTypes.objectOf(PropTypes.bool),
+    isModal: PropTypes.bool,
     onFilterDone: PropTypes.func,
     style: ViewPropTypes.style
   }
@@ -74,6 +75,7 @@ export default class extends React.Component {
           rightItem={rightItem}
           titleColor={Colors.LIGHT_TEXT}
           style={{backgroundColor: headerBackgroundColor}}
+          isModal
         />
         <View style={styles.tagPlayground}>
           {tags && tags.map(tag => (

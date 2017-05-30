@@ -28,6 +28,7 @@ export default class PyHeader extends React.Component {
     centerItem: PropTypes.node,
     rightItem: PropTypes.element,
     titleColor: PropTypes.string,
+    isModal: PropTypes.bool,
     style: ViewPropTypes.style
   }
   render () {
@@ -36,6 +37,7 @@ export default class PyHeader extends React.Component {
       centerItem,
       rightItem,
       titleColor,
+      isModal,
       style,
       ...props
     } = this.props
@@ -49,8 +51,20 @@ export default class PyHeader extends React.Component {
       )
     }
 
+    const paddingStyle = {
+      height: BUTTON_SIZE,
+      paddingTop: 0
+    }
+    if (Platform.OS === 'ios') {
+      paddingStyle.height += 20
+      paddingStyle.paddingTop += 20
+    } else if (!isModal) {
+      paddingStyle.height += StatusBar.currentHeight
+      paddingStyle.paddingTop += StatusBar.currentHeight
+    }
+
     return (
-      <View style={[styles.container, style]} {...props}>
+      <View style={[styles.container, paddingStyle, style]} {...props}>
         <View style={styles.leftItem}>
           <ItemWrapper>{leftItem}</ItemWrapper>
         </View>
@@ -95,8 +109,6 @@ PyHeader.FilterButton = ({onPress, ...props}) => ( // eslint-disable-line
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: BUTTON_SIZE + (Platform.OS === 'ios' ? 20 : StatusBar.currentHeight),
-    paddingTop: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight,
     backgroundColor: 'transparent',
     flexDirection: 'row',
     justifyContent: 'space-between',

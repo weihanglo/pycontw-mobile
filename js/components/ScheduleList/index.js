@@ -124,6 +124,7 @@ export default class extends React.Component {
             }}
             // Only calcuate tags when visible
             tags={modalVisible ? this._getUniqueTags() : []}
+            isModal
           />
         </Modal>
 
