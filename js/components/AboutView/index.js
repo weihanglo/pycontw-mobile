@@ -1,39 +1,89 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
 import {
+  Animated,
+  Dimensions,
+  Easing,
   FlatList,
+  LayoutAnimation,
+  Modal,
+  ScrollView,
   StyleSheet,
-  TouchableHighlight,
-  Text,
+  UIManager,
   View,
   ViewPropTypes
 } from 'react-native'
 
-import Header from '../../common/PyHeader'
 import * as Colors from '../../common/PyColors'
+import WebView from '../../common/PyWebView'
+import Header from '../../common/PyHeader'
+import {Heading2} from '../../common/PyText'
 import Slogan from './Slogan'
+import GradientLine from './GradientLine'
+import Cell from './Cell'
+import data from './data.json'
+
+// Flag to enable LayoutAnimation in Android
+UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
 
 export default class extends React.Component {
   static propTypes = {
     style: ViewPropTypes.style
   }
 
-  _onCellPress = item => {
-    console.warn(item)
+  state = {
+    modalVisible: false,
+    widthAnim: new Animated.Value(0),
+    opacityAnim: new Animated.Value(0),
+    showInfo: false
   }
 
-  _renderItem = ({item}) => {
-    return (
-      <TouchableHighlight onPress={() => this._onCellPress(item)}>
-        <View>
-          <Text key={item.title}>{item.title}</Text>
-        </View>
-      </TouchableHighlight>
-    )
+  _link
+
+  _animate = () => {
+    const {delay, timing} = Animated
+    Animated.sequence([
+      delay(1000),
+      timing(this.state.widthAnim, {
+        toValue: 1,
+        easing: Easing.elastic(1.5),
+        duration: 500
+      }),
+      delay(400),
+      timing(this.state.opacityAnim, {
+        toValue: 1,
+        easing: Easing.linear
+      }),
+      delay(700)
+    ]).start(() => this.setState({showInfo: true}))
   }
+
+  componentDidMount () {
+    this._animate()
+  }
+
+  componentWillUpdate () {
+    LayoutAnimation.easeInEaseOut()
+  }
+
+  _onPressCell = link => {
+    this._link = link
+    this._openModal()
+  }
+
+  _closeModal = () => { this.setState({modalVisible: false}) }
+  _openModal = () => { this.setState({modalVisible: true}) }
+
+  _renderItem = ({item}) => (<Cell onPress={this._onPressCell}{...item} />)
 
   render () {
     const {style} = this.props
+    const {widthAnim, opacityAnim, showInfo} = this.state
+    const {width: length} = Dimensions.get('window')
+
+    const width = widthAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0%', '90%']
+    })
 
     return (
       <View style={[styles.container, style]}>
@@ -42,18 +92,42 @@ export default class extends React.Component {
           style={{backgroundColor: Colors.secondary.DARK_BLUE}}
           titleColor={Colors.LIGHT_TEXT}
         />
-        <View style={styles.wrapper}>
-          <Slogan />
-          <FlatList
-            data={[
-              {title: 'PyCon Taiwan'},
-              {title: 'Code of Conduct'},
-              {title: 'Out Partners'}
-            ]}
-            renderItem={this._renderItem}
-            keyExtractor={item => item.title}
+        <ScrollView contentContainerStyle={styles.wrapper}>
+          <View style={styles.slogan}>
+            <Slogan />
+            <Animated.View style={[styles.line, {width}]}>
+              <GradientLine length={length} />
+            </Animated.View>
+            <Animated.View style={{opacity: opacityAnim}}>
+              <Heading2 style={{color: 'white'}}>
+                9-11 June
+              </Heading2>
+            </Animated.View>
+          </View>
+
+          {showInfo && (
+            <FlatList
+              data={data}
+              renderItem={this._renderItem}
+              keyExtractor={item => item.title}
+            />
+          )}
+
+        </ScrollView>
+
+        <Modal
+          animationType='fade'
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={this._closeModal}
+        >
+          <WebView
+            source={{uri: this._link}}
+            onDone={this._closeModal}
+            isModal
           />
-        </View>
+        </Modal>
+
       </View>
     )
   }
@@ -67,5 +141,18 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     padding: 20
+  },
+  slogan: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  line: {
+    paddingVertical: 15,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // HACK: add border for android to hide overflowing content
+    borderWidth: 0
   }
 })

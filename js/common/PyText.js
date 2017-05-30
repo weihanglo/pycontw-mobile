@@ -11,6 +11,10 @@ export function Heading1 ({style, ...props}) { // eslint-disable-line
   return <RNText style={[styles.font, styles.h1, style]} {...props} />
 }
 
+export function Heading2 ({style, ...props}) { // eslint-disable-line
+  return <RNText style={[styles.font, styles.h2, style]} {...props} />
+}
+
 export function Heading3 ({style, ...props}) { // eslint-disable-line
   return <RNText style={[styles.font, styles.h3, style]} {...props} />
 }
