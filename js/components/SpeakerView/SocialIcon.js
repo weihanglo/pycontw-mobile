@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Linking, StyleSheet, TouchableHighlight} from 'react-native'
+import {Linking, StyleSheet, TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import * as Colors from '../../common/PyColors'
@@ -59,12 +59,11 @@ export default function SocialIcon ({type, info, color = Colors.DARK_TEXT}) {
     default: break
   }
   return (
-    <TouchableHighlight
+    <TouchableOpacity
       style={styles.icon}
-      underlayColor='#dddddd'
       onPress={() => linkToSocial({type, payload})}>
       <Icon size={25} name={name} color={color} />
-    </TouchableHighlight>
+    </TouchableOpacity>
   )
 }
 

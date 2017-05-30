@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
   iconWrapper: {
     paddingVertical: 8,
     flexDirection: 'row',
+    justifyContent: 'center',
     width: 200
   },
   bioWrapper: {

@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   p: {
     fontSize: 15,
-    lineHeight: 23
+    lineHeight: 24
   },
   small: {
     fontSize: 12,

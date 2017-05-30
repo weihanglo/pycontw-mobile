@@ -16,9 +16,10 @@ import * as Colors from '../../common/PyColors'
 import Header from '../../common/PyHeader'
 import Bookmark from '../../common/Bookmark'
 import Py404 from '../../common/Py404'
+import SpeakerView from '../../components/SpeakerView'
+import Description from './Description'
 import Category from './Category'
 import Avatar from './Avatar'
-import SpeakerView from '../../components/SpeakerView'
 
 const ENDPOINT = 'https://tw.pycon.org/2017/en-us/events/talk/'
 
@@ -77,6 +78,7 @@ export default class extends React.Component {
     )
   }
 
+  // Do not call this directly. Use methods below instead.
   _setModalVisible = (visible, name) => {
     if (visible) {
       this.setState({modalVisible: visible, name})
@@ -130,7 +132,6 @@ export default class extends React.Component {
       return <Py404 headerColor={color} />
     }
 
-    // TODO: Determine where to display description
     const {abstract, description, speakers, title, ...remains} = event
 
     // Configure Header ----------------
@@ -182,9 +183,20 @@ export default class extends React.Component {
           <View style={styles.category}>
             <Category style={{flex: 1}} {...remains} />
           </View>
-          <Paragraph style={styles.abstract}>{abstract}</Paragraph>
+
+          <Paragraph style={styles.paragraph}>
+            {abstract}
+          </Paragraph>
+
+          { /* Data validation in advanced */
+            description.trim().length > 0 &&
+            <Description description={description} />
+          }
+
         </ScrollView>
+
         {this.state.modalVisible && this._renderSpeakView()}
+
       </View>
     )
   }
@@ -223,7 +235,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 8
   },
-  abstract: {
+  paragraph: {
     textAlign: 'justify'
   },
   speaker: {
