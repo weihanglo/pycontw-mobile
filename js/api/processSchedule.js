@@ -1,19 +1,13 @@
 /*
   Process event schedule from API call to fit our state logic
-
  */
+import moment from 'moment'
 
 import keynotes from './keynotes.json'
 
 const DATE_OPTIONS = {
   hour12: false,
   timeZone: 'Asia/Taipei'
-}
-
-function hhmm (date) {
-  return new Date(date)
-    .toLocaleTimeString('en-US', DATE_OPTIONS)
-    .replace(/:\d+$/, '')
 }
 
 function getKeynoteTitle (name) {
@@ -45,7 +39,7 @@ export default function (events) {
     }
 
     // Store events with identical `beginTime` in the same bag (Array)
-    const beginTime = hhmm(begin_time)
+    const beginTime = moment(begin_time).format('HH:mm')
     let bag = map[beginTime]
     if (!bag) {
       bag = []
@@ -71,7 +65,7 @@ export default function (events) {
     bag.push({
       beginTime,
       eventId,
-      endTime: hhmm(end_time),
+      endTime: moment(end_time).format('HH:mm'),
       location: location.replace(/.*-/, '').toUpperCase(),
       speakers,
       title: noTitle && isKeynote ? getKeynoteTitle(speakers[0]) : title,
