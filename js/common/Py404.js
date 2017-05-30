@@ -6,7 +6,6 @@ import {
   View,
   ViewPropTypes
 } from 'react-native'
-import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {NavigationActions} from 'react-navigation'
 

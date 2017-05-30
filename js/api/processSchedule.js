@@ -5,11 +5,6 @@ import moment from 'moment'
 
 import keynotes from './keynotes.json'
 
-const DATE_OPTIONS = {
-  hour12: false,
-  timeZone: 'Asia/Taipei'
-}
-
 function getKeynoteTitle (name) {
   return keynotes[name].title
 }
