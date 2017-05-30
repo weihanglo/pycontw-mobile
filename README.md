@@ -12,6 +12,7 @@ The open source conference app for [PyCon Taiwan 2017][pycontw-website]. Powered
 - [React][react]
 - [React Native][react-native]
 - [React Native Vector Icons][react-native-vector-icons]
+- [React Native SVG][react-native-svg]
 - [React Navigation][react-navigation]
 - [React Redux][react-redux]
 - [Redux][redux]
@@ -27,6 +28,7 @@ The open source conference app for [PyCon Taiwan 2017][pycontw-website]. Powered
 [react]: https://facebook.github.io/react/
 [react-native]: https://facebook.github.io/react-native/
 [react-native-vector-icons]: https://github.com/oblador/react-native-vector-icons
+[react-native-svg]: https://github.com/react-native-community/react-native-svg
 [react-navigation]: https://reactnavigation.org/
 [react-redux]: https://github.com/reactjs/react-redux
 [redux]: https://github.com/reactjs/redux

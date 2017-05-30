@@ -3,7 +3,6 @@ import {
   Animated,
   Dimensions,
   Easing,
-  FlatList,
   LayoutAnimation,
   Modal,
   ScrollView,
@@ -20,6 +19,7 @@ import {Heading2} from '../../common/PyText'
 import Slogan from './Slogan'
 import GradientLine from './GradientLine'
 import Cell from './Cell'
+import Footer from './Footer'
 import data from './data.json'
 
 // Flag to enable LayoutAnimation in Android
@@ -78,12 +78,15 @@ export default class extends React.Component {
   render () {
     const {style} = this.props
     const {widthAnim, opacityAnim, showInfo} = this.state
-    const {width: length} = Dimensions.get('window')
+    const {width: length, height} = Dimensions.get('window')
 
     const width = widthAnim.interpolate({
       inputRange: [0, 1],
       outputRange: ['0%', '90%']
     })
+
+    // Slogan min-height
+    const minHeight = showInfo ? undefined : height / 2
 
     return (
       <View style={[styles.container, style]}>
@@ -93,7 +96,7 @@ export default class extends React.Component {
           titleColor={Colors.LIGHT_TEXT}
         />
         <ScrollView contentContainerStyle={styles.wrapper}>
-          <View style={styles.slogan}>
+          <View style={[styles.slogan, {minHeight}]}>
             <Slogan />
             <Animated.View style={[styles.line, {width}]}>
               <GradientLine length={length} />
@@ -105,13 +108,10 @@ export default class extends React.Component {
             </Animated.View>
           </View>
 
-          {showInfo && (
-            <FlatList
-              data={data}
-              renderItem={this._renderItem}
-              keyExtractor={item => item.title}
-            />
-          )}
+          {showInfo && data.map(item => (
+            <Cell key={item.title} onPress={this._onPressCell}{...item} />
+          ))}
+          {showInfo && <Footer />}
 
         </ScrollView>
 
@@ -136,13 +136,14 @@ export default class extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: '100%',
     backgroundColor: Colors.primary.DARK_BLUE
   },
   wrapper: {
-    flex: 1,
     padding: 20
   },
   slogan: {
+    paddingVertical: 8,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
