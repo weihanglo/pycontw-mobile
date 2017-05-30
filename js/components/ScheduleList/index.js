@@ -75,8 +75,6 @@ export default class extends React.Component {
     </View>
   )
 
-  _keyExtractor = item => item.eventId
-
   _getUniqueTags = () => {
     const uniqueTags = {}
     Object.values(this.props.tagMapping)
@@ -139,7 +137,7 @@ export default class extends React.Component {
             <SectionList
               renderItem={this._renderItem}
               renderSectionHeader={this._renderSectionHeader}
-              keyExtractor={this._keyExtractor}
+              keyExtractor={item => item.eventId}
               sections={schedule}
               stickySectionHeadersEnabled={false}
             />

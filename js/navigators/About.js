@@ -1,10 +1,45 @@
 import React from 'react'
-import {View} from 'react-native'
+import {StackNavigator} from 'react-navigation'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
-export default class extends React.Component {
-  render () {
-    return (
-      <View />
+import * as Colors from '../common/PyColors'
+import {SmallText} from '../common/PyText'
+import AboutView from '../components/AboutView'
+import WebView from '../common/PyWebView'
+
+const About = StackNavigator({
+  AboutView: {
+    screen: AboutView
+  },
+  WebView: {
+    screen: WebView
+  }
+}, {
+  initialRouteName: 'AboutView',
+  headerMode: 'none'
+})
+
+About.navigationOptions = ({navigation: {state}}) => {
+  const color = Colors.colorForRoute(state.routeName)
+  return {
+    tabBarIcon: ({focused, tintColor}) => ( // eslint-disable-line
+      <Icon name='info-outline' size={30} color={focused ? color : tintColor} />
+    ),
+    tabBarLabel: ({focused, tintColor}) => ( // eslint-disable-line
+      <SmallText
+        style={{textAlign: 'center', color: focused ? color : tintColor}}
+        allowFontScaling={false}
+      >
+        {state.routeName}
+      </SmallText>
     )
   }
 }
+
+About.tabBarOptions = {
+  style: {
+    backgroundColor: 'blue'
+  }
+}
+
+export default About

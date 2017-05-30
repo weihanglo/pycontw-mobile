@@ -23,11 +23,7 @@ My.navigationOptions = ({navigation: {state}}) => {
   const color = Colors.colorForRoute(state.routeName)
   return {
     tabBarIcon: ({focused, tintColor}) => ( // eslint-disable-line
-      <Icon
-        name='face'
-        size={30}
-        color={focused ? color : tintColor}
-      />
+      <Icon name='face' size={30} color={focused ? color : tintColor} />
     ),
     tabBarLabel: ({focused, tintColor}) => ( // eslint-disable-line
       <SmallText

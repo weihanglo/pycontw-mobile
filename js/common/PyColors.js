@@ -38,7 +38,9 @@ const ROUTE_COLORS = {
   Schedule: primary.MIDDLE_BLUE,
   ScheduleList: primary.MIDDLE_BLUE,
   My: primary.LIGHT_BLUE,
-  MyScheduleList: primary.LIGHT_BLUE
+  MyScheduleList: primary.LIGHT_BLUE,
+  About: secondary.ACCENT_ORANGE,
+  AboutView: secondary.ACCENT_ORANGE
 }
 
 export function colorForRoute (routeName) {

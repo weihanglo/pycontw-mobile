@@ -1,5 +1,4 @@
 // This component is a container component (connected to store)
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import {

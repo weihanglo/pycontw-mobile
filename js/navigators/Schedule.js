@@ -23,11 +23,7 @@ Schedule.navigationOptions = ({navigation: {state}}) => {
   const color = Colors.colorForRoute(state.routeName)
   return {
     tabBarIcon: ({focused, tintColor}) => ( // eslint-disable-line
-      <Icon
-        name='schedule'
-        size={30}
-        color={focused ? color : tintColor}
-      />
+      <Icon name='schedule' size={30} color={focused ? color : tintColor} />
     ),
     tabBarLabel: ({focused, tintColor}) => ( // eslint-disable-line
       <SmallText
