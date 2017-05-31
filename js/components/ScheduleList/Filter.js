@@ -69,7 +69,7 @@ export default class extends React.Component {
     if (this._layoutAnimating) {
       return
     }
-    this._animating = true
+    this._layoutAnimating = true
     const filter = {...this.state.filter}
     if (filter[tag]) {
       delete filter[tag]

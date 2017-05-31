@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'hsl(0, 0%, 100%)'
   },
   sectionHeader: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 20,
     paddingVertical: 8,
     backgroundColor: Colors.LIGHT_BACKGROUND
   },
