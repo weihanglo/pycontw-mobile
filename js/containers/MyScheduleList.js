@@ -73,9 +73,13 @@ const mapDispatchToProps = dispatch => ({
   onCellPress: (eventId, location, beginTime, endTime) => {
     dispatch(fetchEvent(eventId))
     dispatch(NavigationActions.navigate({
-      routeName: 'Event',
+      routeName: 'MyEvent',
       params: {location, beginTime, endTime}
     }))
+  },
+  // MyScheduleList-specified dispatch method
+  goToSchedule: () => {
+    dispatch(NavigationActions.navigate({routeName: 'Schedule'}))
   },
   ...bindActionCreators({
     updateFilter

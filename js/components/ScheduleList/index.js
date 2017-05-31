@@ -10,7 +10,7 @@ import {
   ViewPropTypes
 } from 'react-native'
 
-import {Heading5} from '../../common/PyText'
+import {Heading3, Heading5} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
 import {titleForRoute} from '../../common/PyConstants'
 import Cell from './Cell'
@@ -29,6 +29,7 @@ export default class extends React.Component {
     tagMapping: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
     onDidMount: PropTypes.func,
     onCellPress: PropTypes.func,
+    goToSchedule: PropTypes.func, // for MyScheduleList only
     updateFilter: PropTypes.func,
     navigation: PropTypes.object,
     style: ViewPropTypes.style
@@ -41,6 +42,10 @@ export default class extends React.Component {
 
   componentDidMount () {
     this.props.onDidMount()
+  }
+
+  componentWillUpdate () {
+
   }
 
   _setModalVisible = visible => {
@@ -68,13 +73,18 @@ export default class extends React.Component {
     )
   }
 
-  _renderSectionHeader = ({section}) => (
-    <View style={styles.sectionHeader}>
-      <Heading5 style={styles.sectionHeaderText}>
-        {section.key}
-      </Heading5>
-    </View>
-  )
+  _renderSectionHeader = ({section}) => {
+    if (!section.data || section.data.length === 0) {
+      return null
+    }
+    return (
+      <View style={styles.sectionHeader}>
+        <Heading5 style={styles.sectionHeaderText}>
+          {section.key}
+        </Heading5>
+      </View>
+    )
+  }
 
   _getUniqueTags = () => {
     const uniqueTags = {}
@@ -93,6 +103,7 @@ export default class extends React.Component {
       filter,
       navigation: {state: {routeName}},
       schedule,
+      goToSchedule,
       updateFilter,
       style
     } = this.props
@@ -117,7 +128,7 @@ export default class extends React.Component {
             backgroundColor={headerBgColor}
             onFilterPress={() => this._setModalVisible(true)}
           />
-          {schedule && (
+          {schedule && schedule.length > 0 && (
             <SectionList
               renderItem={this._renderItem}
               renderSectionHeader={this._renderSectionHeader}
@@ -126,6 +137,22 @@ export default class extends React.Component {
               stickySectionHeadersEnabled={false}
             />
           )}
+          {routeName === 'MyScheduleList' && schedule.length === 0 && (
+            <View style={styles.addEventWrapper}>
+              <TouchableHighlight
+                style={styles.addEventButton}
+                onPress={goToSchedule}
+                underlayColor='rgba(0, 0, 0, 0.10)'
+              >
+                <View>
+                  <Heading3 style={styles.addEventHeading}>
+                    Add Event!
+                  </Heading3>
+                </View>
+              </TouchableHighlight>
+            </View>
+          )}
+
         </Animated.View>
 
         <Modal
@@ -163,5 +190,19 @@ const styles = StyleSheet.create({
   },
   sectionHeaderText: {
     color: Colors.DARK_TEXT
+  },
+  addEventWrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  addEventButton: {
+    borderRadius: 10,
+    padding: 8,
+    backgroundColor: Colors.primary.ACCENT_GREEN
+  },
+  addEventHeading: {
+    textAlign: 'center',
+    overflow: 'hidden'
   }
 })
