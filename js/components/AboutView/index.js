@@ -23,7 +23,7 @@ import Footer from './Footer'
 import data from './data.json'
 
 // Flag to enable LayoutAnimation in Android
-UIManager.setLayoutAnimationEnabledExperimental && 
+UIManager.setLayoutAnimationEnabledExperimental &&
   UIManager.setLayoutAnimationEnabledExperimental(true)
 
 export default class extends React.Component {

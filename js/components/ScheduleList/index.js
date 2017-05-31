@@ -2,10 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Animated,
+  LayoutAnimation,
   Modal,
   SectionList,
   StyleSheet,
   TouchableHighlight,
+  UIManager,
   View,
   ViewPropTypes
 } from 'react-native'
@@ -16,6 +18,10 @@ import {titleForRoute} from '../../common/PyConstants'
 import Cell from './Cell'
 import Header from './Header'
 import Filter from './Filter'
+
+// Flag to enable LayoutAnimation in Android
+UIManager.setLayoutAnimationEnabledExperimental &&
+  UIManager.setLayoutAnimationEnabledExperimental(true)
 
 const SCALE_MIN_FACTOR = 0.95
 
@@ -45,7 +51,9 @@ export default class extends React.Component {
   }
 
   componentWillUpdate () {
-
+    const {Types, Properties, create} = LayoutAnimation
+    const config = create(250, Types.easeInEaseOut, Properties.opacity)
+    LayoutAnimation.configureNext(config)
   }
 
   _setModalVisible = visible => {
