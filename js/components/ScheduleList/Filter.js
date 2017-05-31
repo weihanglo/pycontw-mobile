@@ -16,7 +16,8 @@ import {Heading2, Text} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
 
 // Flag to enable LayoutAnimation in Android
-UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
+UIManager.setLayoutAnimationEnabledExperimental &&
+  UIManager.setLayoutAnimationEnabledExperimental(true)
 
 export default class extends React.Component {
   static propTypes = {
@@ -32,15 +33,44 @@ export default class extends React.Component {
     filter: {}
   }
 
+  _layoutAnimating = false
+
   componentWillUpdate () {
-    LayoutAnimation.easeInEaseOut()
+    const {Types, Properties} = LayoutAnimation
+    const config = {
+      duration: 700,
+      create: {
+        duration: 200,
+        type: Types.easeInEaseOut,
+        property: Properties.opacity
+      },
+      update: {
+        type: Types.spring,
+        springDamping: 0.55
+      },
+      delete: {
+        duration: 200,
+        type: Types.easeInEaseOut,
+        property: Properties.opacity
+      }
+    }
+    LayoutAnimation.configureNext(config,
+      this._onLayoutAnimationEnd)
   }
 
   componentDidMount () {
     this.setState({filter: this.props.filter || {}})
   }
 
+  _onLayoutAnimationEnd = () => {
+    this._layoutAnimating = false
+  }
+
   _toggleTag = tag => {
+    if (this._layoutAnimating) {
+      return
+    }
+    this._animating = true
     const filter = {...this.state.filter}
     if (filter[tag]) {
       delete filter[tag]
@@ -89,11 +119,11 @@ export default class extends React.Component {
               {tag}
             </Text>
           </View>
-            {filter[tag] && (
-              <View style={styles.tagCheckIcon}>
-                <Icon color='hsl(0, 0%, 40%)' name='check-circle' size={16} />
-              </View>
-            )}
+          {filter[tag] && (
+            <View style={styles.tagCheckIcon}>
+              <Icon color='hsl(0, 0%, 40%)' name='check-circle' size={16} />
+            </View>
+          )}
         </TouchableOpacity>
       ))
 
