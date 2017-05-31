@@ -14,6 +14,7 @@ import {
 
 import {Heading3, Heading5} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
+import Map from '../../common/PyMap'
 import {titleForRoute} from '../../common/PyConstants'
 import Cell from './Cell'
 import Header from './Header'
@@ -46,6 +47,9 @@ export default class extends React.Component {
     scaleAnim: new Animated.Value(1)
   }
 
+  _showMap = false
+  _showFilter = false
+
   componentDidMount () {
     this.props.onDidMount()
   }
@@ -61,6 +65,18 @@ export default class extends React.Component {
     const toValue = visible ? SCALE_MIN_FACTOR : 1.0
     const duration = 400
     Animated.timing(this.state.scaleAnim, {toValue, duration}).start()
+  }
+
+  _onPressMap = () => {
+    this._showMap = true
+    this._showFilter = false
+    this._setModalVisible(true)
+  }
+
+  _onPressFilter = () => {
+    this._showMap = false
+    this._showFilter = true
+    this._setModalVisible(true)
   }
 
   _onCellPress ({eventId, location, beginTime, endTime}) {
@@ -134,7 +150,8 @@ export default class extends React.Component {
           <Header
             centerItem={titleForRoute(routeName)}
             backgroundColor={headerBgColor}
-            onFilterPress={() => this._setModalVisible(true)}
+            onPressMap={this._onPressMap}
+            onPressFilter={this._onPressFilter}
           />
           {schedule && schedule.length > 0 && (
             <SectionList
@@ -142,7 +159,6 @@ export default class extends React.Component {
               renderSectionHeader={this._renderSectionHeader}
               keyExtractor={item => item.eventId}
               sections={schedule}
-              stickySectionHeadersEnabled={false}
             />
           )}
           {routeName === 'MyScheduleList' && schedule.length === 0 && (
@@ -169,17 +185,37 @@ export default class extends React.Component {
           visible={modalVisible}
           onRequestClose={() => this._setModalVisible(false)}
         >
-          <Filter
-            headerBackgroundColor={headerBgColor}
-            filter={filter}
-            onFilterDone={tags => {
-              updateFilter(tags)
-              this._setModalVisible(false)
-            }}
-            // Only calcuate tags when visible
-            tags={modalVisible ? this._getUniqueTags() : []}
-            isModal
-          />
+          {(() => {
+            if (this._showMap) {
+              return (
+                <Map
+                  onDone={tags => { this._setModalVisible(false) }}
+                  headerProps={{
+                    isModal: true,
+                    style: {backgroundColor: headerBgColor}
+                  }}
+                />
+              )
+            }
+
+            if (this._showFilter) {
+              return (
+                <Filter
+                  filter={filter}
+                  // Only calcuate tags when visible
+                  tags={modalVisible ? this._getUniqueTags() : []}
+                  headerProps={{
+                    isModal: true,
+                    style: {backgroundColor: headerBgColor}
+                  }}
+                  onDone={tags => {
+                    updateFilter(tags)
+                    this._setModalVisible(false)
+                  }}
+                />
+              )
+            }
+          })()}
         </Modal>
       </View>
     )

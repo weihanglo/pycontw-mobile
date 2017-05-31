@@ -35,6 +35,10 @@ export function SmallText ({style, ...props}) { // eslint-disable-line
   return <RNText style={[styles.font, styles.small, style]} {...props} />
 }
 
+export function LargeText ({style, ...props}) { // eslint-disable-line
+  return <RNText style={[styles.font, styles.large, style]} {...props} />
+}
+
 function getHeadingStyles ({prefix = 'heading', otherStyles}) {
   const styles = {}
   ;[1, 2, 3, 4, 5, 6].forEach(i => {
@@ -60,5 +64,8 @@ const styles = StyleSheet.create({
   small: {
     fontSize: 12,
     lineHeight: 17
+  },
+  large: {
+    fontSize: 18
   }
 })

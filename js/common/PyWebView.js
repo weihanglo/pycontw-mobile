@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import * as Colors from './PyColors'
 import Logo from './PyLogo'
 import Header from './PyHeader'
-import {Text} from './PyText'
+import {LargeText} from './PyText'
 
 function openInBrowser (url) {
   Linking.openURL(url)
@@ -22,7 +22,6 @@ function openInBrowser (url) {
 }
 WebView.propTypes = {
   source: PropTypes.object.isRequired,
-  isModal: PropTypes.bool,
   headerProps: PropTypes.object,
   onDone: PropTypes.func.isRequired,
   style: ViewPropTypes.style
@@ -37,7 +36,7 @@ export default function WebView ({
 }) {
   const leftItem = (
     <TouchableOpacity onPress={onDone}>
-      <Text style={styles.leftItem}>Done</Text>
+      <LargeText style={styles.leftItem}>Done</LargeText>
     </TouchableOpacity>
   )
 

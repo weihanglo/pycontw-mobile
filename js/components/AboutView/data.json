@@ -12,5 +12,9 @@
   {
     "title": "Venue Information",
     "link": "https://tw.pycon.org/2017/venue/"
+  },
+  {
+    "title": "Venue Map",
+    "action": "map"
   }
 ]

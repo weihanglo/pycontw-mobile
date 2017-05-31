@@ -15,6 +15,7 @@ import {
 import * as Colors from '../../common/PyColors'
 import WebView from '../../common/PyWebView'
 import Header from '../../common/PyHeader'
+import Map from '../../common/PyMap'
 import {Heading2} from '../../common/PyText'
 import Slogan from './Slogan'
 import GradientLine from './GradientLine'
@@ -71,7 +72,10 @@ export default class extends React.Component {
     this._openModal()
   }
 
-  _closeModal = () => { this.setState({modalVisible: false}) }
+  _closeModal = () => {
+    this.setState({modalVisible: false})
+    this._link = undefined
+  }
   _openModal = () => { this.setState({modalVisible: true}) }
 
   _renderItem = ({item}) => (<Cell onPress={this._onPressCell}{...item} />)
@@ -122,11 +126,10 @@ export default class extends React.Component {
           visible={this.state.modalVisible}
           onRequestClose={this._closeModal}
         >
-          <WebView
-            source={{uri: this._link}}
-            onDone={this._closeModal}
-            isModal
-          />
+          {this._link && this._link.length > 0
+            ? <WebView source={{uri: this._link}} onDone={this._closeModal} />
+            : <Map onDone={this._closeModal} />
+          }
         </Modal>
 
       </View>

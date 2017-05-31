@@ -12,7 +12,7 @@ import EvilIcon from 'react-native-vector-icons/EvilIcons'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 
-import {Heading4} from './PyText'
+import {Heading3} from './PyText'
 
 const BUTTON_SIZE = 50
 
@@ -45,9 +45,9 @@ export default class PyHeader extends React.Component {
     let content = centerItem
     if (typeof centerItem === 'string') {
       content = (
-        <Heading4 style={{color: titleColor}} numberOfLines={1}>
+        <Heading3 style={{color: titleColor}} numberOfLines={1}>
           {content}
-        </Heading4>
+        </Heading3>
       )
     }
 
@@ -102,7 +102,7 @@ PyHeader.MapButton = ({onPress, ...props}) => ( // eslint-disable-line
 
 PyHeader.FilterButton = ({onPress, ...props}) => ( // eslint-disable-line
   <TouchableOpacity style={styles.button} onPress={onPress}>
-    <MaterialIcon {...props} name='filter-list' size={25} />
+    <MaterialIcon {...props} name='filter-list' size={36} />
   </TouchableOpacity>
 )
 

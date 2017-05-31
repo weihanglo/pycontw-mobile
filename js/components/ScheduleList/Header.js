@@ -20,7 +20,8 @@ class Header extends React.Component {
     dates: PropTypes.arrayOf(PropTypes.string),
     selectDate: PropTypes.string,
     onSelectDate: PropTypes.func,
-    onFilterPress: PropTypes.func,
+    onPressMap: PropTypes.func,
+    onPressFilter: PropTypes.func,
     style: ViewPropTypes.style
   }
 
@@ -43,13 +44,20 @@ class Header extends React.Component {
       backgroundColor,
       dates,
       onSelectDate,
-      onFilterPress,
+      onPressMap,
+      onPressFilter,
       style,
       ...props
     } = this.props
+    const leftItem = (
+      <PyHeader.MapButton
+        onPress={onPressMap}
+        color={Colors.LIGHT_TEXT}
+      />
+    )
     const rightItem = (
       <PyHeader.FilterButton
-        onPress={onFilterPress}
+        onPress={onPressFilter}
         color={Colors.LIGHT_TEXT}
       />
     )
@@ -57,10 +65,12 @@ class Header extends React.Component {
     return (
       <View style={[{backgroundColor}, style]}>
         <PyHeader
+          leftItem={leftItem}
           titleColor={Colors.LIGHT_TEXT}
           rightItem={rightItem}
           {...props}
         />
+
         <View style={styles.tabbar}>
           {dates && dates.map((date, index) => (
             <TouchableHighlight

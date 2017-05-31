@@ -12,7 +12,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import Header from '../../common/PyHeader'
-import {Heading2, Text} from '../../common/PyText'
+import {Heading2, Text, LargeText} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
 
 // Flag to enable LayoutAnimation in Android
@@ -21,11 +21,10 @@ UIManager.setLayoutAnimationEnabledExperimental &&
 
 export default class extends React.Component {
   static propTypes = {
-    headerBackgroundColor: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string),
     filter: PropTypes.objectOf(PropTypes.bool),
-    isModal: PropTypes.bool,
-    onFilterDone: PropTypes.func,
+    onDone: PropTypes.func,
+    headerProps: PropTypes.object,
     style: ViewPropTypes.style
   }
 
@@ -88,10 +87,9 @@ export default class extends React.Component {
 
   render () {
     const {
-      headerBackgroundColor,
       tags,
-      isModal,
-      onFilterDone,
+      headerProps,
+      onDone,
       style
     } = this.props
 
@@ -99,12 +97,12 @@ export default class extends React.Component {
 
     const leftItem = (
       <TouchableOpacity onPress={this._onPressReset}>
-        <Text style={styles.item}>Reset</Text>
+        <LargeText style={styles.item}>Reset</LargeText>
       </TouchableOpacity>
     )
     const rightItem = (
-      <TouchableOpacity onPress={() => onFilterDone(this.state.filter)}>
-        <Text style={styles.item}>Done</Text>
+      <TouchableOpacity onPress={() => onDone(this.state.filter)}>
+        <LargeText style={styles.item}>Done</LargeText>
       </TouchableOpacity>
     )
 
@@ -149,8 +147,9 @@ export default class extends React.Component {
           centerItem='Filter'
           rightItem={rightItem}
           titleColor={Colors.LIGHT_TEXT}
-          style={{backgroundColor: headerBackgroundColor}}
-          isModal={isModal}
+          style={{backgroundColor: Colors.primary.MIDDLE_BLUE}}
+          isModal
+          {...headerProps}
         />
         <View style={styles.tagPlayground}>
           <View style={styles.tagSelectedSetion}>
@@ -184,7 +183,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   item: {
-    color: Colors.LIGHT_TEXT
+    color: Colors.LIGHT_TEXT,
+    fontSize: 18
   },
   hint: {
     color: 'hsl(0, 0%, 85%)',
