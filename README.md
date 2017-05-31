@@ -6,6 +6,24 @@ The open source conference app for [PyCon Taiwan 2017][pycontw-website]. Powered
 
 ## Getting Started
 
+### iOS
+
+1. Use `yarn` or `npm` to install all dependencies.
+2. Open `ios/PyConTWMobile.xcodeproj` in **Xcode** and click `Run`.
+3. Alternative, if you have installed [react-native-cli][react-native-started]. Type in terminal,
+    ```bash
+    react-native run-ios
+    ```
+
+### Android
+
+1. Use `yarn` or `npm` to install all dependencies.
+2. Open the project in `android/` directory with **Android Studio**, then click `Run`.
+3. Alternative, if you have installed [react-native-cli][react-native-started]. Type in terminal,
+    ```bash
+    react-native run-android
+    ```
+
 ## Libraries & Tools
 
 - [Moment.js][momentjs]
@@ -22,6 +40,8 @@ The open source conference app for [PyCon Taiwan 2017][pycontw-website]. Powered
 ## License
 
 [MIT](LICENSE)
+
+[react-native-started]: https://facebook.github.io/react-native/docs/getting-started.html
 
 [pycontw-website]: https://tw.pycon.org/
 [momentjs]: https://momentjs.com/
