@@ -1,16 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
+  LayoutAnimation,
   StatusBar,
   StyleSheet,
   TouchableOpacity,
+  UIManager,
   View,
   ViewPropTypes
 } from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 import Header from '../../common/PyHeader'
-import {Text} from '../../common/PyText'
+import {Heading2, Text} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
+
+// Flag to enable LayoutAnimation in Android
+UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
 
 export default class extends React.Component {
   static propTypes = {
@@ -24,6 +30,10 @@ export default class extends React.Component {
 
   state = {
     filter: {}
+  }
+
+  componentWillUpdate () {
+    LayoutAnimation.easeInEaseOut()
   }
 
   componentDidMount () {
@@ -46,14 +56,16 @@ export default class extends React.Component {
     this.setState({filter: {}})
   }
 
-  _getFilteredStyle = tag => (
-    this.state.filter[tag]
-    ? {backgroundColor: 'red'}
-    : {backgroundColor: Colors.colorForTag(tag)}
-  )
-
   render () {
-    const {headerBackgroundColor, tags, onFilterDone, style} = this.props
+    const {
+      headerBackgroundColor,
+      tags,
+      isModal,
+      onFilterDone,
+      style
+    } = this.props
+
+    const {filter} = this.state
 
     const leftItem = (
       <TouchableOpacity onPress={this._onPressReset}>
@@ -66,7 +78,40 @@ export default class extends React.Component {
       </TouchableOpacity>
     )
 
+    const tagItems = tags && tags
+      .map(tag => (
+        <TouchableOpacity
+          key={tag}
+          onPress={() => this._toggleTag(tag)}
+        >
+          <View style={[styles.tag, {backgroundColor: Colors.colorForTag(tag)}]}>
+            <Text style={styles.tagText}>
+              {tag}
+            </Text>
+          </View>
+            {filter[tag] && (
+              <View style={styles.tagCheckIcon}>
+                <Icon color='hsl(0, 0%, 40%)' name='check-circle' size={16} />
+              </View>
+            )}
+        </TouchableOpacity>
+      ))
+
+    const selected = []
+    const unselected = []
+    tagItems.forEach((tagItem, i) => {
+      if (filter[tags[i]]) {
+        selected.push(tagItem)
+        return
+      }
+      unselected.push(tagItem)
+    })
+
+    const hellStyle = unselected.length === 0
+      ? {flex: 1, borderTopWidth: undefined}
+      : {flex: undefined, borderTopWidth: 0}
     return (
+
       <View style={[styles.container, style]}>
         <StatusBar translucent={false} />
         <Header
@@ -75,18 +120,29 @@ export default class extends React.Component {
           rightItem={rightItem}
           titleColor={Colors.LIGHT_TEXT}
           style={{backgroundColor: headerBackgroundColor}}
-          isModal
+          isModal={isModal}
         />
         <View style={styles.tagPlayground}>
-          {tags && tags.map(tag => (
-            <TouchableOpacity
-              key={tag}
-              onPress={() => this._toggleTag(tag)}
-              style={[styles.tag, this._getFilteredStyle(tag)]}
-            >
-              <Text style={styles.tagText}>{tag}</Text>
-            </TouchableOpacity>
-          ))}
+          <View style={styles.tagSelectedSetion}>
+            {selected.length > 0
+              ? selected
+              : (
+                <Heading2 style={styles.hint}>
+                  Your selections will show up here.
+                </Heading2>
+              )
+            }
+          </View>
+          <View style={[styles.tagUnselectedSection, hellStyle]}>
+            {unselected.length > 0
+              ? unselected
+              : (
+                <Heading2 style={styles.hint}>
+                  You've selected all tags!
+                </Heading2>
+              )
+            }
+          </View>
         </View>
       </View>
     )
@@ -100,11 +156,28 @@ const styles = StyleSheet.create({
   item: {
     color: Colors.LIGHT_TEXT
   },
+  hint: {
+    color: 'hsl(0, 0%, 85%)',
+    textAlign: 'center',
+    alignSelf: 'center'
+  },
   tagPlayground: {
+    flex: 1,
+    justifyContent: 'space-between'
+  },
+  tagSelectedSetion: {
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    backgroundColor: Colors.ULTRALIGHT_BACKGROUND
+  },
+  tagUnselectedSection: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'flex-end'
   },
   tag: {
     margin: 8,
@@ -114,5 +187,11 @@ const styles = StyleSheet.create({
   },
   tagText: {
     color: 'white'
+  },
+  tagCheckIcon: {
+    position: 'absolute',
+    top: 3,
+    right: 3,
+    backgroundColor: 'transparent'
   }
 })
