@@ -12,6 +12,7 @@ import {
 
 import {Heading5} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
+import {titleForRoute} from '../../common/PyConstants'
 import Cell from './Cell'
 import Header from './Header'
 import Filter from './Filter'
@@ -109,6 +110,24 @@ export default class extends React.Component {
 
     return (
       <View style={[styles.container, style]}>
+
+        <Animated.View style={{flex: 1, transform, opacity}}>
+          <Header
+            centerItem={titleForRoute(routeName)}
+            backgroundColor={headerBgColor}
+            onFilterPress={() => this._setModalVisible(true)}
+          />
+          {schedule && (
+            <SectionList
+              renderItem={this._renderItem}
+              renderSectionHeader={this._renderSectionHeader}
+              keyExtractor={item => item.eventId}
+              sections={schedule}
+              stickySectionHeadersEnabled={false}
+            />
+          )}
+        </Animated.View>
+
         <Modal
           animationType='slide'
           transparent={false}
@@ -127,23 +146,6 @@ export default class extends React.Component {
             isModal
           />
         </Modal>
-
-        <Animated.View style={{flex: 1, transform, opacity}}>
-          <Header
-            centerItem={routeName}
-            backgroundColor={headerBgColor}
-            onFilterPress={() => this._setModalVisible(true)}
-          />
-          {schedule && (
-            <SectionList
-              renderItem={this._renderItem}
-              renderSectionHeader={this._renderSectionHeader}
-              keyExtractor={item => item.eventId}
-              sections={schedule}
-              stickySectionHeadersEnabled={false}
-            />
-          )}
-        </Animated.View>
       </View>
     )
   }

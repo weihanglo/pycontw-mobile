@@ -30,7 +30,8 @@ My.navigationOptions = ({navigation: {state}}) => {
         style={{textAlign: 'center', color: focused ? color : tintColor}}
         allowFontScaling={false}
       >
-        {state.routeName}
+        {/* {state.routeName} */}
+        My PyCon
       </SmallText>
     )
   }
