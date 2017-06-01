@@ -24,13 +24,14 @@ The open source conference app for [PyCon Taiwan 2017][pycontw-website]. Powered
     react-native run-android
     ```
 
-## Libraries & Tools
+## Libraries We use
 
 - [Moment.js][momentjs]
 - [React][react]
 - [React Native][react-native]
 - [React Native Vector Icons][react-native-vector-icons]
 - [React Native SVG][react-native-svg]
+- [React Native Splash Screen][react-native-splash-screen]
 - [React Navigation][react-navigation]
 - [React Redux][react-redux]
 - [Redux][redux]
@@ -49,6 +50,7 @@ The open source conference app for [PyCon Taiwan 2017][pycontw-website]. Powered
 [react-native]: https://facebook.github.io/react-native/
 [react-native-vector-icons]: https://github.com/oblador/react-native-vector-icons
 [react-native-svg]: https://github.com/react-native-community/react-native-svg
+[react-native-splash-screen]: https://github.com/crazycodeboy/react-native-splash-screen
 [react-navigation]: https://reactnavigation.org/
 [react-redux]: https://github.com/reactjs/react-redux
 [redux]: https://github.com/reactjs/redux

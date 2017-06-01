@@ -7,6 +7,8 @@ import processSchedule from './processSchedule'
 const BASE_URL = 'https://pycon-630b8.firebaseio.com/pycontw2017'
 const STOREKEY = 'pycontw2017'
 
+const FAVORITE_EVENTS = 'FAVORITE_EVENTS'
+
 function keyGen (input) {
   return `@${STOREKEY}:${input}`
 }
@@ -71,6 +73,23 @@ const Api = {
       .forEach(obj => { schedules[obj.date] = processSchedule(obj.slots) })
 
     return schedules
+  },
+
+  // Load/save favorite events -------------
+
+  async saveFavoriteEvents (eventIds) {
+    const key = keyGen(FAVORITE_EVENTS)
+    await AsyncStorage.getItem(key, JSON.stringify(eventIds))
+    return true
+  },
+
+  async loadFavoriteEvents () {
+    const key = keyGen(FAVORITE_EVENTS)
+    const eventIds = await AsyncStorage.getItem(key)
+    if (eventIds) {
+      return JSON.parse(eventIds)
+    }
+    return false
   }
 }
 
