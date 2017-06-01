@@ -2,7 +2,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {NavigationActions} from 'react-navigation'
 
-import {fetchEvent} from '../actions/fetchEvent'
+import {fetchEvent} from '../actions/fetchEvents'
 import {updateFilter} from '../actions/updateFilter'
 import {saveFavorites} from '../actions/saveFavorites'
 import ScheduleList from '../components/ScheduleList'

@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import {addNavigationHelpers} from 'react-navigation'
 import SplashScreen from 'react-native-splash-screen'
 
+import {fetchEvents} from './actions/fetchEvents'
 import {fetchSchedules} from './actions/fetchSchedules'
 import {fetchTagMapping} from './actions/fetchTagMapping'
 import {loadFavorites} from './actions/loadFavorites'
@@ -13,7 +14,7 @@ import AppNavigator from './navigators/AppNavigator'
 
 class App extends React.Component {
   static propTypes = {
-    /* For React-Navigation integration. See their official doc for more. */
+    /* For React-Navigation integration. See official doc for more. */
     dispatch: PropTypes.func,
     navState: PropTypes.object
   }
@@ -22,6 +23,7 @@ class App extends React.Component {
     const {dispatch} = this.props
     // Load all initial dadta
     dispatch(fetchSchedules())
+    dispatch(fetchEvents())
     dispatch(fetchTagMapping())
     dispatch(loadFavorites())
     setTimeout(SplashScreen.hide, 3000) // Manually hide SplashScreen after 3s

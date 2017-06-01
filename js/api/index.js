@@ -20,10 +20,11 @@ const Api = {
       return JSON.parse(event)
     }
 
-    event = await this.getEventRemote(eventId)
+    // event = await this.getEventRemote(eventId)
     return event
   },
 
+  /*
   async getEventRemote (eventId) {
     const endpoint = `${BASE_URL}/events/${eventId}.json`
     const response = await fetch(endpoint)
@@ -37,11 +38,13 @@ const Api = {
 
     return null
   },
+  */
 
   async getTagMapping () {
-    const endpoint = `${BASE_URL}/events.json`
-    const response = await fetch(endpoint)
-    const json = await response.json()
+    // const endpoint = `${BASE_URL}/events.json`
+    // const response = await fetch(endpoint)
+    // const json = await response.json()
+    const json = require('./data/events.json')
 
     const mapping = {}
 
@@ -62,10 +65,23 @@ const Api = {
     return mapping
   },
 
+  async getAllEvents () {
+    const json = require('./data/events.json')
+
+    const events = processEvent(json)
+
+    Object.entries(events).forEach(([eventId, event]) => (
+      AsyncStorage.setItem(keyGen(eventId), JSON.stringify(event))
+    ))
+
+    return events
+  },
+
   async getAllSchedules () {
-    const endpoint = `${BASE_URL}/schedule.json`
-    const response = await fetch(endpoint)
-    const json = await response.json()
+    // const endpoint = `${BASE_URL}/schedule.json`
+    // const response = await fetch(endpoint)
+    // const json = await response.json()
+    const json = require('./data/schedule.json')
 
     const schedules = {}
 
