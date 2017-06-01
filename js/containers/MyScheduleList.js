@@ -1,11 +1,7 @@
-import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {NavigationActions} from 'react-navigation'
 
-import {fetchEvent} from '../actions/fetchEvent'
-import {updateFilter} from '../actions/updateFilter'
-import {saveFavorites} from '../actions/saveFavorites'
-import ScheduleList from '../components/ScheduleList'
+import ScheduleList from './BaseScheduleList'
 
 function filterSchedule (schedule, filter, tagMapping, favoriteEvents) {
   if (Object.keys(favoriteEvents).length <= 0) {
@@ -46,40 +42,19 @@ const mapStateToProps = ({
   filter,
   selectDate,
   tagMapping
-}) => {
-  const schedule = filterSchedule(
+}) => ({
+  schedule: filterSchedule(
     allSchedules[selectDate],
     filter,
     tagMapping,
     favoriteEvents
   )
+})
 
-  return {
-    error: allSchedules.error,
-    favoriteEvents,
-    filter,
-    isFetching: allSchedules.isFetching,
-    schedule,
-    tagMapping
-  }
-}
-
-const mapDispatchToProps = dispatch => ({
-  onCellPress: (eventId, location, beginTime, endTime) => {
-    dispatch(fetchEvent(eventId))
-    dispatch(NavigationActions.navigate({
-      routeName: 'MyEvent',
-      params: {location, beginTime, endTime}
-    }))
-  },
-  // MyScheduleList-specified dispatch method
+const mapDispatchToProps = (dispatch, ownProps) => ({
   goToSchedule: () => {
     dispatch(NavigationActions.navigate({routeName: 'Schedule'}))
-  },
-  ...bindActionCreators({
-    updateFilter,
-    saveFavorites
-  }, dispatch)
+  }
 })
 
 export default connect(

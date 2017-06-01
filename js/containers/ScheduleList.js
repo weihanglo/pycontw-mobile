@@ -1,11 +1,6 @@
-import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {NavigationActions} from 'react-navigation'
 
-import {fetchEvent} from '../actions/fetchEvent'
-import {updateFilter} from '../actions/updateFilter'
-import {saveFavorites} from '../actions/saveFavorites'
-import ScheduleList from '../components/ScheduleList'
+import ScheduleList from './BaseScheduleList'
 
 function filterSchedule (schedule, filter, tagMapping) {
   if (Object.keys(filter).length <= 0) {
@@ -34,38 +29,11 @@ function filterSchedule (schedule, filter, tagMapping) {
 
 const mapStateToProps = ({
   allSchedules,
-  favoriteEvents,
   filter,
   selectDate,
   tagMapping
-}) => {
-  const schedule = filterSchedule(allSchedules[selectDate], filter, tagMapping)
-
-  return {
-    error: allSchedules.error,
-    favoriteEvents,
-    filter,
-    isFetching: allSchedules.isFetching,
-    schedule,
-    tagMapping
-  }
-}
-
-const mapDispatchToProps = dispatch => ({
-  onCellPress: (eventId, location, beginTime, endTime) => {
-    dispatch(fetchEvent(eventId))
-    dispatch(NavigationActions.navigate({
-      routeName: 'Event',
-      params: {location, beginTime, endTime}
-    }))
-  },
-  ...bindActionCreators({
-    updateFilter,
-    saveFavorites
-  }, dispatch)
+}) => ({
+  schedule: filterSchedule(allSchedules[selectDate], filter, tagMapping)
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ScheduleList)
+export default connect(mapStateToProps)(ScheduleList)
