@@ -34,10 +34,10 @@ export default class extends React.Component {
     isFetching: PropTypes.bool,
     schedule: PropTypes.array,
     tagMapping: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
-    onDidMount: PropTypes.func,
     onCellPress: PropTypes.func,
     goToSchedule: PropTypes.func, // for MyScheduleList only
     updateFilter: PropTypes.func,
+    saveFavorites: PropTypes.func,
     navigation: PropTypes.object,
     style: ViewPropTypes.style
   }
@@ -49,10 +49,6 @@ export default class extends React.Component {
 
   _showMap = false
   _showFilter = false
-
-  componentDidMount () {
-    this.props.onDidMount()
-  }
 
   componentWillUpdate () {
     const {Types, Properties, create} = LayoutAnimation
@@ -83,6 +79,18 @@ export default class extends React.Component {
     this.props.onCellPress(eventId, location, beginTime, endTime)
   }
 
+  _toggleCheck = eventId => {
+    const {saveFavorites, favoriteEvents} = this.props
+    const checked = favoriteEvents[eventId]
+    if (checked) {
+      const newFavors = {...favoriteEvents}
+      delete newFavors[eventId]
+      saveFavorites(newFavors)
+      return
+    }
+    saveFavorites({...favoriteEvents, [eventId]: true})
+  }
+
   _renderItem = ({item}) => {
     const {eventId, type} = item
     const checked = !!this.props.favoriteEvents[eventId]
@@ -91,7 +99,12 @@ export default class extends React.Component {
     return (
       <TouchableHighlight onPress={() => this._onCellPress(item)}>
         <View>
-          <Cell {...item} tags={tags} checked={checked} />
+          <Cell
+            {...item}
+            tags={tags}
+            checked={checked}
+            toggleCheck={this._toggleCheck}
+          />
         </View>
       </TouchableHighlight>
     )
@@ -155,10 +168,12 @@ export default class extends React.Component {
           />
           {schedule && schedule.length > 0 && (
             <SectionList
+              style={{overflow: 'hidden'}}
               renderItem={this._renderItem}
               renderSectionHeader={this._renderSectionHeader}
               keyExtractor={item => item.eventId}
               sections={schedule}
+              removeClippedSubviews={false} // HACK: React Native issue #13316
             />
           )}
           {routeName === 'MyScheduleList' && schedule.length === 0 && (

@@ -2,10 +2,9 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {NavigationActions} from 'react-navigation'
 
-import {fetchSchedules} from '../actions/fetchSchedules'
 import {fetchEvent} from '../actions/fetchEvent'
-import {fetchTagMapping} from '../actions/fetchTagMapping'
 import {updateFilter} from '../actions/updateFilter'
+import {saveFavorites} from '../actions/saveFavorites'
 import ScheduleList from '../components/ScheduleList'
 
 function filterSchedule (schedule, filter, tagMapping) {
@@ -53,10 +52,6 @@ const mapStateToProps = ({
 }
 
 const mapDispatchToProps = dispatch => ({
-  onDidMount: () => {
-    dispatch(fetchTagMapping())
-    dispatch(fetchSchedules())
-  },
   onCellPress: (eventId, location, beginTime, endTime) => {
     dispatch(fetchEvent(eventId))
     dispatch(NavigationActions.navigate({
@@ -65,7 +60,8 @@ const mapDispatchToProps = dispatch => ({
     }))
   },
   ...bindActionCreators({
-    updateFilter
+    updateFilter,
+    saveFavorites
   }, dispatch)
 })
 

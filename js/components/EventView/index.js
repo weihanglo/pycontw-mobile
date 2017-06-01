@@ -27,15 +27,14 @@ export default class extends React.Component {
   static propTypes = {
     dayIndex: PropTypes.number,
     hhmmTime: PropTypes.string,
-    checked: PropTypes.bool,
     duration: PropTypes.string,
     error: PropTypes.object,
     event: PropTypes.object,
     eventId: PropTypes.string,
+    favoriteEvents: PropTypes.objectOf(PropTypes.bool),
     location: PropTypes.string,
     isFetching: PropTypes.bool,
-    addToFavorites: PropTypes.func,
-    removeFromFavorites: PropTypes.func,
+    saveFavorites: PropTypes.func,
     goBack: PropTypes.func,
     style: ViewPropTypes.style
   }
@@ -99,10 +98,18 @@ export default class extends React.Component {
 
   // Other handlers
 
+  // _toggleCheck = eventId => {
+  // }
   _onBookmarkPress = () => {
-    this.props.checked
-    ? this.props.removeFromFavorites(this.props.eventId)
-    : this.props.addToFavorites(this.props.eventId)
+    const {saveFavorites, favoriteEvents, eventId} = this.props
+    const checked = favoriteEvents[eventId]
+    if (checked) {
+      const newFavors = {...favoriteEvents}
+      delete newFavors[eventId]
+      saveFavorites(newFavors)
+      return
+    }
+    saveFavorites({...favoriteEvents, [eventId]: true})
   }
 
   _share = () => {
@@ -117,10 +124,11 @@ export default class extends React.Component {
     const {
       dayIndex,
       hhmmTime,
-      checked,
       duration,
       event,
       error,
+      eventId,
+      favoriteEvents,
       location,
       isFetching,
       goBack,
@@ -168,7 +176,7 @@ export default class extends React.Component {
               <Text> - {duration}</Text>
             </Text>
             <Bookmark
-              checked={checked}
+              checked={favoriteEvents[eventId]}
               onPress={this._onBookmarkPress}
             />
           </View>

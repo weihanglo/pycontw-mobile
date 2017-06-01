@@ -3,8 +3,7 @@ import {connect} from 'react-redux'
 import {NavigationActions} from 'react-navigation'
 import moment from 'moment'
 
-import {addToFavorites} from '../actions/addToFavorites'
-import {removeFromFavorites} from '../actions/removeFromFavorites'
+import {saveFavorites} from '../actions/saveFavorites'
 import EventView from '../components/EventView'
 
 const mapStateToProps = (
@@ -16,23 +15,19 @@ const mapStateToProps = (
   const begin = moment(beginTime, 'hh:mm')
   const end = moment(endTime, 'hh:mm')
   const duration = moment.duration(end.diff(begin)).humanize()
-  const {eventId} = selectEvent
   return {
     ...selectEvent,
     location,
     duration,
+    favoriteEvents,
     dayIndex: dates.indexOf(selectDate),
-    hhmmTime: begin.format('HH:mm'),
-    checked: !!favoriteEvents[eventId]
+    hhmmTime: begin.format('HH:mm')
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   goBack: () => { dispatch(NavigationActions.back()) },
-  ...bindActionCreators({
-    addToFavorites,
-    removeFromFavorites
-  }, dispatch)
+  ...bindActionCreators({saveFavorites}, dispatch)
 })
 
 export default connect(

@@ -17,7 +17,7 @@ function fetchSchedulesSuccess (schedules) {
   }
 }
 
-function fetchSchedulesFailure (date, error) {
+function fetchSchedulesFailure (error) {
   return {
     type: FETCH_SCHEDULES_FAILURE,
     error

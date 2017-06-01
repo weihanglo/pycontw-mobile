@@ -1,4 +1,3 @@
-// This component is a container component (connected to store)
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
@@ -7,10 +6,7 @@ import {
   View,
   ViewPropTypes
 } from 'react-native'
-import {connect} from 'react-redux'
 
-import {addToFavorites} from '../../actions/addToFavorites'
-import {removeFromFavorites} from '../../actions/removeFromFavorites'
 import {Text, Heading4} from '../../common/PyText'
 import Bookmark from '../../common/Bookmark'
 import * as Colors from '../../common/PyColors'
@@ -29,7 +25,7 @@ Cell.propTypes = {
   style: ViewPropTypes.style
 }
 
-function Cell ({
+export default function Cell ({
     beginTime,
     endTime,
     eventId,
@@ -57,7 +53,7 @@ function Cell ({
         <Bookmark
           style={styles.bookmark}
           checked={checked}
-          onPress={() => toggleCheck(checked)}
+          onPress={() => toggleCheck(eventId)}
         />
       </View>
       <View style={styles.tagWrapper}>
@@ -106,22 +102,3 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 })
-
-// react-redux part --------------------
-
-const mapStateToProps = ({favoriteEvents}, {eventId}) => ({
-  checked: !!favoriteEvents[eventId]
-})
-
-const mapDispatchToProps = (dispatch, {eventId}) => ({
-  toggleCheck: checked => {
-    checked
-    ? dispatch(removeFromFavorites(eventId))
-    : dispatch(addToFavorites(eventId))
-  }
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Cell)

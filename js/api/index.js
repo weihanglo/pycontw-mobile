@@ -75,21 +75,19 @@ const Api = {
     return schedules
   },
 
-  // Load/save favorite events -------------
+  // Load/save all favorite events -------------
 
-  async saveFavoriteEvents (eventIds) {
+  async saveFavorites (eventIds) {
     const key = keyGen(FAVORITE_EVENTS)
-    await AsyncStorage.getItem(key, JSON.stringify(eventIds))
-    return true
+    await AsyncStorage.setItem(key, JSON.stringify(eventIds))
   },
 
-  async loadFavoriteEvents () {
+  async loadFavorites () {
     const key = keyGen(FAVORITE_EVENTS)
     const eventIds = await AsyncStorage.getItem(key)
     if (eventIds) {
       return JSON.parse(eventIds)
     }
-    return false
   }
 }
 

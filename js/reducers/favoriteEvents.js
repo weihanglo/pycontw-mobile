@@ -1,14 +1,21 @@
-import {ADD_TO_FAVORITES} from '../actions/addToFavorites'
-import {REMOVE_FROM_FAVORITES} from '../actions/removeFromFavorites'
+import {
+  SAVE_FAVORITES_SUCCESS,
+  SAVE_FAVORITES_FAILURE
+} from '../actions/saveFavorites'
+import {
+  LOAD_FAVORITES_SUCCESS,
+  LOAD_FAVORITES_FAILURE
+} from '../actions/loadFavorites'
 
+// TODO: handle presist failure
 export default function (state = {}, action) {
   switch (action.type) {
-    case ADD_TO_FAVORITES:
-      return {...state, [action.eventId]: true}
-    case REMOVE_FROM_FAVORITES:
-      const newState = {...state}
-      delete newState[action.eventId]
-      return newState
+    case LOAD_FAVORITES_SUCCESS:
+      return action.eventIds
+    case SAVE_FAVORITES_SUCCESS:
+      return action.eventIds
+    case SAVE_FAVORITES_FAILURE:
+    case LOAD_FAVORITES_FAILURE:
     default:
       return state
   }
