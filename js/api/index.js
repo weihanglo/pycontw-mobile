@@ -4,7 +4,7 @@ import {AsyncStorage} from 'react-native'
 import processEvent from './processEvent'
 import processSchedule from './processSchedule'
 
-const BASE_URL = 'https://pycon-630b8.firebaseio.com/pycontw2017'
+// const BASE_URL = 'https://pycon-630b8.firebaseio.com/pycontw2017'
 const STOREKEY = 'pycontw2017'
 
 const FAVORITE_EVENTS = 'FAVORITE_EVENTS'
@@ -16,12 +16,14 @@ function keyGen (input) {
 const Api = {
   async getEvent (eventId) {
     let event = await AsyncStorage.getItem(keyGen(eventId))
+
     if (event) {
       return JSON.parse(event)
     }
 
     // event = await this.getEventRemote(eventId)
-    return event
+    // return event
+    throw Error(`Failure of fetching event ${eventId}`)
   },
 
   /*
@@ -41,9 +43,6 @@ const Api = {
   */
 
   async getTagMapping () {
-    // const endpoint = `${BASE_URL}/events.json`
-    // const response = await fetch(endpoint)
-    // const json = await response.json()
     const json = require('./data/events.json')
 
     const mapping = {}
@@ -66,15 +65,20 @@ const Api = {
   },
 
   async getAllEvents () {
-    const json = require('./data/events.json')
+    const events = require('./data/events.json')
 
-    const events = processEvent(json)
+    Object.entries(events).forEach(([eventId, event]) => {
+      const processedEvent = processEvent(event)
+      AsyncStorage.setItem(keyGen(eventId), JSON.stringify(processedEvent))
+    })
 
-    Object.entries(events).forEach(([eventId, event]) => (
+    // Processed keynotes data
+    const keynotes = require('./data/keynotes.json')
+    Object.entries(keynotes).forEach(([eventId, event]) => (
       AsyncStorage.setItem(keyGen(eventId), JSON.stringify(event))
     ))
 
-    return events
+    return {...events, ...keynotes}
   },
 
   async getAllSchedules () {

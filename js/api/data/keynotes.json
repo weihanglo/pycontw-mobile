@@ -1,18 +1,90 @@
 {
-	"林軒田 Hsuan-Tien Lin": {
-  	"photo": "{% static 'pycontw-2017/images/keynotes/ht_lin.png' %}",
-		"title": "Choices for Smarter AI"
-  },
-	"Andrew Godwin": {
-  	"photo": "{% static 'pycontw-2017/images/keynotes/andrew_godwin.png' %}",
-		"title": "Building for Failure: Learning Lessons from Aviation"
-  },
-	"Carol Willing": {
-  	"photo": "{% static 'pycontw-2017/images/keynotes/carol_willing.png' %}",
-		"title": "The State of Python for Education"
-  },
   "Russell Keith-Magee": {
-  	"photo": "{% static 'pycontw-2017/images/keynotes/russell_keith_magee.png' %}",
-		"title": "From Little Things, Big Things Grow"
-  }
+    "description": "",
+    "level": "",
+    "recording": true,
+    "slideLink": "",
+    "speakers": [
+      {
+        "facebookURL": "",
+        "githubId": "",
+  	    "name": "Russell Keith-Magee",
+  	    "photoURL": "https://tw.pycon.org/2017/static/pycontw-2017/images/keynotes/russell_keith_magee.png",
+    		"twitterId": "freakboy3742",
+        "email": "",
+      	"bio": "Dr Russell Keith-Magee is a 10 year veteran of the Django core team, and for 5 years, was President of the Django Software Foundation. He’s also the founder of the BeeWare project, developing GUI tools to support the development of Python software. He has keynoted Python conferences on all but 2 continents, and will gladly keynote PyCon Antarctica as soon as the penguins get themselves organized. He has also put his feet in every ocean in the world (plus one sea). He lives in Perth, Western Australia with his wife, two children, and two animals that claim to be cats but have almost no feline properties.",
+    		"website": "http://cecinestpasun.com/"
+      }
+    ],
+  	"abstract": "Python as a language has been around for over 25 years. How has it survived this long, and how can we, as a community, ensure that it sticks around for another 25 years? In this keynote, Dr Russell Keith-Magee will look at the lessons we can learn from the past and present of open source communities, so that we can ensure we have a strong, healthy Python community going into the future.",
+    "category": "KEYNOTE",
+    "language": "",
+  	"title": "From Little Things, Big Things Grow"
+  },
+	"林軒田 Hsuan-Tien Lin": {
+    "description": "",
+    "level": "",
+    "recording": true,
+    "slideLink": "",
+    "speakers": [
+      {
+        "facebookURL": "",
+        "githubId": "",
+	      "name": "Hsuan-Tien Lin",
+		    "photoURL": "https://tw.pycon.org/2017/static/pycontw-2017/images/keynotes/ht_lin.png",
+			  "website": "http://www.csie.ntu.edu.tw/~htlin/",
+        "twitterId": "",
+        "email": "",
+  			"bio": "Dr. Lin is a beloved figure in Asia’s artificial intelligence community. He joins Appier from National Taiwan University, where he served as Associate Professor of Department of Computer Science and Information Engineering.\n\nDr. Lin’s research interests include theoretical foundations of machine learning, studies on new learning problems, and improvements on learning algorithms. Between 2010-2013, Dr. Lin co-led his university’s team to victory in machine learning competition KDD Cup six times, and his introductory machine learning textbook Learning from Data (which he co-authored) is a bestseller on Amazon. Online, his teachings on machine learning, hosted on Coursera, have been viewed millions of times.\n\nDr. Lin received his PhD and MS in computer science from the California Institute of Technology, and served as a long-time consultant before joining Appier formally.",
+      }
+    ],
+		"abstract": "AI is all about training machine to make intelligent decisions automatically—or we may at least dream about that. However, before building a successful AI system, we need to make human choices when developing strategies and setting directions for training machines. For AI system developers, making the right choices is critical to training AI systems into where they are wanted to be, just like a baseball coach who develops strategies and gives instructions to train a winning team. Hsuan-Tien is sharing his thoughts in this keynote on how developers can make good choices for AI before AI can make smarter decisions for you.",
+    "category": "KEYNOTE",
+    "language": "",
+		"title": "Choices for Smarter AI"
+	},
+  "Andrew Godwin": {
+    "description": "",
+    "level": "",
+    "recording": true,
+    "slideLink": "",
+    "speakers": [
+      {
+        "facebookURL": "",
+        "githubId": "",
+  			"name": "Andrew Godwin",
+  			"photoURL": "https://tw.pycon.org/2017/static/pycontw-2017/images/keynotes/andrew_godwin.png",
+				"website": "http://www.aeracode.org/",
+				"twitterId": "andrewgodwin",
+        "email": "",
+  			"bio": "Andrew is a member of the Django core team, a Senior Engineer at Eventbrite, and was the original author of the Django migrations framework, its predecessor South, and now writes and maintains the Channels framework. His work mostly focuses on software and systems architecture, and he enjoys nothing more than making systems and tools that other engineers can use to get their jobs done more easily. In his spare time, he enjoys piloting small planes, archery, and attempting to visit every one of the USA’s National Parks.",
+      }
+    ],
+		"abstract": "Most software is never designed with failure in mind, and the consequences can range from slightly annoying to life-threatening. We’ll look at an industry that has already tackled failure incredibly effectively—aviation—and what lessons we can learn from it and apply to our own code, both locally and distributed.",
+    "category": "KEYNOTE",
+    "language": "",
+		"title": "Building for Failure: Learning Lessons from Aviation"
+	},
+	"Carol Willing": {
+    "description": "",
+    "level": "",
+    "recording": true,
+    "slideLink": "",
+    "speakers": [
+      {
+        "facebookURL": "",
+        "githubId": "",
+  			"name": "Carol Willing",
+  			"photoURL": "https://tw.pycon.org/2017/static/pycontw-2017/images/keynotes/carol_willing.png",
+				"website": "https://willingconsulting.com/",
+				"twitterId": "WillingCarol",
+        "email": "",
+  			"bio": "Carol Willing is a Director of the Python Software Foundation, a core developer for Project Jupyter, and a Research Software Engineer at Cal Poly San Luis Obispo.\n\nShe’s also Geek-In-Residence at Fab Lab San Diego and co-organizes PyLadies San Diego and San Diego Python. She’s an active contributor to open source projects, a maintainer for OpenHatch and the Anita Borg Institute’s open source projects. Combining a love of nature, the arts, and math with a BSE in Electrical Engineering from Duke and an MS in Management from MIT, she’s enjoyed creating and teaching others for over 20 years.\n\nShe recently spoke at PyCon US 2016, PyCon Philippines 2016, Write/Speak/Code 2016, SciPy 2016, and PyData Carolinas 2016."
+      }
+    ],
+		"abstract": "Highlighting recent innovations from Science, Data Science, web, and electronics (Raspberry Pi, MicroPython and CircuitPython) as well as a brief recap of innovative ideas from PyCon in Portland.",
+    "category": "KEYNOTE",
+    "language": "",
+		"title": "The State of Python for Education"
+	}
 }

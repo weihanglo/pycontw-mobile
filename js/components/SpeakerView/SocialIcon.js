@@ -26,6 +26,9 @@ function linkToSocial ({type, payload}) {
     case 'github':
       url = `https://github.com/${payload}`
       break
+    case 'website':
+      url = payload
+      break
     default: break
   }
   Linking.canOpenURL(url)
@@ -55,6 +58,9 @@ export default function SocialIcon ({type, info, color = Colors.DARK_TEXT}) {
       break
     case 'github':
       name = 'github'
+      break
+    case 'website':
+      name = 'home'
       break
     default: break
   }

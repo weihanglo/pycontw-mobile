@@ -3,12 +3,6 @@
  */
 import moment from 'moment'
 
-import keynotes from './data/keynotes.json'
-
-function getKeynoteTitle (name) {
-  return keynotes[name].title
-}
-
 export default function (events) {
   // Temporary container for re-mapping data
   const map = {}
@@ -63,7 +57,7 @@ export default function (events) {
       endTime: moment(end_time).format('HH:mm'),
       location: location.replace(/.*-/, '').toUpperCase(),
       speakers,
-      title: noTitle && isKeynote ? getKeynoteTitle(speakers[0]) : title,
+      title: noTitle && isKeynote ? `Keynote: ${speakers[0]}` : title,
       type
     })
   })

@@ -224,7 +224,7 @@ export default class extends React.Component {
                     style: {backgroundColor: headerBgColor}
                   }}
                   onDone={tags => {
-                    updateFilter(tags)
+                    // updateFilter(tags)
                     this._setModalVisible(false)
                   }}
                 />

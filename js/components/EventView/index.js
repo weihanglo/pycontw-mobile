@@ -21,7 +21,7 @@ import Description from './Description'
 import Category from './Category'
 import Avatar from './Avatar'
 
-const ENDPOINT = 'https://tw.pycon.org/2017/en-us/events/talk/'
+const ENDPOINT = 'https://tw.pycon.org/2017/events/talk/'
 
 export default class extends React.Component {
   static propTypes = {
@@ -115,7 +115,7 @@ export default class extends React.Component {
   _share = () => {
     const {title, speakers} = this.props.event
     const message = `${title} by ${JSON.stringify(speakers)}: ` +
-      `${ENDPOINT}${this.props.eventId}`
+      `${ENDPOINT}${this.props.eventId} #pycontw2017`
     Share.share({title, message, url: message}, {dialogTitle: title})
     /* TODO: unhandled promise here */
   }
@@ -139,6 +139,7 @@ export default class extends React.Component {
     if (isFetching || error) {
       return <Py404 headerColor={color} />
     }
+    console.warn(description);
 
     const {abstract, description, speakers, title, ...remains} = event
 
@@ -196,8 +197,8 @@ export default class extends React.Component {
             {abstract}
           </Paragraph>
 
-          { /* Data validation in advanced */
-            description.trim().length > 0 &&
+          {
+            !description && description.trim().length > 0 &&
             <Description description={description} />
           }
 

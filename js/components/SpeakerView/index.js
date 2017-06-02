@@ -21,6 +21,7 @@ SpeakerView.propTypes = {
   name: PropTypes.string,
   photoURL: PropTypes.string,
   twitterId: PropTypes.string,
+  website: PropTypes.string,
   onClose: PropTypes.func,
   style: ViewPropTypes.style
 }
@@ -33,6 +34,7 @@ export default function SpeakerView ({
   name,
   photoURL,
   twitterId,
+  website,
   onClose,
   style,
   ...props
@@ -57,6 +59,7 @@ export default function SpeakerView ({
         {!!facebookURL && <SocialIcon type='facebook' info={facebookURL} />}
         {!!twitterId && <SocialIcon type='twitter' info={twitterId} />}
         {!!githubId && <SocialIcon type='github' info={githubId} />}
+        {!!website && <SocialIcon type='website' info={website} />}
       </View>
       <View style={styles.bioWrapper}>
         {bioP}

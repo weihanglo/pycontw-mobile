@@ -48,7 +48,7 @@ function fetchEventsStart () {
   }
 }
 
-function fetchEventsSuccess (events, event) {
+function fetchEventsSuccess (events) {
   return {
     type: FETCH_EVENTS_SUCCESS,
     events
