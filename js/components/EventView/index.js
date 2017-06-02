@@ -139,7 +139,6 @@ export default class extends React.Component {
     if (isFetching || error) {
       return <Py404 headerColor={color} />
     }
-    console.warn(description);
 
     const {abstract, description, speakers, title, ...remains} = event
 

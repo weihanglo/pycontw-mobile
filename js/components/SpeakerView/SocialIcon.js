@@ -8,29 +8,11 @@ import * as Colors from '../../common/PyColors'
 SocialIcon.propTypes = {
   type: PropTypes.string.isRequired,
   info: PropTypes.string,
+  openBrowser: PropTypes.func.isRequired,
   color: PropTypes.string
 }
 
-function linkToSocial ({type, payload}) {
-  let url
-  switch (type) {
-    case 'facebook':
-      url = `https://fb.me/${payload}`
-      break
-    case 'twitter':
-      url = `https://twitter.com/${payload}`
-      break
-    case 'email':
-      url = `mailto:${payload}`
-      break
-    case 'github':
-      url = `https://github.com/${payload}`
-      break
-    case 'website':
-      url = payload
-      break
-    default: break
-  }
+function directOpen (url) {
   Linking.canOpenURL(url)
     .then(supported => {
       if (!supported) {
@@ -42,7 +24,35 @@ function linkToSocial ({type, payload}) {
     .catch(err => console.error('An error occurred', err))
 }
 
-export default function SocialIcon ({type, info, color = Colors.DARK_TEXT}) {
+function linkToSocial ({type, payload, openBrowser}) {
+  let url
+  switch (type) {
+    case 'facebook':
+      url = `https://fb.me/${payload}`
+      break
+    case 'twitter':
+      url = `https://twitter.com/${payload}`
+      break
+    case 'email':
+      directOpen(`mailto:${payload}`)
+      break
+    case 'github':
+      url = `https://github.com/${payload}`
+      break
+    case 'website':
+      url = payload
+      break
+    default: break
+  }
+  openBrowser(url)
+}
+
+export default function SocialIcon ({
+  type,
+  info,
+  color = Colors.DARK_TEXT,
+  openBrowser
+}) {
   let name
   let payload = info
   switch (type) {
@@ -67,7 +77,7 @@ export default function SocialIcon ({type, info, color = Colors.DARK_TEXT}) {
   return (
     <TouchableOpacity
       style={styles.icon}
-      onPress={() => linkToSocial({type, payload})}>
+      onPress={() => linkToSocial({type, payload, openBrowser})}>
       <Icon size={25} name={name} color={color} />
     </TouchableOpacity>
   )

@@ -13,7 +13,7 @@
     		"twitterId": "freakboy3742",
         "email": "",
       	"bio": "Dr Russell Keith-Magee is a 10 year veteran of the Django core team, and for 5 years, was President of the Django Software Foundation. He’s also the founder of the BeeWare project, developing GUI tools to support the development of Python software. He has keynoted Python conferences on all but 2 continents, and will gladly keynote PyCon Antarctica as soon as the penguins get themselves organized. He has also put his feet in every ocean in the world (plus one sea). He lives in Perth, Western Australia with his wife, two children, and two animals that claim to be cats but have almost no feline properties.",
-    		"website": "http://cecinestpasun.com/"
+    		"website": "https://cecinestpasun.com/"
       }
     ],
   	"abstract": "Python as a language has been around for over 25 years. How has it survived this long, and how can we, as a community, ensure that it sticks around for another 25 years? In this keynote, Dr Russell Keith-Magee will look at the lessons we can learn from the past and present of open source communities, so that we can ensure we have a strong, healthy Python community going into the future.",
@@ -32,7 +32,7 @@
         "githubId": "",
 	      "name": "Hsuan-Tien Lin",
 		    "photoURL": "https://tw.pycon.org/2017/static/pycontw-2017/images/keynotes/ht_lin.png",
-			  "website": "http://www.csie.ntu.edu.tw/~htlin/",
+			  "website": "https://www.csie.ntu.edu.tw/~htlin/",
         "twitterId": "",
         "email": "",
   			"bio": "Dr. Lin is a beloved figure in Asia’s artificial intelligence community. He joins Appier from National Taiwan University, where he served as Associate Professor of Department of Computer Science and Information Engineering.\n\nDr. Lin’s research interests include theoretical foundations of machine learning, studies on new learning problems, and improvements on learning algorithms. Between 2010-2013, Dr. Lin co-led his university’s team to victory in machine learning competition KDD Cup six times, and his introductory machine learning textbook Learning from Data (which he co-authored) is a bestseller on Amazon. Online, his teachings on machine learning, hosted on Coursera, have been viewed millions of times.\n\nDr. Lin received his PhD and MS in computer science from the California Institute of Technology, and served as a long-time consultant before joining Appier formally.",
@@ -54,7 +54,7 @@
         "githubId": "",
   			"name": "Andrew Godwin",
   			"photoURL": "https://tw.pycon.org/2017/static/pycontw-2017/images/keynotes/andrew_godwin.png",
-				"website": "http://www.aeracode.org/",
+				"website": "https://www.aeracode.org/",
 				"twitterId": "andrewgodwin",
         "email": "",
   			"bio": "Andrew is a member of the Django core team, a Senior Engineer at Eventbrite, and was the original author of the Django migrations framework, its predecessor South, and now writes and maintains the Channels framework. His work mostly focuses on software and systems architecture, and he enjoys nothing more than making systems and tools that other engineers can use to get their jobs done more easily. In his spare time, he enjoys piloting small planes, archery, and attempting to visit every one of the USA’s National Parks.",
