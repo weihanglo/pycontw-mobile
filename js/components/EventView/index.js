@@ -136,12 +136,6 @@ export default class extends React.Component {
     } = this.props
     const color = Colors.colorForLocation(location)
 
-    if (isFetching || error) {
-      return <Py404 headerColor={color} />
-    }
-
-    const {abstract, description, speakers, title, ...remains} = event
-
     // Configure Header ----------------
     const leftItem = (
       <Header.BackButton onPress={goBack} color={Colors.DARK_TEXT} />
@@ -181,26 +175,35 @@ export default class extends React.Component {
             />
           </View>
 
-          <Heading1 style={styles.title}>{title}</Heading1>
-          <Avatar
-            style={styles.avatarSection}
-            speakers={speakers}
-            showSpeaker={name => this._showSpeaker(name)}
-          />
-
-          <View style={styles.category}>
-            <Category style={{flex: 1}} {...remains} />
-          </View>
-
-          <Paragraph style={styles.paragraph}>
-            {abstract}
-          </Paragraph>
-
-          {(() => {
-            if (!description) { return }
-            if (description.trim().length > 0) {
-              return <Description description={description} />
+          <Heading1 style={styles.title}>
+            {event
+              ? event.title
+              : eventId.split('-')[1] /* handle custom event */
             }
+          </Heading1>
+          {!!event && (() => {
+            const {abstract, description, speakers, title, ...remains} = event
+            return (
+              <View>
+                <Avatar
+                  style={styles.avatarSection}
+                  speakers={speakers}
+                  showSpeaker={name => this._showSpeaker(name)}
+                />
+
+                <View style={styles.category}>
+                  <Category style={{flex: 1}} {...remains} />
+                </View>
+
+                <Paragraph style={styles.paragraph}>
+                  {abstract}
+                </Paragraph>
+
+                {!!description && description.trim().length > 0 && (
+                  <Description description={description} />
+                )}
+              </View>
+            )
           })()}
 
         </ScrollView>

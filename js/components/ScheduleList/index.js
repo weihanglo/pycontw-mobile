@@ -94,7 +94,7 @@ export default class extends React.Component {
   _renderItem = ({item}) => {
     const {eventId, type} = item
     const checked = !!this.props.favoriteEvents[eventId]
-    // HACK to check type is `CUSTOM` or `KEYNOTE`
+    // HACK to check type is `CUSTOM`
     const tags = this.props.tagMapping[eventId] || [type.toUpperCase()]
     return (
       <TouchableHighlight onPress={() => this._onCellPress(item)}>
