@@ -196,10 +196,12 @@ export default class extends React.Component {
             {abstract}
           </Paragraph>
 
-          {
-            !description && description.trim().length > 0 &&
-            <Description description={description} />
-          }
+          {(() => {
+            if (!description) { return }
+            if (description.trim().length > 0) {
+              return <Description description={description} />
+            }
+          })()}
 
         </ScrollView>
 
