@@ -21,6 +21,13 @@ export default class extends React.Component {
     onDone: PropTypes.func.isRequired,
     style: ViewPropTypes.style
   }
+  state = {
+    pagingEnabled: true
+  }
+
+  _onScroll = ({nativeEvent: {zoomScale}}) => {
+    this.setState(() => ({pagingEnabled: zoomScale <= 1}))
+  }
 
   render () {
     const {
@@ -49,8 +56,10 @@ export default class extends React.Component {
         />
         <ScrollView
           contentContainerStyle={{backgroundColor: 'hsl(180, 5%, 90%)'}}
+          onScroll={this._onScroll}
           maximumZoomScale={3}
-          pagingEnabled
+          scrollEventThrottle={500}
+          pagingEnabled={this.state.pagingEnabled}
           horizontal
         >
           <View>

@@ -1,78 +1,103 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Linking,
+  Modal,
   StyleSheet,
   TouchableHighlight,
   View
 } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
+import WebView from '../../common/PyWebView'
 import {Text} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
 
-CategoryItem.propTypes = {
-  size: PropTypes.number,
-  icon: PropTypes.string,
-  tag: PropTypes.string,
-  text: PropTypes.string,
-  isLink: PropTypes.bool
-}
-
-function renderText (text, fontSize, onPress) {
-  const style = {fontSize}
-  if (onPress) {
-    style.color = Colors.secondary.DARK_BLUE
-    style.textDecorationLine = 'underline'
+export default class extends React.Component {
+  static propTypes = {
+    size: PropTypes.number,
+    icon: PropTypes.string,
+    tag: PropTypes.string,
+    text: PropTypes.string,
+    isLink: PropTypes.bool
   }
-  const textNode = (
-    <Text style={style} numberOfLines={1} ellipsizeMode='tail'>
-      {text}
-    </Text>
-  )
 
-  if (onPress) {
+  state = {
+    modalVisible: false
+  }
+
+  _link
+
+  _openBrowser = link => {
+    this._link = link
+    this._openModal()
+  }
+
+  _closeModal = () => {
+    this.setState({modalVisible: false})
+    this._link = undefined
+  }
+
+  _openModal = () => { this.setState({modalVisible: true}) }
+
+  _renderText = (text, fontSize) => {
+    const style = {fontSize}
+    if (this.props.isLink) {
+      style.color = Colors.secondary.DARK_BLUE
+      style.textDecorationLine = 'underline'
+    }
+    const textNode = (
+      <Text style={style} numberOfLines={1} ellipsizeMode='tail'>
+        {text}
+      </Text>
+    )
+
+    if (this.props.isLink) {
+      return (
+        <TouchableHighlight
+          onPress={() => this._openBrowser(text)}
+          underlayColor={Colors.secondary.MIDDLE_BLUE}
+          style={{borderRadius: 5, overflow: 'hidden'}}
+        >
+          <View>{textNode}</View>
+        </TouchableHighlight>
+      )
+    }
+    return textNode
+  }
+
+  render () {
+    const {size = 28, icon, tag, text} = this.props
+    const dim = {width: size, height: size, borderRadius: size / 2}
+    const fontSize = size / 8 * 5
+    const color = Colors.primary.DARK_BLUE
+
     return (
-      <TouchableHighlight
-        onPress={onPress}
-        underlayColor={Colors.secondary.MIDDLE_BLUE}
-        style={{borderRadius: 5, overflow: 'hidden'}}
-      >
-        <View>{textNode}</View>
-      </TouchableHighlight>
+      <View style={styles.tagItem}>
+        <View style={[styles.tag, dim]}>
+          {icon
+            ? <Icon name={icon} size={fontSize} color={color} />
+            : (
+              <Text allowFontScaling={false} style={{color, fontSize}}>
+                {tag}
+              </Text>
+            )
+          }
+        </View>
+        <View style={styles.textWrapper}>
+          {this._renderText(text, fontSize)}
+        </View>
+
+        <Modal
+          animationType='slide'
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={this._closeModal}
+        >
+          <WebView source={{uri: this._link}} onDone={this._closeModal} />
+        </Modal>
+      </View>
     )
   }
-
-  return textNode
-}
-
-function onPress (url) {
-  Linking.openURL(url)
-    .catch(err => console.error('Linking.openURL error:', err))
-}
-
-export default function CategoryItem ({size = 28, icon, tag, text, isLink}) {
-  const dim = {width: size, height: size, borderRadius: size / 2}
-  const fontSize = size / 8 * 5
-  const color = Colors.primary.DARK_BLUE
-
-  return (
-    <View style={styles.tagItem}>
-      <View style={[styles.tag, dim]}>
-        {icon
-          ? <Icon name={icon} size={fontSize} color={color} />
-          : (
-            <Text allowFontScaling={false} style={{color, fontSize}}>
-              {tag}
-            </Text>
-          )
-        }
-      </View>
-      <View style={styles.textWrapper}>
-        {renderText(text, fontSize, isLink ? () => onPress(text) : null)}
-      </View>
-    </View>
-  )
 }
 
 const styles = StyleSheet.create({
