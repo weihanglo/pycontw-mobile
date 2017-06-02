@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   LayoutAnimation,
+  Platform,
   StatusBar,
   StyleSheet,
   TouchableOpacity,
-  UIManager,
   View,
   ViewPropTypes
 } from 'react-native'
@@ -14,10 +14,6 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import Header from '../../common/PyHeader'
 import {Heading2, Text, LargeText} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
-
-// Flag to enable LayoutAnimation in Android
-UIManager.setLayoutAnimationEnabledExperimental &&
-  UIManager.setLayoutAnimationEnabledExperimental(true)
 
 export default class extends React.Component {
   static propTypes = {
@@ -35,6 +31,9 @@ export default class extends React.Component {
   _layoutAnimating = false
 
   componentWillUpdate () {
+    if (Platform.OS === 'android') { // Still, no animation on Android
+      return
+    }
     const {Types, Properties} = LayoutAnimation
     const config = {
       duration: 700,
@@ -66,7 +65,7 @@ export default class extends React.Component {
   }
 
   _toggleTag = tag => {
-    if (this._layoutAnimating) {
+    if (this._layoutAnimating && Platform.OS === 'ios') {
       return
     }
     this._layoutAnimating = true

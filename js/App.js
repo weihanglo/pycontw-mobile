@@ -26,7 +26,7 @@ class App extends React.Component {
     dispatch(fetchEvents())
     dispatch(fetchTagMapping())
     dispatch(loadFavorites())
-    setTimeout(SplashScreen.hide, 3000) // Manually hide SplashScreen after 3s
+    setTimeout(SplashScreen.hide) // Manually hide SplashScreen after 3s
   }
 
   render () {

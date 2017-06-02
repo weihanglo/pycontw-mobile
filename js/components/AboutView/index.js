@@ -23,7 +23,6 @@ import Cell from './Cell'
 import Footer from './Footer'
 import data from './data.json'
 
-// Flag to enable LayoutAnimation in Android
 UIManager.setLayoutAnimationEnabledExperimental &&
   UIManager.setLayoutAnimationEnabledExperimental(true)
 
@@ -40,6 +39,7 @@ export default class extends React.Component {
   }
 
   _link
+  _flagToPreventAnimationBlockAndroidJSThread = false
 
   _animate = () => {
     const {delay, timing} = Animated
@@ -64,6 +64,9 @@ export default class extends React.Component {
   }
 
   componentWillUpdate () {
+    if (this._flagToPreventAnimationBlockAndroidJSThread) {
+      return
+    }
     LayoutAnimation.easeInEaseOut()
   }
 
@@ -73,6 +76,7 @@ export default class extends React.Component {
   }
 
   _closeModal = () => {
+    this._flagToPreventAnimationBlockAndroidJSThread = true
     this.setState({modalVisible: false})
     this._link = undefined
   }

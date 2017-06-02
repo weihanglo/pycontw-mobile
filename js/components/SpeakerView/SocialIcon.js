@@ -8,7 +8,7 @@ import * as Colors from '../../common/PyColors'
 SocialIcon.propTypes = {
   type: PropTypes.string.isRequired,
   info: PropTypes.string,
-  openBrowser: PropTypes.func.isRequired,
+  openBrowser: PropTypes.func,
   color: PropTypes.string
 }
 

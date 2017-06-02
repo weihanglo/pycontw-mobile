@@ -4,6 +4,7 @@ import {
   Animated,
   LayoutAnimation,
   Modal,
+  Platform,
   SectionList,
   StyleSheet,
   TouchableHighlight,
@@ -19,10 +20,6 @@ import {titleForRoute} from '../../common/PyConstants'
 import Cell from './Cell'
 import Header from './Header'
 import Filter from './Filter'
-
-// Flag to enable LayoutAnimation in Android
-UIManager.setLayoutAnimationEnabledExperimental &&
-  UIManager.setLayoutAnimationEnabledExperimental(true)
 
 const SCALE_MIN_FACTOR = 0.95
 
@@ -51,6 +48,9 @@ export default class extends React.Component {
   _showFilter = false
 
   componentWillUpdate () {
+    if (Platform.OS === 'android') { // android shall not have animations
+      return
+    }
     const {Types, Properties, create} = LayoutAnimation
     const config = create(250, Types.easeInEaseOut, Properties.opacity)
     LayoutAnimation.configureNext(config)
@@ -58,6 +58,9 @@ export default class extends React.Component {
 
   _setModalVisible = visible => {
     this.setState({modalVisible: visible})
+    if (Platform.OS === 'android') { // android shall not have animations
+      return
+    }
     const toValue = visible ? SCALE_MIN_FACTOR : 1.0
     const duration = 400
     Animated.timing(this.state.scaleAnim, {toValue, duration}).start()
@@ -195,7 +198,7 @@ export default class extends React.Component {
         </Animated.View>
 
         <Modal
-          animationType='slide'
+          animationType={Platform.OS === 'ios' ? 'slide' : 'fade'}
           transparent={false}
           visible={modalVisible}
           onRequestClose={() => this._setModalVisible(false)}
