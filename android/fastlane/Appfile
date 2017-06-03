@@ -1,0 +1,2 @@
+json_key_file "fastlane/fastlane-android-api.key.json" # Path to the json secret file - Follow https://github.com/fastlane/supply#setup to get one
+package_name "com.pycontwmobile" # e.g. com.krausefx.app

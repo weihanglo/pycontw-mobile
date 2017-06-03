@@ -1,0 +1,14 @@
+The official PyCon Taiwan 2017 conference app is here!
+To navigate the conference on June 9th and 11th, we've designed the guide app to help you rearranging your individual conference schedule and informing details of the speaker or the talks. Whether you're attending in-person or remotely, you can catch and discover any interested topic through the app.
+With the PyCon app, you will discover:
+
+* A full conference agenda informing speakers and abstract
+* Save sessions you interested in My PyCon and share with your friends
+* Detailed venue map guiding you attending the events
+* Clear filter for you to quickly discover targeted sessions and featured events
+* Find more information about PyCon Taiwan 2017 in About
+
+Meanwhile, we make it open source! Check out:
+
+https://tw.pycon.org
+https://github.com/weihanglo/pycontw-mobile
