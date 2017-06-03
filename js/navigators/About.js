@@ -5,14 +5,10 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import * as Colors from '../common/PyColors'
 import {SmallText} from '../common/PyText'
 import AboutView from '../components/AboutView'
-import WebView from '../common/PyWebView'
 
 const About = StackNavigator({
   AboutView: {
     screen: AboutView
-  },
-  WebView: {
-    screen: WebView
   }
 }, {
   initialRouteName: 'AboutView',

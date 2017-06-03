@@ -131,7 +131,13 @@ export default class extends React.Component {
           onRequestClose={this._closeModal}
         >
           {this._link && this._link.length > 0
-            ? <WebView source={{uri: this._link}} onDone={this._closeModal} />
+            ? (
+              <WebView
+                source={{uri: this._link}}
+                onDone={this._closeModal}
+                startInLoadingState
+              />
+            )
             : <Map onDone={this._closeModal} />
           }
         </Modal>

@@ -121,7 +121,11 @@ export default class extends React.Component {
           visible={this.state.modalVisible}
           onRequestClose={this._closeModal}
         >
-          <WebView source={{uri: this._link}} onDone={this._closeModal} />
+          <WebView
+            source={{uri: this._link}}
+            onDone={this._closeModal} 
+            startInLoadingState
+          />
         </Modal>
 
       </View>
