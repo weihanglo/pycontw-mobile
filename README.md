@@ -1,14 +1,22 @@
-# PyCon TW Offical Conference App  [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
+![](.github/icon-logo.svg)
+
+# PyCon Taiwan Offical Conference App   [![PyConTW-Logo](.github/pycon-logo.svg)](https://tw.pycon.org) [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](#PyCon%20TW%20Offical%20Conference%20App)
 
+
 The open source conference app for [PyCon Taiwan 2017][pycontw-website]. Powered by [React Native][react-native] and other brilliant tools.
+
+<div>
+  <img src=".github/ios-screenshot.png" width="45%"/>
+  <img src=".github/android-screenshot.png" width="45%"/>
+</div>
 
 ## Getting Started
 
 ### iOS
 
-1. Use `yarn` or `npm` to install all dependencies.
+1. Use `yarn` to install all dependencies.
 2. Open `ios/PyConTWMobile.xcodeproj` in **Xcode** and click `Run`.
 3. Alternative, if you have installed [react-native-cli][react-native-started]. Type in terminal,
     ```bash
@@ -17,14 +25,14 @@ The open source conference app for [PyCon Taiwan 2017][pycontw-website]. Powered
 
 ### Android
 
-1. Use `yarn` or `npm` to install all dependencies.
+1. Use `yarn`to install all dependencies.
 2. Open the project in `android/` directory with **Android Studio**, then click `Run`.
 3. Alternative, if you have installed [react-native-cli][react-native-started]. Type in terminal,
     ```bash
     react-native run-android
     ```
 
-## Libraries We use
+## Libraries We Love
 
 - [Moment.js][momentjs]
 - [React][react]
