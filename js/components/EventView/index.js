@@ -20,7 +20,7 @@ import Description from './Description'
 import Category from './Category'
 import Avatar from './Avatar'
 
-const ENDPOINT = 'https://tw.pycon.org/2017/events/talk/'
+const ENDPOINT = '/2017/events/talk/'
 
 export default class extends React.Component {
   static propTypes = {
@@ -112,10 +112,27 @@ export default class extends React.Component {
   }
 
   _share = () => {
-    const {title, speakers} = this.props.event
-    const message = `${title} by ${JSON.stringify(speakers)}: ` +
-      `${ENDPOINT}${this.props.eventId} #pycontw2017`
-    Share.share({title, message, url: message}, {dialogTitle: title})
+    const {eventId, event} = this.props
+    const {title, speakers, category} = event || {}
+
+    // Get last part of '09:00-Registration' if title is undefined
+    let message = `${title || eventId.split('-')[1]}`
+
+    if (speakers) {
+      const names = speakers.map(s => s.name).join(', ')
+      message = `${message} by ${names}`
+    }
+    let url = 'https://tw.pycon.org'
+    if (event) {
+      url = `${url}${ENDPOINT}${eventId}`
+    }
+
+    if (category && category === 'KEYNOTE') {
+      url = 'https://tw.pycon.org/2017/events/keynotes/'
+    }
+
+    message += ` - ${url} #pycontw #pycontw2017`
+    Share.share({title, message, url}, {dialogTitle: title})
     /* TODO: unhandled promise here */
   }
 
