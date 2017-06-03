@@ -56,3 +56,4 @@ android/fastlane/report.xml
 android/fastlane/Preview.html
 android/fastlane/screenshots
 android/fastlane/fastlane-android-api.key.json
+android/keystore.properties
