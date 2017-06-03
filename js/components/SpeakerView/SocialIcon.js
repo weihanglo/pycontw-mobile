@@ -33,15 +33,15 @@ function linkToSocial ({type, payload, openBrowser}) {
     case 'twitter':
       url = `https://twitter.com/${payload}`
       break
-    case 'email':
-      directOpen(`mailto:${payload}`)
-      break
     case 'github':
       url = `https://github.com/${payload}`
       break
     case 'website':
       url = payload
       break
+    case 'email':
+      directOpen(`mailto:${payload}`)
+      return // return!!!!
     default: break
   }
   openBrowser(url)
