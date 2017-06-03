@@ -1,6 +1,6 @@
-![](.github/icon-logo.svg)
+![](https://cdn.rawgit.com/weihanglo/pycontw-mobile/master/.github/icon-logo.svg)
 
-# PyCon Taiwan Offical Conference App   [![PyConTW-Logo](.github/pycon-logo.svg)](https://tw.pycon.org) [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
+# PyCon Taiwan Offical Conference App   [![](https://cdn.rawgit.com/weihanglo/pycontw-mobile/master/.github/pycon-logo.svg)](https://tw.pycon.org) [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](#PyCon%20TW%20Offical%20Conference%20App)
 
