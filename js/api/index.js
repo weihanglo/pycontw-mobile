@@ -1,8 +1,10 @@
 /* global fetch */
 import {AsyncStorage} from 'react-native'
+import I18n from 'react-native-i18n'
 
 import processEvent from './processEvent'
 import processSchedule from './processSchedule'
+import keynotes from './data/keynotes'
 
 const BASE_URL = 'https://pycon-630b8.firebaseio.com/pycontw2017'
 const GENERAL_STORE = 'pycontw2017'
@@ -134,8 +136,11 @@ const Api = {
     }
 
     // Process-free keynotes data
-    const keynotes = require('./data/keynotes.json')
-    for (let [eventId, event] of Object.entries(keynotes)) {
+    var key = keynotes.en
+    if (I18n.locale.match(/zh/)) {
+      key = keynotes.zh
+    }
+    for (let [eventId, event] of Object.entries(key)) {
       tagMapping[eventId] = extractTags(event)
 
       await AsyncStorage.setItem(

@@ -18,9 +18,9 @@ export default {
   'Code of Conduct': '行為準則',
   '9-11 June': '6 月 9-11 日',
 
-  'Follow us on Twitter': '推特追蹤',
-  'Like us on Facebook': '臉書按讚',
-  'Find PyConTW on Github': 'Github 上與 PyConTW 有約',
+  'Follow us on Twitter': '推特追蹤 @PyConTW',
+  'Like us on Facebook': '臉書按讚 @pytcontw',
+  'Find PyConTW on Github': '與 @pycontw 相約在 Github ',
   'Fork this app on Github': '從 Github Fork 這個 App',
   'Send us a mail': '寄信給我們',
 
@@ -41,7 +41,28 @@ export default {
   'Chinese talk w/ English slides': '中文演講／英文投影片',
   'English talk w/ Chinese slides': '英文演講／中文投影片',
   'English talk & slides': '英文演講',
+
   'Novice': '入門',
   'Intermediate': '中階',
-  'Experienced': '進階'
+  'Experienced': '進階',
+
+  'Best Practices & Patterns': '最佳實踐與慣例',
+  'Community': '社群',
+  'Databases': '資料庫',
+  'Data Analysis': '資料分析',
+  'Education': '教育',
+  'Embedded Systems': '嵌入式系統',
+  'FinTech': '金融科技',
+  'Gaming': '遊戲',
+  'Graphics': '圖像處理',
+  'Other': '其他',
+  'Python Core (language, stdlib, etc.)': 'Python Core（語言本身、標準函式庫…）',
+  'Python Internals': 'Python 實作',
+  'Python Libraries': 'Python 函式庫',
+  'Science': '科學',
+  'Security': '資訊安全',
+  'Systems Administration': '系統管理',
+  'Testing': '測試',
+  'Web Frameworks': '網站框架',
+  'Keynote': '基調演講'
 }
