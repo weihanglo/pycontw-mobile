@@ -7,7 +7,7 @@ import {saveFavorites} from '../actions/saveFavorites'
 import EventView from '../components/EventView'
 
 const mapStateToProps = (
-  {selectDate, selectEvent, favoriteEvents, allSchedules: {dates}}, // store state
+  {selectedDate, selectEvent, favoriteEvents}, // store state
   {navigation: {state: {params: {location, beginTime, endTime}}}} // ownProps
 ) => {
   // Calculate human-readable datetime
@@ -20,7 +20,7 @@ const mapStateToProps = (
     location,
     duration,
     favoriteEvents,
-    dayIndex: dates.indexOf(selectDate),
+    dayIndex: ['2017-06-09', '2017-06-10', '2017-06-11'].indexOf(selectedDate),
     hhmmTime: begin.format('HH:mm')
   }
 }

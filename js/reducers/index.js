@@ -1,20 +1,24 @@
 import {combineReducers} from 'redux'
 
-import allSchedules from './allSchedules'
+import allDates from './allDates'
 import favoriteEvents from './favoriteEvents'
 import filter from './filter'
 import navState from './navState'
-import selectDate from './selectDate'
+import schedule from './schedule'
+import selectedDate from './selectedDate'
 import selectEvent from './selectEvent'
+import syncState from './syncState'
 import tagMapping from './tagMapping'
 
 const reducer = combineReducers({
-  allSchedules,
+  allDates,
   favoriteEvents,
   filter,
   navState,
-  selectDate,
+  schedule,
+  selectedDate,
   selectEvent,
+  syncState,
   tagMapping
 })
 

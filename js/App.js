@@ -5,10 +5,9 @@ import {connect} from 'react-redux'
 import {addNavigationHelpers} from 'react-navigation'
 import SplashScreen from 'react-native-splash-screen'
 
-import {fetchEvents} from './actions/fetchEvents'
-import {fetchSchedules} from './actions/fetchSchedules'
+import {syncLocal, syncRemote} from './actions/syncData'
+import {fetchDates} from './actions/fetchDates'
 import {fetchTagMapping} from './actions/fetchTagMapping'
-import {loadFavorites} from './actions/loadFavorites'
 
 import AppNavigator from './navigators/AppNavigator'
 
@@ -16,17 +15,41 @@ class App extends React.Component {
   static propTypes = {
     /* For React-Navigation integration. See official doc for more. */
     dispatch: PropTypes.func,
+    syncState: PropTypes.object,
     navState: PropTypes.object
+  }
+  componentWillReceiveProps (nextProps) {
+    const {dispatch, syncState: {isSyncing, domain, error}} = nextProps
+    const {syncState} = this.props
+
+    if (isSyncing === syncState.isSyncing &&
+      domain === syncState.domain &&
+      error === syncState.error) {
+      return
+    }
+
+    if (error && domain === 'REMOTE') {
+      // console.warn('syncing locally ...')
+      dispatch(syncLocal())
+    }
+
+    const success = !isSyncing && typeof error === 'undefined'
+    // local failure, enter the view without retry?
+    const syncLocalFailure = !!error && domain === 'LOCAL'
+    if (success || syncLocalFailure) {
+      // console.warn('syncing success')
+      // prefetch some data to store
+      dispatch(fetchDates())
+      dispatch(fetchTagMapping())
+    }
   }
 
   componentDidMount () {
-    const {dispatch} = this.props
+    SplashScreen.hide()
+
     // Load all initial dadta
-    dispatch(fetchSchedules())
-    dispatch(fetchEvents())
-    dispatch(fetchTagMapping())
-    dispatch(loadFavorites())
-    setTimeout(SplashScreen.hide) // Manually hide SplashScreen after 3s
+    // console.warn('syncing remotely ...')
+    this.props.dispatch(syncRemote())
   }
 
   render () {
@@ -43,6 +66,6 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({navState}) => ({navState})
+const mapStateToProps = ({navState, syncState}) => ({navState, syncState})
 
 export default connect(mapStateToProps)(App)

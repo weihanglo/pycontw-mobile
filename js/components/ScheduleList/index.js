@@ -8,7 +8,6 @@ import {
   SectionList,
   StyleSheet,
   TouchableHighlight,
-  UIManager,
   View,
   ViewPropTypes
 } from 'react-native'
@@ -25,16 +24,18 @@ const SCALE_MIN_FACTOR = 0.95
 
 export default class extends React.Component {
   static propTypes = {
-    error: PropTypes.object,
+    dates: PropTypes.arrayOf(PropTypes.string),
     favoriteEvents: PropTypes.objectOf(PropTypes.bool),
     filter: PropTypes.objectOf(PropTypes.bool),
-    isFetching: PropTypes.bool,
     schedule: PropTypes.array,
+    selectedDate: PropTypes.string,
     tagMapping: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
-    onCellPress: PropTypes.func,
+    fetchSchedule: PropTypes.func,
     goToSchedule: PropTypes.func, // for MyScheduleList only
-    updateFilter: PropTypes.func,
+    onCellPress: PropTypes.func,
     saveFavorites: PropTypes.func,
+    selectDate: PropTypes.func,
+    updateFilter: PropTypes.func,
     navigation: PropTypes.object,
     style: ViewPropTypes.style
   }
@@ -46,6 +47,14 @@ export default class extends React.Component {
 
   _showMap = false
   _showFilter = false
+
+  componentWillReceiveProps (nextProps) {
+    const {fetchSchedule, selectedDate, schedule} = nextProps
+    const noData = !schedule || schedule.length === 0
+    if (selectedDate !== this.props.selectedDate || noData) {
+      fetchSchedule(selectedDate)
+    }
+  }
 
   componentWillUpdate () {
     if (Platform.OS === 'android') { // android shall not have animations
@@ -140,9 +149,12 @@ export default class extends React.Component {
 
   render () {
     const {
+      dates,
       filter,
       navigation: {state: {routeName}},
       schedule,
+      selectedDate,
+      selectDate,
       goToSchedule,
       updateFilter,
       style
@@ -164,6 +176,9 @@ export default class extends React.Component {
 
         <Animated.View style={{flex: 1, transform, opacity}}>
           <Header
+            dates={dates}
+            selectedDate={selectedDate}
+            selectDate={selectDate}
             centerItem={titleForRoute(routeName)}
             backgroundColor={headerBgColor}
             onPressMap={this._onPressMap}

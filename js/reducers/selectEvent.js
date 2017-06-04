@@ -2,7 +2,7 @@ import {
   FETCH_EVENT_START,
   FETCH_EVENT_SUCCESS,
   FETCH_EVENT_FAILURE
-} from '../actions/fetchEvents'
+} from '../actions/fetchEvent'
 
 const initialState = {
   isFetching: false,

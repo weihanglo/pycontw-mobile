@@ -2,26 +2,26 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {NavigationActions} from 'react-navigation'
 
-import {fetchEvent} from '../actions/fetchEvents'
+import {fetchSchedule} from '../actions/fetchSchedule'
+import {fetchEvent} from '../actions/fetchEvent'
 import {updateFilter} from '../actions/updateFilter'
 import {saveFavorites} from '../actions/saveFavorites'
+import {selectDate} from '../actions/selectDate'
 import ScheduleList from '../components/ScheduleList'
 
 const mapStateToProps = ({
-  allSchedules,
+  allDates: {dates},
   favoriteEvents,
   filter,
-  selectDate,
+  selectedDate,
   tagMapping
-}) => {
-  return {
-    error: allSchedules.error,
-    favoriteEvents,
-    filter,
-    isFetching: allSchedules.isFetching,
-    tagMapping
-  }
-}
+}) => ({
+  dates,
+  favoriteEvents,
+  filter,
+  tagMapping,
+  selectedDate
+})
 
 const mapDispatchToProps = (dispatch, {navigation: {state}}) => ({
   onCellPress: (eventId, location, beginTime, endTime) => {
@@ -39,6 +39,8 @@ const mapDispatchToProps = (dispatch, {navigation: {state}}) => ({
     }))
   },
   ...bindActionCreators({
+    fetchSchedule,
+    selectDate,
     updateFilter,
     saveFavorites
   }, dispatch)

@@ -28,12 +28,11 @@ function filterSchedule (schedule, filter, tagMapping) {
 }
 
 const mapStateToProps = ({
-  allSchedules,
+  schedule: {schedule},
   filter,
-  selectDate,
   tagMapping
 }) => ({
-  schedule: filterSchedule(allSchedules[selectDate], filter, tagMapping)
+  schedule: filterSchedule(schedule, filter, tagMapping)
 })
 
 export default connect(mapStateToProps)(ScheduleList)

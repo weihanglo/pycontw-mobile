@@ -37,14 +37,13 @@ function filterSchedule (schedule, filter, tagMapping, favoriteEvents) {
 }
 
 const mapStateToProps = ({
-  allSchedules,
+  schedule: {schedule},
   favoriteEvents,
   filter,
-  selectDate,
   tagMapping
 }) => ({
   schedule: filterSchedule(
-    allSchedules[selectDate],
+    schedule,
     filter,
     tagMapping,
     favoriteEvents
