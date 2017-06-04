@@ -52,6 +52,7 @@ export default class extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     const {fetchSchedule, selectedDate, syncCompleted, isFetching} = nextProps
+
     if (isFetching) {
       return
     }

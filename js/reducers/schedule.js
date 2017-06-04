@@ -8,17 +8,22 @@ export default function (state = {}, action) {
   switch (action.type) {
     case FETCH_SCHEDULE_START:
       return {
-        isFetching: true
+        ...state,
+        isFetching: true,
+        error: null
       }
     case FETCH_SCHEDULE_SUCCESS:
       return {
+        ...state,
         isFetching: false,
+        error: null,
         schedule: action.schedule
       }
     case FETCH_SCHEDULE_FAILURE:
       return {
         isFetching: false,
-        error: action.error
+        error: action.error,
+        schedule: null
       }
     default:
       return state
