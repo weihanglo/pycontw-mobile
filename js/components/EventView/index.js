@@ -136,6 +136,28 @@ export default class extends React.Component {
     /* TODO: unhandled promise here */
   }
 
+  _renderContent = ({abstract, description, speakers, title, ...remains}) => (
+    <View>
+      <Avatar
+        style={styles.avatarSection}
+        speakers={speakers}
+        showSpeaker={this._showSpeaker}
+      />
+
+      <View style={styles.category}>
+        <Category style={{flex: 1}} {...remains} />
+      </View>
+
+      <Paragraph style={styles.paragraph}>
+        {abstract}
+      </Paragraph>
+
+      {!!description && description.trim().length > 0 && (
+        <Description description={description} />
+      )}
+    </View>
+  )
+
   render () {
     const {
       dayIndex,
@@ -197,31 +219,7 @@ export default class extends React.Component {
               : eventId.split('-')[1] /* handle custom event */
             }
           </Heading1>
-          {!!event && (() => {
-            const {abstract, description, speakers, title, ...remains} = event
-            return (
-              <View>
-                <Avatar
-                  style={styles.avatarSection}
-                  speakers={speakers}
-                  showSpeaker={name => this._showSpeaker(name)}
-                />
-
-                <View style={styles.category}>
-                  <Category style={{flex: 1}} {...remains} />
-                </View>
-
-                <Paragraph style={styles.paragraph}>
-                  {abstract}
-                </Paragraph>
-
-                {!!description && description.trim().length > 0 && (
-                  <Description description={description} />
-                )}
-              </View>
-            )
-          })()}
-
+          {!!event && this._renderContent(event)}
         </ScrollView>
 
         {this.state.modalVisible && this._renderSpeakView()}
