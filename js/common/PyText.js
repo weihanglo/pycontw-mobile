@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet, Text as RNText} from 'react-native'
+import {Dimensions, StyleSheet, Text as RNText} from 'react-native'
 
 import * as Colors from './PyColors'
 
@@ -39,10 +39,16 @@ export function LargeText ({style, ...props}) { // eslint-disable-line
   return <RNText style={[styles.font, styles.large, style]} {...props} />
 }
 
+const scale = Dimensions.get('window').width / 375
+
+function normalize (size) {
+  return Math.round(scale * size)
+}
+
 function getHeadingStyles ({prefix = 'heading', otherStyles}) {
   const styles = {}
   ;[1, 2, 3, 4, 5, 6].forEach(i => {
-    const fontSize = 28 - 2 * i
+    const fontSize = normalize(28 - 2 * i)
     const lineHeight = Math.round(fontSize * 1.375)
     const fontWeight = 'bold'
     styles[`${prefix}${i}`] = {fontSize, lineHeight, fontWeight, ...otherStyles}
@@ -58,14 +64,15 @@ const styles = StyleSheet.create({
     color: Colors.DARK_TEXT
   },
   p: {
-    fontSize: 15,
-    lineHeight: 24
+    fontSize: normalize(15),
+    lineHeight: normalize(24)
   },
   small: {
-    fontSize: 12,
-    lineHeight: 17
+    fontSize: normalize(12),
+    lineHeight: normalize(17)
   },
   large: {
-    fontSize: 18
+    fontSize: normalize(18),
+    lineHeight: normalize(25)
   }
 })
