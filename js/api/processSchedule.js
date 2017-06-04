@@ -2,6 +2,7 @@
   Process event schedule from API call to fit our state logic
  */
 import moment from 'moment'
+import sponsoredTalkTitles from './data/sponsoredTalkTitles.json'
 
 export default function (events) {
   // Temporary container for re-mapping data
@@ -27,6 +28,11 @@ export default function (events) {
       return
     }
 
+    var newTitle = title
+    if (type === 'sponsored_talk' && noTitle) {
+      newTitle = sponsoredTalkTitles[speakers[0]] || 'Invited Event'
+    }
+
     // Store events with identical `beginTime` in the same bag (Array)
     const beginTime = moment(begin_time).format('HH:mm')
     let bag = map[beginTime]
@@ -40,9 +46,10 @@ export default function (events) {
     let eventId = detail_id // eslint-disable-line
     if (isKeynote) {
       eventId = speakers[0]
+      newTitle = `Keynote: ${speakers[0]}`
     }
     if (typeof eventId === 'undefined') {
-      eventId = `${beginTime}-${title}`
+      eventId = `${beginTime}-${title}` // just a rule for unique key
     }
 
     // Data should be unique
@@ -57,7 +64,7 @@ export default function (events) {
       endTime: moment(end_time).format('HH:mm'),
       location: location.replace(/.*-/, '').toUpperCase(),
       speakers,
-      title: noTitle && isKeynote ? `Keynote: ${speakers[0]}` : title,
+      title: newTitle,
       type
     })
   })

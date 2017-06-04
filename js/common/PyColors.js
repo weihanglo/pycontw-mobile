@@ -54,9 +54,9 @@ const TAGS_COLORS = {
   DATA: primary.DARK_BLUE,
   EDU: primary.ACCENT_ORANGE,
   EMBED: primary.ACCENT_YELLOW,
-  FIN: secondary.ACCENT_GREEN,
+  FIN: primary.LIGHT_BLUE,
   GAME: secondary.MIDDLE_BLUE,
-  GRAPH: secondary.LIGHT_BLUE,
+  GRAPH: secondary.ACCENT_ORANGE,
   INTNL: secondary.ACCENT_ORANGE,
   LIBS: secondary.ACCENT_GREEN,
   OTHER: secondary.ACCENT_YELLOW,
@@ -68,7 +68,7 @@ const TAGS_COLORS = {
   // HACK add these
   CUSTOM: secondary.ACCENT_GREEN,
   'NO-REC': primary.ACCENT_YELLOW,
-  KEYNOTE: secondary.ACCENT_ORANGE,
+  KEYNOTE: secondary.ACCENT_GREEN,
   NOVICE: secondary.MIDDLE_BLUE,
   INTERMEDIATE: secondary.LIGHT_BLUE,
   EXPERIENCED: secondary.DARK_BLUE
