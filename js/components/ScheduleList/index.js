@@ -27,9 +27,11 @@ export default class extends React.Component {
     dates: PropTypes.arrayOf(PropTypes.string),
     favoriteEvents: PropTypes.objectOf(PropTypes.bool),
     filter: PropTypes.objectOf(PropTypes.bool),
+    isFetching: PropTypes.bool,
     schedule: PropTypes.array,
     selectedDate: PropTypes.string,
     tagMapping: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
+    syncCompleted: PropTypes.bool,
     fetchSchedule: PropTypes.func,
     goToSchedule: PropTypes.func, // for MyScheduleList only
     onCellPress: PropTypes.func,
@@ -49,9 +51,18 @@ export default class extends React.Component {
   _showFilter = false
 
   componentWillReceiveProps (nextProps) {
-    const {fetchSchedule, selectedDate, schedule} = nextProps
-    const noData = !schedule || schedule.length === 0
-    if (selectedDate !== this.props.selectedDate || noData) {
+    const {fetchSchedule, selectedDate, syncCompleted, isFetching} = nextProps
+    if (isFetching) {
+      return
+    }
+
+    if (syncCompleted && !this.props.syncCompleted) {
+      fetchSchedule(selectedDate)
+      return
+    }
+
+    if (selectedDate !== this.props.selectedDate) {
+      this._changeDate = true
       fetchSchedule(selectedDate)
     }
   }
@@ -171,6 +182,7 @@ export default class extends React.Component {
 
     const {modalVisible} = this.state
 
+    const isEmpty = !schedule || schedule.length === 0
     return (
       <View style={[styles.container, style]}>
 
@@ -184,7 +196,7 @@ export default class extends React.Component {
             onPressMap={this._onPressMap}
             onPressFilter={this._onPressFilter}
           />
-          {schedule && schedule.length > 0 && (
+          {!isEmpty && (
             <SectionList
               style={{overflow: 'hidden'}}
               renderItem={this._renderItem}
@@ -194,7 +206,7 @@ export default class extends React.Component {
               removeClippedSubviews={false} // HACK: React Native issue #13316
             />
           )}
-          {routeName === 'MyScheduleList' && schedule.length === 0 && (
+          {routeName === 'MyScheduleList' && isEmpty && (
             <View style={styles.addEventWrapper}>
               <TouchableHighlight
                 style={styles.addEventButton}

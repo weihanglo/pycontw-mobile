@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Platform, StatusBar} from 'react-native'
+import {AppState, Platform, StatusBar} from 'react-native'
 import {connect} from 'react-redux'
 import {addNavigationHelpers} from 'react-navigation'
 import SplashScreen from 'react-native-splash-screen'
@@ -18,6 +18,9 @@ class App extends React.Component {
     syncState: PropTypes.object,
     navState: PropTypes.object
   }
+
+  _appState = ''
+
   componentWillReceiveProps (nextProps) {
     const {dispatch, syncState: {isSyncing, domain, error}} = nextProps
     const {syncState} = this.props
@@ -28,28 +31,33 @@ class App extends React.Component {
       return
     }
 
-    if (error && domain === 'REMOTE') {
-      // console.warn('syncing locally ...')
-      dispatch(syncLocal())
-    }
-
     const success = !isSyncing && typeof error === 'undefined'
-    // local failure, enter the view without retry?
     const syncLocalFailure = !!error && domain === 'LOCAL'
     if (success || syncLocalFailure) {
-      // console.warn('syncing success')
       // prefetch some data to store
+      SplashScreen.hide()
       dispatch(fetchDates())
       dispatch(fetchTagMapping())
     }
   }
 
   componentDidMount () {
-    SplashScreen.hide()
-
+    AppState.addEventListener('change', this._onChangeAppState)
     // Load all initial dadta
-    // console.warn('syncing remotely ...')
+    this.props.dispatch(syncLocal())
     this.props.dispatch(syncRemote())
+  }
+
+  componentWillUnmount () {
+    AppState.removeEventListener('change', this._onChangeAppState)
+  }
+
+  _onChangeAppState = nextAppState => {
+    if (this._appState.match(/inactive|background/) &&
+      nextAppState === 'active') {
+      this.props.dispatch(syncRemote())
+    }
+    this._appState = nextAppState
   }
 
   render () {

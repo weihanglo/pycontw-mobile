@@ -11,16 +11,21 @@ import ScheduleList from '../components/ScheduleList'
 
 const mapStateToProps = ({
   allDates: {dates},
+  schedule: {isFetching},
   favoriteEvents,
   filter,
   selectedDate,
+  syncState: {isSyncing, error},
   tagMapping
 }) => ({
   dates,
+  error,
   favoriteEvents,
   filter,
+  isFetching,
   tagMapping,
-  selectedDate
+  selectedDate,
+  syncCompleted: !isSyncing && !error
 })
 
 const mapDispatchToProps = (dispatch, {navigation: {state}}) => ({

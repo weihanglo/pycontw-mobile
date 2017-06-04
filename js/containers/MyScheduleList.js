@@ -3,25 +3,20 @@ import {NavigationActions} from 'react-navigation'
 
 import ScheduleList from './BaseScheduleList'
 
-function filterSchedule (schedule, filter, tagMapping, favoriteEvents) {
+function filterSchedule (schedule = [], filter, tagMapping, favoriteEvents) {
   if (Object.keys(favoriteEvents).length <= 0) {
     return []
   }
+  const newSchedule = []
   const noFilter = Object.keys(filter).length <= 0
-  return schedule.map(({key, data}) => ({
-    key,
-    data: data.filter(({eventId, type}) => {
-      if (!favoriteEvents[eventId]) {
-        return false
-      }
 
-      if (noFilter) {
-        return true
-      }
+  for (let {key, data} of schedule) {
+    const newData = data.filter(({eventId, type}) => {
+      if (!favoriteEvents[eventId]) { return false }
 
-      if (filter[type.toUpperCase()]) {
-        return true
-      }
+      if (noFilter) { return true }
+
+      if (filter[type.toUpperCase()]) { return true }
 
       const tags = tagMapping[eventId] || []
 
@@ -33,7 +28,11 @@ function filterSchedule (schedule, filter, tagMapping, favoriteEvents) {
 
       return false
     })
-  }))
+    if (newData.length > 0) {
+      newSchedule.push({key, data: newData})
+    }
+  }
+  return newSchedule
 }
 
 const mapStateToProps = ({

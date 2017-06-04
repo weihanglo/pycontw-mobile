@@ -7,7 +7,7 @@ function filterSchedule (schedule, filter, tagMapping) {
     return schedule
   }
 
-  return schedule.map(({key, data}) => ({
+  return schedule && schedule.map(({key, data}) => ({
     key,
     data: data.filter(({eventId, type}) => {
       if (filter[type.toUpperCase()]) {
