@@ -21,14 +21,9 @@ const AppNavigator = TabNavigator({
     showIcon: true
   },
   tabBarComponent: props => {
-    let backgroundColor = Colors.ULTRALIGHT_BACKGROUND
-    let inactiveTintColor = 'hsl(0, 0%, 50%)'
+    let backgroundColor = Colors.secondary.DARK_BLUE
+    let inactiveTintColor = Colors.LIGHT_TEXT
 
-    // HACK: hack to get tab index
-    if (props.navigation.state.index === 2) { // eslint-disable-line
-      backgroundColor = Colors.secondary.DARK_BLUE
-      inactiveTintColor = 'white'
-    }
     return (
       <TabBarBottom
         inactiveTintColor={inactiveTintColor}

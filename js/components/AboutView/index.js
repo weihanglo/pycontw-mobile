@@ -44,18 +44,18 @@ export default class extends React.Component {
   _animate = () => {
     const {delay, timing} = Animated
     Animated.sequence([
-      delay(1000),
+      delay(250),
       timing(this.state.widthAnim, {
         toValue: 1,
         easing: Easing.elastic(1.5),
         duration: 500
       }),
-      delay(400),
+      delay(250),
       timing(this.state.opacityAnim, {
         toValue: 1,
         easing: Easing.linear
       }),
-      delay(700)
+      delay(300)
     ]).start(() => this.setState({showInfo: true}))
   }
 

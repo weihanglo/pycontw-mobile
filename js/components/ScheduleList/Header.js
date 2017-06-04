@@ -16,6 +16,7 @@ export default class extends React.Component {
   static propTypes = {
     backgroundColor: PropTypes.string,
     dates: PropTypes.arrayOf(PropTypes.string),
+    color: PropTypes.string,
     selectedDate: PropTypes.string,
     selectDate: PropTypes.func,
     onPressMap: PropTypes.func,
@@ -29,7 +30,7 @@ export default class extends React.Component {
 
   _borderWidthByDate = date => ({
     borderColor: this.props.selectedDate === date
-      ? Colors.LIGHT_TEXT
+      ? this.props.color
       : 'transparent'
   })
 
@@ -40,6 +41,7 @@ export default class extends React.Component {
   render () {
     const {
       backgroundColor,
+      color,
       dates,
       selectDate,
       onPressMap,
@@ -50,13 +52,13 @@ export default class extends React.Component {
     const leftItem = (
       <PyHeader.MapButton
         onPress={onPressMap}
-        color={Colors.LIGHT_TEXT}
+        color={color}
       />
     )
     const rightItem = (
       <PyHeader.FilterButton
         onPress={onPressFilter}
-        color={Colors.LIGHT_TEXT}
+        color={color}
       />
     )
 
@@ -75,7 +77,7 @@ export default class extends React.Component {
               key={date}
               onPress={() => selectDate(date)}
               style={[styles.tab, this._borderWidthByDate(date)]}
-              underlayColor='rgba(0, 0, 0, 0.10)'
+              underlayColor='rgba(255, 255, 255, 0.20)'
             >
               <View>
                 <Heading5 style={styles.tabText}>Day {index + 1}</Heading5>

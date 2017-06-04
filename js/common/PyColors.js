@@ -26,7 +26,7 @@ const LOCATION_COLORS = {
   R0: secondary.ACCENT_GREEN,
   R1: primary.ACCENT_YELLOW,
   R2: secondary.MIDDLE_BLUE,
-  R4: secondary.ACCENT_ORANGE,
+  R4: primary.MIDDLE_BLUE,
   ALL: primary.ACCENT_ORANGE
 }
 
@@ -35,12 +35,12 @@ export function colorForLocation (loc) {
 }
 
 const ROUTE_COLORS = {
-  Schedule: primary.MIDDLE_BLUE,
-  ScheduleList: primary.MIDDLE_BLUE,
-  My: primary.LIGHT_BLUE,
-  MyScheduleList: primary.LIGHT_BLUE,
-  About: secondary.ACCENT_ORANGE,
-  AboutView: secondary.ACCENT_ORANGE
+  Schedule: secondary.ACCENT_GREEN,
+  ScheduleList: secondary.ACCENT_GREEN,
+  My: primary.ACCENT_ORANGE,
+  MyScheduleList: primary.ACCENT_ORANGE,
+  About: primary.ACCENT_YELLOW,
+  AboutView: primary.ACCENT_YELLOW
 }
 
 export function colorForRoute (routeName) {
@@ -50,11 +50,11 @@ export function colorForRoute (routeName) {
 const TAGS_COLORS = {
   ADMIN: primary.DARK_BLUE,
   COM: primary.MIDDLE_BLUE,
-  CORE: primary.LIGHT_BLUE,
-  DATA: primary.ACCENT_ORANGE,
+  CORE: primary.ACCENT_YELLOW,
+  DATA: primary.DARK_BLUE,
   EDU: primary.ACCENT_ORANGE,
   EMBED: primary.ACCENT_YELLOW,
-  FIN: secondary.DARK_BLUE,
+  FIN: secondary.ACCENT_GREEN,
   GAME: secondary.MIDDLE_BLUE,
   GRAPH: secondary.LIGHT_BLUE,
   INTNL: secondary.ACCENT_ORANGE,
@@ -68,10 +68,10 @@ const TAGS_COLORS = {
   // HACK add these
   CUSTOM: secondary.ACCENT_GREEN,
   'NO-REC': primary.ACCENT_YELLOW,
-  KEYNOTE: secondary.DARK_BLUE,
+  KEYNOTE: secondary.ACCENT_ORANGE,
   NOVICE: secondary.MIDDLE_BLUE,
   INTERMEDIATE: secondary.LIGHT_BLUE,
-  EXPERIENCED: secondary.ACCENT_ORANGE
+  EXPERIENCED: secondary.DARK_BLUE
 }
 
 export function colorForTag (tag) {

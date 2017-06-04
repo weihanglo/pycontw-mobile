@@ -171,7 +171,7 @@ export default class extends React.Component {
       updateFilter,
       style
     } = this.props
-    const headerBgColor = Colors.colorForRoute(routeName)
+    const headerBgColor = Colors.secondary.DARK_BLUE
 
     // Animated states
     const transform = [{scale: this.state.scaleAnim}]
@@ -190,10 +190,11 @@ export default class extends React.Component {
         <Animated.View style={{flex: 1, transform, opacity}}>
           <Header
             dates={dates}
+            color={Colors.colorForRoute(routeName)}
             selectedDate={selectedDate}
             selectDate={selectDate}
             centerItem={titleForRoute(routeName)}
-            backgroundColor={headerBgColor}
+            backgroundColor={Colors.secondary.DARK_BLUE}
             onPressMap={this._onPressMap}
             onPressFilter={this._onPressFilter}
           />
@@ -210,7 +211,9 @@ export default class extends React.Component {
           {routeName === 'MyScheduleList' && isEmpty && (
             <View style={styles.addEventWrapper}>
               <TouchableHighlight
-                style={styles.addEventButton}
+                style={[styles.addEventButton,
+                  {backgroundColor: Colors.colorForRoute(routeName)}
+                ]}
                 onPress={goToSchedule}
                 underlayColor='rgba(0, 0, 0, 0.10)'
               >
@@ -279,7 +282,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.LIGHT_BACKGROUND
   },
   sectionHeaderText: {
-    color: Colors.DARK_TEXT
+    color: Colors.secondary.DARK_BLUE
   },
   addEventWrapper: {
     flex: 1,
@@ -288,8 +291,7 @@ const styles = StyleSheet.create({
   },
   addEventButton: {
     borderRadius: 10,
-    padding: 8,
-    backgroundColor: Colors.primary.ACCENT_GREEN
+    padding: 8
   },
   addEventHeading: {
     textAlign: 'center',

@@ -59,6 +59,9 @@ export default function Cell ({
       <View style={styles.tagWrapper}>
         {tags && tags.map(tag => {
           const style = {backgroundColor: Colors.colorForTag(tag)}
+          if (tag === 'CUSTOM') {
+            return null
+          }
           return (
             <TouchableOpacity style={[styles.tag, style]} key={tag}>
               <Text style={{color: 'white'}}>{tag}</Text>
