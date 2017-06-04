@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import * as Colors from '../common/PyColors'
 import {SmallText} from '../common/PyText'
 import AboutView from '../components/AboutView'
+import I18n from '../i18n'
 
 const About = StackNavigator({
   AboutView: {
@@ -26,7 +27,7 @@ About.navigationOptions = ({navigation: {state}}) => {
         style={{textAlign: 'center', color: focused ? color : tintColor}}
         allowFontScaling={false}
       >
-        {state.routeName}
+        {I18n.t('About')}
       </SmallText>
     )
   }

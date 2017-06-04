@@ -19,6 +19,7 @@ import {titleForRoute} from '../../common/PyConstants'
 import Cell from './Cell'
 import Header from './Header'
 import Filter from './Filter'
+import I18n from '../../i18n'
 
 const SCALE_MIN_FACTOR = 0.95
 
@@ -219,7 +220,7 @@ export default class extends React.Component {
               >
                 <View>
                   <Heading3 style={styles.addEventHeading}>
-                    Add Event!
+                    {I18n.t('Add Event!')}
                   </Heading3>
                 </View>
               </TouchableHighlight>

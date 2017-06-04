@@ -12,6 +12,7 @@ import {NavigationActions} from 'react-navigation'
 import * as Colors from './PyColors'
 import {Heading1} from './PyText'
 import Header from './PyHeader'
+import I18n from '../i18n'
 
 Py404.propTypes = {
   title: PropTypes.string,
@@ -26,7 +27,7 @@ function Py404 ({
   title = 'Error',
   titleColor = Colors.LIGHT_TEXT,
   headerColor = Colors.primary.DARK_BLUE,
-  mainContent = 'Oops!\n\nNot Found :(',
+  mainContent = I18n.t('Oops!\n\nNot Found :('),
   goBack,
   style,
   ...props

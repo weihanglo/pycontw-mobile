@@ -46,7 +46,7 @@ export default function (events) {
     let eventId = detail_id // eslint-disable-line
     if (isKeynote) {
       eventId = speakers[0]
-      newTitle = `Keynote: ${speakers[0]}`
+      newTitle = `${speakers[0]}`
     }
     if (typeof eventId === 'undefined') {
       eventId = `${beginTime}-${title}` // just a rule for unique key

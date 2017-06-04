@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import {View, ViewPropTypes} from 'react-native'
 
 import Item from './CategoryItem'
+import data from './data/data'
+import I18n from '../../i18n'
 
 Category.propTypes = {
   category: PropTypes.string,
@@ -16,24 +18,24 @@ Category.propTypes = {
 function mapLanguage (language, isTag = false) {
   switch (language) {
     case 'ZHZH':
-      return isTag ? 'ZH' : 'Chinese talk & slides'
+      return isTag ? 'ZH' : I18n.t('Chinese talk & slides')
     case 'ZHEN':
-      return isTag ? 'ZE' : 'Chinese talk w/ English slides'
+      return isTag ? 'ZE' : I18n.t('Chinese talk w/ English slides')
     case 'ENZH':
-      return isTag ? 'EZ' : 'English talk w/ Chinese slides'
+      return isTag ? 'EZ' : I18n.t('English talk w/ Chinese slides')
     case 'ENEN':
-      return isTag ? 'EN' : 'English talk & slides'
+      return isTag ? 'EN' : I18n.t('English talk & slides')
   }
 }
 
 function mapLevel (level, isTag = false) {
   switch (level) {
     case 'NOVICE':
-      return isTag ? '-' : 'Novice'
+      return isTag ? '-' : I18n.t('Novice')
     case 'INTERMEDIATE':
-      return isTag ? '=' : 'Intermediate'
+      return isTag ? '=' : I18n.t('Intermediate')
     case 'EXPERIENCED':
-      return isTag ? '≡' : 'Experienced'
+      return isTag ? '≡' : I18n.t('Experienced')
   }
 }
 
@@ -48,7 +50,7 @@ export default function Category ({
   }) {
   return (
     <View style={[{flex: 1}, style]} {...props}>
-      {category.length === 0 || <Item icon='tag' text={category} />}
+      {category.length === 0 || <Item icon='tag' text={data[category]} />}
 
       {language.length === 0 ||
         <Item tag={mapLanguage(language, true)} text={mapLanguage(language)} />

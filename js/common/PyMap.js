@@ -14,6 +14,7 @@ import {
 import Header from './PyHeader'
 import {LargeText} from './PyText'
 import * as Colors from './PyColors'
+import I18n from '../i18n'
 
 export default class extends React.Component {
   static propTypes = {
@@ -38,7 +39,7 @@ export default class extends React.Component {
 
     const rightItem = (
       <TouchableOpacity onPress={onDone}>
-        <LargeText style={styles.item}>Done</LargeText>
+        <LargeText style={styles.item}>{I18n.t('Done')}</LargeText>
       </TouchableOpacity>
     )
 
@@ -47,7 +48,7 @@ export default class extends React.Component {
       <View style={[styles.container, style]}>
         <StatusBar translucent={false} />
         <Header
-          centerItem='Map'
+          centerItem={I18n.t('Map')}
           rightItem={rightItem}
           titleColor={Colors.LIGHT_TEXT}
           style={{backgroundColor: Colors.primary.MIDDLE_BLUE}}

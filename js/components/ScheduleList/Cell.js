@@ -10,6 +10,7 @@ import {
 import {Text, Heading4} from '../../common/PyText'
 import Bookmark from '../../common/Bookmark'
 import * as Colors from '../../common/PyColors'
+import I18n from '../../i18n'
 
 Cell.propTypes = {
   beginTime: PropTypes.string,
@@ -32,7 +33,6 @@ export default function Cell ({
     checked,
     location,
     speakers,
-    title,
     tags,
     toggleCheck,
     style,
@@ -41,6 +41,10 @@ export default function Cell ({
   const locationStyle = {
     color: Colors.colorForLocation(location),
     fontWeight: 'bold'
+  }
+  let title = props.title
+  if (props.type === 'keynote') {
+    title = `${I18n.t('Keynote: ')}${title}`
   }
 
   return (

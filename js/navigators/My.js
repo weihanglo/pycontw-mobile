@@ -6,6 +6,7 @@ import * as Colors from '../common/PyColors'
 import {SmallText} from '../common/PyText'
 import ScheduleList from '../containers/MyScheduleList'
 import EventView from '../containers/EventView'
+import I18n from '../i18n'
 
 const My = StackNavigator({
   MyScheduleList: {
@@ -30,8 +31,7 @@ My.navigationOptions = ({navigation: {state}}) => {
         style={{textAlign: 'center', color: focused ? color : tintColor}}
         allowFontScaling={false}
       >
-        {/* {state.routeName} */}
-        My PyCon
+        {I18n.t('My PyCon')}
       </SmallText>
     )
   }

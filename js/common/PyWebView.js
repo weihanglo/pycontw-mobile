@@ -15,6 +15,7 @@ import * as Colors from './PyColors'
 import Logo from './PyLogo'
 import Header from './PyHeader'
 import {LargeText} from './PyText'
+import I18n from '../i18n'
 
 function openInBrowser (url) {
   Linking.openURL(url)
@@ -36,7 +37,7 @@ export default function WebView ({
 }) {
   const leftItem = (
     <TouchableOpacity onPress={onDone}>
-      <LargeText style={styles.leftItem}>Done</LargeText>
+      <LargeText style={styles.leftItem}>{I18n.t('Done')}</LargeText>
     </TouchableOpacity>
   )
 

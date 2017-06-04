@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import Header from '../../common/PyHeader'
 import {Heading2, Text, LargeText} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
+import I18n from '../../i18n'
 
 export default class extends React.Component {
   static propTypes = {
@@ -96,12 +97,12 @@ export default class extends React.Component {
 
     const leftItem = (
       <TouchableOpacity onPress={this._onPressReset}>
-        <LargeText style={styles.item}>Reset</LargeText>
+        <LargeText style={styles.item}>{I18n.t('Reset')}</LargeText>
       </TouchableOpacity>
     )
     const rightItem = (
       <TouchableOpacity onPress={() => onDone(this.state.filter)}>
-        <LargeText style={styles.item}>Done</LargeText>
+        <LargeText style={styles.item}>{I18n.t('Done')}</LargeText>
       </TouchableOpacity>
     )
 
@@ -143,7 +144,7 @@ export default class extends React.Component {
         <StatusBar translucent={false} />
         <Header
           leftItem={leftItem}
-          centerItem='Filter'
+          centerItem={I18n.t('Filter')}
           rightItem={rightItem}
           titleColor={Colors.LIGHT_TEXT}
           style={{backgroundColor: Colors.primary.MIDDLE_BLUE}}
@@ -156,7 +157,7 @@ export default class extends React.Component {
               ? selected
               : (
                 <Heading2 style={styles.hint}>
-                  Your selections will show up here.
+                  {I18n.t('Your rules will show up here')}
                 </Heading2>
               )
             }
@@ -166,7 +167,7 @@ export default class extends React.Component {
               ? unselected
               : (
                 <Heading2 style={styles.hint}>
-                  You've selected all tags!
+                  {I18n.t("You've selected all rules!")}
                 </Heading2>
               )
             }

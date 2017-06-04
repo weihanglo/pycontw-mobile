@@ -11,6 +11,7 @@ import {
 import {Heading5} from '../../common/PyText'
 import PyHeader from '../../common/PyHeader'
 import * as Colors from '../../common/PyColors'
+import I18n from '../../i18n'
 
 export default class extends React.Component {
   static propTypes = {
@@ -80,7 +81,9 @@ export default class extends React.Component {
               underlayColor='rgba(255, 255, 255, 0.20)'
             >
               <View>
-                <Heading5 style={styles.tabText}>Day {index + 1}</Heading5>
+                <Heading5 style={styles.tabText}>
+                  {I18n.t(`Day ${index + 1}`)}
+                </Heading5>
               </View>
             </TouchableHighlight>
           ))}

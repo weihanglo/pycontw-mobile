@@ -19,6 +19,7 @@ import SpeakerView from '../../components/SpeakerView'
 import Description from './Description'
 import Category from './Category'
 import Avatar from './Avatar'
+import I18n from '../../i18n'
 
 const ENDPOINT = '/2017/events/talk/'
 
@@ -27,12 +28,10 @@ export default class extends React.Component {
     dayIndex: PropTypes.number,
     hhmmTime: PropTypes.string,
     duration: PropTypes.string,
-    error: PropTypes.object,
     event: PropTypes.object,
     eventId: PropTypes.string,
     favoriteEvents: PropTypes.objectOf(PropTypes.bool),
     location: PropTypes.string,
-    isFetching: PropTypes.bool,
     saveFavorites: PropTypes.func,
     goBack: PropTypes.func,
     style: ViewPropTypes.style
@@ -164,11 +163,9 @@ export default class extends React.Component {
       hhmmTime,
       duration,
       event,
-      error,
       eventId,
       favoriteEvents,
       location,
-      isFetching,
       goBack,
       style
     } = this.props
@@ -180,7 +177,9 @@ export default class extends React.Component {
     )
     const centerItem = (
       <View>
-        <SmallText style={{textAlign: 'center'}}>Day {dayIndex + 1}</SmallText>
+        <SmallText style={{textAlign: 'center'}}>
+          {I18n.t(`Day ${dayIndex + 1}`)}
+        </SmallText>
         <Text style={styles.headerTitle}>{hhmmTime}</Text>
       </View>
     )

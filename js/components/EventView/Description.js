@@ -6,6 +6,7 @@ import MarkdownIt from 'markdown-it'
 
 import {Heading5, Paragraph} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
+import I18n from '../../i18n'
 
 const MARKDOWN_BOTTOM_PADDING = 10
 
@@ -89,7 +90,9 @@ export default class extends React.Component {
     return (
       <View>
         <View style={styles.titleSection}>
-          <Heading5 style={styles.title}>Detail</Heading5>
+          <Heading5 style={styles.title}>
+            {I18n.t('Talk Detail')}
+          </Heading5>
           <View style={styles.renderModeButton}>
             <Icon.Button
               name={usingMarkdown ? 'file-text' : 'markdown'}
@@ -98,8 +101,8 @@ export default class extends React.Component {
               onPress={this._onPress}
             >
               {usingMarkdown
-                ? 'I Prefer PlainText'
-                : 'Read in Markdown!'
+                ? I18n.t('I Prefer PlainText')
+                : I18n.t('Read in Markdown!')
               }
             </Icon.Button>
           </View>

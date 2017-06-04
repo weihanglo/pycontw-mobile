@@ -2,6 +2,7 @@ package com.pycontwmobile;
 
 import android.app.Application;
 
+import com.i18n.reactnativei18n.ReactNativeI18n;
 import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
@@ -28,7 +29,8 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new VectorIconsPackage(),
             new SplashScreenReactPackage(),
-            new SvgPackage()
+            new SvgPackage(),
+            new ReactNativeI18n()
       );
     }
   };

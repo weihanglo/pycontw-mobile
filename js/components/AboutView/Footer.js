@@ -3,6 +3,7 @@ import {Linking, StyleSheet, View} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import * as Colors from '../../common/PyColors'
+import I18n from '../../i18n'
 
 function open (url) {
   Linking.openURL(url)
@@ -20,7 +21,7 @@ export default function Footer () {
           color={Colors.LIGHT_TEXT}
           onPress={() => { open('https://twitter.com/pycontw') }}
         >
-          Follow us on Twitter
+          {I18n.t('Follow us on Twitter')}
         </Icon.Button>
       </View>
       <View style={styles.item}>
@@ -31,7 +32,7 @@ export default function Footer () {
           color={Colors.LIGHT_TEXT}
           onPress={() => { open('https://www.facebook.com/pycontw') }}
         >
-          Like us on Facebook
+          {I18n.t('Like us on Facebook')}
         </Icon.Button>
       </View>
       <View style={styles.item}>
@@ -42,7 +43,7 @@ export default function Footer () {
           color={Colors.DARK_TEXT}
           onPress={() => { open('https://github.com/pycontw/pycontw2016') }}
         >
-          Find PyConTW on Github
+          {I18n.t('Find PyConTW on Github')}
         </Icon.Button>
       </View>
       <View style={styles.item}>
@@ -53,7 +54,7 @@ export default function Footer () {
           color={Colors.DARK_TEXT}
           onPress={() => { open('https://github.com/weihanglo/pycontw-mobile') }}
         >
-          Fork this app on Github
+          {I18n.t('Fork this app on Github')}
         </Icon.Button>
       </View>
       <View style={styles.item}>
@@ -64,7 +65,7 @@ export default function Footer () {
           color={Colors.DARK_TEXT}
           onPress={() => { open('mailto:organizers@pycon.tw') }}
         >
-          Send us a mail
+          {I18n.t('Send us a mail')}
         </Icon.Button>
       </View>
     </View>

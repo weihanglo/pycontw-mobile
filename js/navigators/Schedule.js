@@ -6,6 +6,7 @@ import * as Colors from '../common/PyColors'
 import {SmallText} from '../common/PyText'
 import ScheduleList from '../containers/ScheduleList'
 import EventView from '../containers/EventView'
+import I18n from '../i18n'
 
 const Schedule = StackNavigator({
   ScheduleList: {
@@ -30,7 +31,7 @@ Schedule.navigationOptions = ({navigation: {state}}) => {
         style={{textAlign: 'center', color: focused ? color : tintColor}}
         allowFontScaling={false}
       >
-        {state.routeName}
+        {I18n.t('Schedule')}
       </SmallText>
     )
   }

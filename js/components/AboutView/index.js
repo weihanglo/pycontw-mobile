@@ -21,7 +21,8 @@ import Slogan from './Slogan'
 import GradientLine from './GradientLine'
 import Cell from './Cell'
 import Footer from './Footer'
-import data from './data.json'
+import data from './data/data'
+import I18n from '../../i18n'
 
 UIManager.setLayoutAnimationEnabledExperimental &&
   UIManager.setLayoutAnimationEnabledExperimental(true)
@@ -100,7 +101,7 @@ export default class extends React.Component {
     return (
       <View style={[styles.container, style]}>
         <Header
-          centerItem='About'
+          centerItem={I18n.t('About')}
           style={{backgroundColor: Colors.secondary.DARK_BLUE}}
           titleColor={Colors.LIGHT_TEXT}
         />
@@ -112,7 +113,7 @@ export default class extends React.Component {
             </Animated.View>
             <Animated.View style={{opacity: opacityAnim}}>
               <Heading2 style={{color: 'white'}}>
-                9-11 June
+                {I18n.t('9-11 June')}
               </Heading2>
             </Animated.View>
           </View>
