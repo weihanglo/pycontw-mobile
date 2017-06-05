@@ -19,7 +19,12 @@ const data = {
   ADMIN: I18n.t('Systems Administration'),
   TEST: I18n.t('Testing'),
   WEB: I18n.t('Web Frameworks'),
-  KEYNOTE: I18n.t('Keynote')
+  KEYNOTE: I18n.t('Keynote'),
+  // HACK: ADD THIS MANUALLY
+  NOVICE: I18n.t('Novice'),
+  INTERMEDIATE: I18n.t('Intermediate'),
+  EXPERIENCED: I18n.t('Experienced'),
+  'NO-REC': I18n.t('No Recording')
 }
 
 export default data

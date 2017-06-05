@@ -210,6 +210,7 @@ export default class extends React.Component {
   render () {
     const {
       dates,
+      filter,
       navigation: {state: {routeName}},
       schedule,
       selectedDate,
@@ -234,12 +235,14 @@ export default class extends React.Component {
           <Header
             dates={dates}
             color={Colors.colorForRoute(routeName)}
+            filter={filter}
             selectedDate={selectedDate}
             selectDate={selectDate}
             centerItem={titleForRoute(routeName)}
             backgroundColor={Colors.secondary.DARK_BLUE}
             onPressMap={this._onPressMap}
             onPressFilter={this._onPressFilter}
+            onResetFilter={() => this.props.updateFilter({})}
           />
           {!isEmpty && (
             <SectionList

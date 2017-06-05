@@ -5,22 +5,6 @@ import {Dimensions, StyleSheet, TouchableOpacity, View} from 'react-native'
 import {LargeText} from '../../common/PyText'
 import * as Colors from '../../common/PyColors'
 import categoryMapping from '../../i18n/categoryMapping'
-import I18n from '../../i18n'
-
-function i18nTag (tag) {
-  switch (tag) {
-    case 'NOVICE':
-      return I18n.t('Novice')
-    case 'INTERMEDIATE':
-      return I18n.t('Intermediate')
-    case 'EXPERIENCED':
-      return I18n.t('Experienced')
-    case 'NO-REC':
-      return I18n.t('No Recording')
-    default:
-      break
-  }
-}
 
 export default class extends React.Component {
   static propTypes = {
@@ -36,6 +20,8 @@ export default class extends React.Component {
     layout: null,
     didLayout: false
   }
+
+  _timeout
 
   _onLayout = ({nativeEvent: {layout}}) => {
     if (!this.state.didLayout) {
@@ -61,7 +47,7 @@ export default class extends React.Component {
 
   _getPreLayout = () => {
     const {width, height} = Dimensions.get('window')
-    const {tag, point: {x, y}} = this.props
+    const {point: {x, y}} = this.props
 
     return {
       top: `${y / height * 100}%`,
@@ -71,9 +57,12 @@ export default class extends React.Component {
   }
 
   componentDidMount () {
-    setTimeout(() => {
+    this._timeout = setTimeout(() => {
       this.props.onDone()
-    }, 2000)
+    }, 3000)
+  }
+  componentWillUnmount () {
+    clearTimeout(this._timeout)
   }
 
   render () {
@@ -82,7 +71,7 @@ export default class extends React.Component {
       ? this._getNewLayout()
       : this._getPreLayout()
 
-    const description = categoryMapping[tag] || i18nTag(tag)
+    const description = categoryMapping[tag]
     const shadowProps = {
       shadowColor: 'hsl(0, 0%, 0%)',
       shadowOffset: {width: 0, height: 0},

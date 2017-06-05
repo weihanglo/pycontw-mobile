@@ -7,6 +7,8 @@ export default {
   'Reset': '重設',
   'Map': '地圖',
 
+  'Filter: ': '篩選條件：',
+  ', ': '、',
   'Filter': '篩選',
   'Your rules will show up here': '你的篩選條件將顯示於此',
   "You've selected all rules!": '你選擇了所有條件！',

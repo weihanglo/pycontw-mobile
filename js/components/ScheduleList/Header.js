@@ -4,13 +4,16 @@ import PropTypes from 'prop-types'
 import {
   StyleSheet,
   TouchableHighlight,
+  TouchableOpacity,
   View,
   ViewPropTypes
 } from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
-import {Heading5} from '../../common/PyText'
+import {Heading5, SmallText} from '../../common/PyText'
 import PyHeader from '../../common/PyHeader'
 import * as Colors from '../../common/PyColors'
+import categoryMapping from '../../i18n/categoryMapping'
 import I18n from '../../i18n'
 
 export default class extends React.Component {
@@ -18,10 +21,12 @@ export default class extends React.Component {
     backgroundColor: PropTypes.string,
     dates: PropTypes.arrayOf(PropTypes.string),
     color: PropTypes.string,
+    filter: PropTypes.objectOf(PropTypes.bool),
     selectedDate: PropTypes.string,
     selectDate: PropTypes.func,
     onPressMap: PropTypes.func,
     onPressFilter: PropTypes.func,
+    onResetFilter: PropTypes.func,
     style: ViewPropTypes.style
   }
 
@@ -44,9 +49,11 @@ export default class extends React.Component {
       backgroundColor,
       color,
       dates,
+      filter,
       selectDate,
       onPressMap,
       onPressFilter,
+      onResetFilter,
       style,
       ...props
     } = this.props
@@ -88,6 +95,18 @@ export default class extends React.Component {
             </TouchableHighlight>
           ))}
         </View>
+
+        {Object.values(filter).some(e => e) && (
+          <View style={styles.filterReminder}>
+            <SmallText style={styles.filterText} numberOfLines={1}>
+              {I18n.t('Filter: ')}
+              {Object.keys(filter).map(k => categoryMapping[k]).join(I18n.t(', '))}
+            </SmallText>
+            <TouchableOpacity style={styles.filterClose} onPress={onResetFilter}>
+              <Icon name='close' size={16} />
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     )
   }
@@ -108,5 +127,23 @@ const styles = StyleSheet.create({
   },
   tabText: {
     color: Colors.LIGHT_TEXT
+  },
+  filterReminder: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: Colors.primary.MIDDLE_BLUE
+  },
+  filterText: {
+    flex: 1,
+    paddingLeft: 15,
+    color: Colors.LIGHT_TEXT
+  },
+  filterClose: {
+    flexBasis: 40,
+    height: 40,
+    marginLeft: 'auto',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
