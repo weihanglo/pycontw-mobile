@@ -1,18 +1,34 @@
 ![](https://cdn.rawgit.com/weihanglo/pycontw-mobile/master/.github/icon-logo.svg)
 
-# PyCon Taiwan Offical Conference App   [![](https://cdn.rawgit.com/weihanglo/pycontw-mobile/master/.github/pycon-logo.svg)](https://tw.pycon.org) [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
+#    [![](https://cdn.rawgit.com/weihanglo/pycontw-mobile/master/.github/pycon-logo.svg)](https://tw.pycon.org) PyCon Taiwan Offical Conference App
 
-[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](#PyCon%20TW%20Offical%20Conference%20App)
+[![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+<a href="https://play.google.com/store/apps/details?id=com.pycontwmobile"><img alt="Get it on Google Play" src=".github/google-play.png" width="155px"></a> <a href="https://itunes.apple.com/app/pycontw-17/id1244168803"><img alt="Download on the App Store" src=".github/app-store.svg" ></a>
 
 The open source conference app for [PyCon Taiwan 2017][pycontw-website]. Powered by [React Native][react-native] and other brilliant tools.
 
 <div>
-  <img src=".github/ios-screenshot.png" width="45%"/>
-  <img src=".github/android-screenshot.png" width="45%"/>
+  <img src=".github/ios-framed.png" height="400px"/>
+  <img src=".github/android-framed.png" height="480px"/>
 </div>
 
-## Getting Started
+
+## Project Info
+
+- **Platform**: Android & iOS
+- **State Management**: [Redux][redux] ([React Redux][react-redux])
+- **Code Style**: Standard
+- **Navigation Solution**: [React Navigation][react-navigation]
+- **Async Action Solution**: [Redux Thunk][redux-thunk]
+- **Native Modules**:
+  - [React Native SVG][react-native-svg]
+  - [React Native i18n][react-native-i18n]
+  - [React Native Vector Icons][react-native-vector-icons]
+  - [React Native Splash Screen][react-native-splash-screen]
+
+
+## Installation
 
 ### iOS
 
@@ -32,35 +48,27 @@ The open source conference app for [PyCon Taiwan 2017][pycontw-website]. Powered
     react-native run-android
     ```
 
-## Libraries We Love
-
-- [Moment.js][momentjs]
-- [React][react]
-- [React Native][react-native]
-- [React Native Vector Icons][react-native-vector-icons]
-- [React Native SVG][react-native-svg]
-- [React Native Splash Screen][react-native-splash-screen]
-- [React Navigation][react-navigation]
-- [React Redux][react-redux]
-- [Redux][redux]
-- [Redux Thunk][redux-thunk]
-- [Remote Redux Devtools][remote-redux-devtools]
-
 ## License
 
 [MIT](LICENSE)
 
+
+<!-- links -->
+
+
+[google-play]: https://play.google.com/store/apps/details?id=com.pycontwmobile
+[app-store]: https://itunes.apple.com/app/pycontw-17/id1244168803
+
 [react-native-started]: https://facebook.github.io/react-native/docs/getting-started.html
 
 [pycontw-website]: https://tw.pycon.org/
-[momentjs]: https://momentjs.com/
-[react]: https://facebook.github.io/react/
+
 [react-native]: https://facebook.github.io/react-native/
 [react-native-vector-icons]: https://github.com/oblador/react-native-vector-icons
 [react-native-svg]: https://github.com/react-native-community/react-native-svg
 [react-native-splash-screen]: https://github.com/crazycodeboy/react-native-splash-screen
 [react-navigation]: https://reactnavigation.org/
+[react-native-i18n]: https://github.com/AlexanderZaytsev/react-native-i18n
 [react-redux]: https://github.com/reactjs/react-redux
 [redux]: https://github.com/reactjs/redux
 [redux-thunk]: https://github.com/gaearon/redux-thunk
-[remote-redux-devtools]: https://github.com/zalmoxisus/remote-redux-devtools
