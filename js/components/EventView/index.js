@@ -32,7 +32,9 @@ export default class extends React.Component {
     eventId: PropTypes.string,
     favoriteEvents: PropTypes.objectOf(PropTypes.bool),
     location: PropTypes.string,
+    useMarkdown: PropTypes.bool,
     saveFavorites: PropTypes.func,
+    preferMarkdown: PropTypes.func,
     goBack: PropTypes.func,
     style: ViewPropTypes.style
   }
@@ -152,7 +154,11 @@ export default class extends React.Component {
       </Paragraph>
 
       {!!description && description.trim().length > 0 && (
-        <Description description={description} />
+        <Description
+          useMarkdown={this.props.useMarkdown}
+          preferMarkdown={this.props.preferMarkdown}
+          description={description}
+        />
       )}
     </View>
   )

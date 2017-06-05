@@ -36,8 +36,8 @@ export default {
   'Oops!\n\nNot Found :(': '抱歉！\n\n找不到 :(',
 
   'Details': '詳細資訊',
-  'I Prefer PlainText': '我比較❤️純文字',
-  'Read in Markdown!': '閱讀 Markdown！',
+  'Read in Plaintext': '閱讀純文字！',
+  'I ❤️ Markdown!': '我 ❤️ Markdown！',
 
   'Chinese talk & slides': '中文演講',
   'Chinese talk w/ English slides': '中文演講／英文投影片',

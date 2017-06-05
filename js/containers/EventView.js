@@ -6,6 +6,7 @@ import 'moment/locale/zh-tw'
 import I18n from 'react-native-i18n'
 
 import {saveFavorites} from '../actions/saveFavorites'
+import {preferMarkdown} from '../actions/preferMarkdown'
 import EventView from '../components/EventView'
 
 if (I18n.locale.match(/zh/)) {
@@ -15,8 +16,10 @@ if (I18n.locale.match(/zh/)) {
 }
 
 const mapStateToProps = (
-  {selectedDate, selectEvent, favoriteEvents, allDates: {dates}}, // store state
-  {navigation: {state: {params: {location, beginTime, endTime}}}} // ownProps
+  // store state
+  {selectedDate, selectEvent, useMarkdown, favoriteEvents, allDates: {dates}},
+  // ownProps
+  {navigation: {state: {params: {location, beginTime, endTime}}}}
 ) => {
   // Calculate human-readable datetime
   const begin = moment(beginTime, 'hh:mm')
@@ -28,13 +31,17 @@ const mapStateToProps = (
     duration,
     favoriteEvents,
     dayIndex: dates.indexOf(selectedDate),
-    hhmmTime: begin.format('HH:mm')
+    hhmmTime: begin.format('HH:mm'),
+    useMarkdown
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   goBack: () => { dispatch(NavigationActions.back()) },
-  ...bindActionCreators({saveFavorites}, dispatch)
+  ...bindActionCreators({
+    saveFavorites,
+    preferMarkdown
+  }, dispatch)
 })
 
 export default connect(

@@ -12,16 +12,33 @@ const MARKDOWN_BOTTOM_PADDING = 10
 
 export default class extends React.Component {
   static propTypes = {
+    useMarkdown: PropTypes.bool,
+    preferMarkdown: PropTypes.func,
     description: PropTypes.string.isRequired
+  }
+
+  constructor (props) {
+    super(props)
+    if (typeof props.useMarkdown !== 'undefined') {
+      this.state = {
+        ...this.state,
+        usingMarkdown: props.useMarkdown
+      }
+    }
   }
 
   state = {
     webViewHeight: 0,
-    usingMarkdown: false
+    usingMarkdown: true
   }
 
+  _markdown
   _webViewRef
   _isMarkdownLoaded = false
+
+  componentDidMount () {
+    this._markdown = MarkdownIt().render(this.props.description)
+  }
 
   _onLoadEnd = () => {
     if (this._isMarkdownLoaded) {
@@ -29,9 +46,9 @@ export default class extends React.Component {
     }
     if (this._webViewRef) {
       this._isMarkdownLoaded = true
-      this._webViewRef.injectJavaScript(`
-        window.postMessage(document.documentElement.scrollHeight);
-      `)
+      this._webViewRef.injectJavaScript(
+        'window.postMessage(document.documentElement.scrollHeight);'
+      )
       return
     }
     setTimeout(this._onLoadEnd, 500)
@@ -44,11 +61,16 @@ export default class extends React.Component {
   _onPress = () => {
     const {usingMarkdown} = this.state
     this._isMarkdownLoaded = false
+
     // HACK: WebView#onLoadEnd did not call in iOS, we call it manually
     if (!usingMarkdown && Platform.OS === 'ios') {
       this._onLoadEnd()
     }
-    this.setState({usingMarkdown: !this.state.usingMarkdown})
+
+    // Toggle markdown preference
+    this.props.preferMarkdown(!usingMarkdown)
+
+    this.setState({usingMarkdown: !usingMarkdown})
   }
 
   _onLayoutParagraph = ({nativeEvent: {layout: {height}}}) => {
@@ -60,17 +82,15 @@ export default class extends React.Component {
     const {description} = this.props
 
     if (usingMarkdown) {
-      if (!this._markdown) {
-        this._markdown = MarkdownIt().render(description)
-      }
-
+      const html = this._markdown || MarkdownIt().render(description)
       return (
         <WebView
           style={{height: webViewHeight}}
           ref={webView => { this._webViewRef = webView }}
-          onLoadEnd={this._onLoadEnd}
+          // HACK: Should call `this._onLoadEnd()` to make it happen. Why??
+          onLoadEnd={this._onLoadEnd()}
           onMessage={this._onMessage}
-          source={{html: this._markdown}}
+          source={{html}}
           dataDetectorTypes='all'
           scrollEnabled={false}
         />
@@ -101,8 +121,8 @@ export default class extends React.Component {
               onPress={this._onPress}
             >
               {usingMarkdown
-                ? I18n.t('I Prefer PlainText')
-                : I18n.t('Read in Markdown!')
+                ? I18n.t('Read in Plaintext')
+                : I18n.t('I ❤️ Markdown!')
               }
             </Icon.Button>
           </View>
