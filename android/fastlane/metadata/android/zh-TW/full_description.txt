@@ -1,0 +1,13 @@
+2017 年的 Pycon Taiwan 即將在 6/19 到 6/11 舉行！
+Pycon Taiwan 官方提供議程 APP 給來自各地的 Python 愛好者，讓大家隨時隨地掌握 Pycon Taiwan 議程的進度和各式各樣的議題，以及您有興趣的講者，歡迎大家共襄盛舉！
+
+此 議程 APP 包含：
+* Pycon Taiwan 會議詳細流程、講者資訊以及會議簡介
+* 將您有興趣的議題和行程保存在 My Pycon，方便您管理以及規劃
+* 詳細和精緻的會場地圖方便您參考
+* 可以利用篩選器選擇您喜歡的議程類型，讓您的目標更快速地被收斂
+* 您可以在 About 裡面找到更多關於 Pycon Taiwan 詳細的資訊，包含官方的網站連結和參與的工作夥伴
+
+Pycon Taiwan App 程式碼也開源囉！
+https://github.com/weihanglo/pycontw-mobile
+https://tw.pycon.org
