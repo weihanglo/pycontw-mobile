@@ -14,14 +14,14 @@ The open source conference app for [PyCon Taiwan 2017][pycontw-website]. Powered
 
 ## Project Info
 
-- **Platform**: Android & iOS
+- **Platform**: [Android][google-play] & [iOS][app-store]
 - **State Management**: [Redux][redux] ([React Redux][react-redux])
-- **Code Style**: Standard
-- **Navigation Solution**: [React Navigation][react-navigation]
-- **Async Action Solution**: [Redux Thunk][redux-thunk]
-- **Native Modules**:
+- **Code Style**: [Standard][standardjs]
+- **Navigation**: [React Navigation][react-navigation]
+- **Async Actions**: [Redux Thunk][redux-thunk]
+- **Internationalization**: [React Native i18n][react-native-i18n] & [Moment.js][momentjs]
+- **Other Native Modules**:
   - [React Native SVG][react-native-svg]
-  - [React Native i18n][react-native-i18n]
   - [React Native Vector Icons][react-native-vector-icons]
   - [React Native Splash Screen][react-native-splash-screen]
 
@@ -61,6 +61,8 @@ The open source conference app for [PyCon Taiwan 2017][pycontw-website]. Powered
 
 [pycontw-website]: https://tw.pycon.org/
 
+[standardjs]: https://standardjs.com
+[momentjs]: https://momentjs.com/
 [react-native]: https://facebook.github.io/react-native/
 [react-native-vector-icons]: https://github.com/oblador/react-native-vector-icons
 [react-native-svg]: https://github.com/react-native-community/react-native-svg
