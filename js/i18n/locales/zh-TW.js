@@ -33,7 +33,7 @@ export default {
   'Add Event!': '開始關注議程！',
   'Oops!\n\nNot Found :(': '抱歉！\n\n找不到 :(',
 
-  'Talk Detail': '演講詳細資訊',
+  'Details': '詳細資訊',
   'I Prefer PlainText': '我比較❤️純文字',
   'Read in Markdown!': '閱讀 Markdown！',
 

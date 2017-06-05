@@ -2,19 +2,16 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {NavigationActions} from 'react-navigation'
 import moment from 'moment'
+import 'moment/locale/zh-tw'
 import I18n from 'react-native-i18n'
 
 import {saveFavorites} from '../actions/saveFavorites'
 import EventView from '../components/EventView'
 
 if (I18n.locale.match(/zh/)) {
-  moment.locale('zh', {
-    relativeTime: {
-      mm: '%d 分鐘',
-      h: '1 小時',
-      hh: '%d 小時'
-    }
-  })
+  moment.locale('zh-tw')
+} else if (I18n.locale.match(/en/)) {
+  moment.locale('en-us')
 }
 
 const mapStateToProps = (
@@ -25,7 +22,7 @@ const mapStateToProps = (
   // TODO: handle locale
   const begin = moment(beginTime, 'hh:mm')
   const end = moment(endTime, 'hh:mm')
-  const duration = moment.duration(end.diff(begin)).locale('zh').humanize()
+  const duration = moment.duration(end.diff(begin)).humanize()
   return {
     ...selectEvent,
     location,

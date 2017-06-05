@@ -91,7 +91,7 @@ export default class extends React.Component {
       <View>
         <View style={styles.titleSection}>
           <Heading5 style={styles.title}>
-            {I18n.t('Talk Detail')}
+            {I18n.t('Details')}
           </Heading5>
           <View style={styles.renderModeButton}>
             <Icon.Button
