@@ -13,8 +13,7 @@ import App from './App'
 const middlewares = [thunk]
 
 const composeEnhancers = composeWithDevTools({
-  name: `${Platform.OS} - ${new Date()}`,
-  realtime: true
+  name: `${Platform.OS} - ${new Date()}`
 })(applyMiddleware(...middlewares))
 
 const store = createStore(reducer, /* initialState, */ composeEnhancers)
