@@ -30,7 +30,7 @@ export default {
 
   'Keynote: ': '基調演講：',
 
-  'Add Event!': '去關注議程！',
+  'Add Event!': '開始關注議程！',
   'Oops!\n\nNot Found :(': '抱歉！\n\n找不到 :(',
 
   'Talk Detail': '演講詳細資訊',
@@ -42,6 +42,7 @@ export default {
   'English talk w/ Chinese slides': '英文演講／中文投影片',
   'English talk & slides': '英文演講',
 
+  'No Recording': '不開放錄音',
   'Novice': '入門',
   'Intermediate': '中階',
   'Experienced': '進階',
@@ -56,7 +57,7 @@ export default {
   'Gaming': '遊戲',
   'Graphics': '圖像處理',
   'Other': '其他',
-  'Python Core (language, stdlib, etc.)': 'Python Core（語言本身、標準函式庫…）',
+  'Python Core (language, stdlib, etc)': 'Python Core（語言本身、標準函式庫…）',
   'Python Internals': 'Python 實作',
   'Python Libraries': 'Python 函式庫',
   'Science': '科學',

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {View, ViewPropTypes} from 'react-native'
 
 import Item from './CategoryItem'
-import data from './data/data'
+import categoryMapping from '../../i18n/categoryMapping'
 import I18n from '../../i18n'
 
 Category.propTypes = {
@@ -50,7 +50,9 @@ export default function Category ({
   }) {
   return (
     <View style={[{flex: 1}, style]} {...props}>
-      {category.length === 0 || <Item icon='tag' text={data[category]} />}
+      {category.length === 0 ||
+        <Item icon='tag' text={categoryMapping[category]} />
+      }
 
       {language.length === 0 ||
         <Item tag={mapLanguage(language, true)} text={mapLanguage(language)} />

@@ -1,4 +1,4 @@
-import I18n from '../../../i18n'
+import I18n from './index'
 
 const data = {
   PRAC: I18n.t('Best Practices & Patterns'),
@@ -11,7 +11,7 @@ const data = {
   GAME: I18n.t('Gaming'),
   GRAPH: I18n.t('Graphics'),
   OTHER: I18n.t('Other'),
-  CORE: I18n.t('Python Core (language, stdlib, etc.)'),
+  CORE: I18n.t('Python Core (language, stdlib, etc)'),
   INTNL: I18n.t('Python Internals'),
   LIBS: I18n.t('Python Libraries'),
   SCI: I18n.t('Science'),

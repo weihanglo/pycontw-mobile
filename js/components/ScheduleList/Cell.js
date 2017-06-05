@@ -23,6 +23,7 @@ Cell.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.string),
   checked: PropTypes.bool,
   toggleCheck: PropTypes.func,
+  onPressTag: PropTypes.func,
   style: ViewPropTypes.style
 }
 
@@ -35,6 +36,7 @@ export default function Cell ({
     speakers,
     tags,
     toggleCheck,
+    onPressTag,
     style,
     ...props
   }) {
@@ -67,7 +69,11 @@ export default function Cell ({
             return null
           }
           return (
-            <TouchableOpacity style={[styles.tag, style]} key={tag}>
+            <TouchableOpacity
+              style={[styles.tag, style]}
+              key={tag}
+              onPress={({nativeEvent}) => onPressTag(tag, nativeEvent)}
+            >
               <Text style={{color: 'white'}}>{tag}</Text>
             </TouchableOpacity>
           )

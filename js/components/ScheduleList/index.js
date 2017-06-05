@@ -19,9 +19,14 @@ import {titleForRoute} from '../../common/PyConstants'
 import Cell from './Cell'
 import Header from './Header'
 import Filter from './Filter'
+import TagPopover from './TagPopover'
 import I18n from '../../i18n'
 
 const SCALE_MIN_FACTOR = 0.95
+
+const MODAL_MAP = 'MODAL_MAP'
+const MODAL_FILTER = 'MODAL_FILTER'
+const MODAL_TAGPOPOVER = 'MODAL_TAGPOPOVER'
 
 export default class extends React.Component {
   static propTypes = {
@@ -48,8 +53,8 @@ export default class extends React.Component {
     scaleAnim: new Animated.Value(1)
   }
 
-  _showMap = false
-  _showFilter = false
+  _modalName
+  _modalTagParams
 
   componentWillReceiveProps (nextProps) {
     const {fetchSchedule, selectedDate, syncCompleted, isFetching} = nextProps
@@ -80,7 +85,8 @@ export default class extends React.Component {
 
   _setModalVisible = visible => {
     this.setState({modalVisible: visible})
-    if (Platform.OS === 'android') { // android shall not have animations
+     // android shall not have animations
+    if (Platform.OS === 'android' || this._modalName === MODAL_TAGPOPOVER) {
       return
     }
     const toValue = visible ? SCALE_MIN_FACTOR : 1.0
@@ -89,14 +95,18 @@ export default class extends React.Component {
   }
 
   _onPressMap = () => {
-    this._showMap = true
-    this._showFilter = false
+    this._modalName = MODAL_MAP
     this._setModalVisible(true)
   }
 
   _onPressFilter = () => {
-    this._showMap = false
-    this._showFilter = true
+    this._modalName = MODAL_FILTER
+    this._setModalVisible(true)
+  }
+
+  _onPressTag = (tag, nativeEvent) => {
+    this._modalName = MODAL_TAGPOPOVER
+    this._modalTagParams = {tag, nativeEvent}
     this._setModalVisible(true)
   }
 
@@ -116,6 +126,42 @@ export default class extends React.Component {
     saveFavorites({...favoriteEvents, [eventId]: true})
   }
 
+  _renderModalContent = () => {
+    const backgroundColor = Colors.secondary.DARK_BLUE
+    switch (this._modalName) {
+      case MODAL_MAP:
+        return (
+          <Map
+            onDone={() => { this._setModalVisible(false) }}
+            headerProps={{isModal: true, style: {backgroundColor}}}
+          />
+        )
+      case MODAL_FILTER:
+        return (
+          <Filter
+            filter={this.props.filter}
+            tags={this._getUniqueTags()}
+            headerProps={{isModal: true, style: {backgroundColor}}}
+            onDone={tags => {
+              this.props.updateFilter(tags)
+              this._setModalVisible(false)
+            }}
+          />
+        )
+      case MODAL_TAGPOPOVER:
+        const {pageX: x, pageY: y} = this._modalTagParams.nativeEvent
+        return (
+          <TagPopover
+            tag={this._modalTagParams.tag}
+            point={{x, y}}
+            onDone={() => { this._setModalVisible(false) }}
+          />
+        )
+      default:
+        break
+    }
+  }
+
   _renderItem = ({item}) => {
     const {eventId, type} = item
     const checked = !!this.props.favoriteEvents[eventId]
@@ -129,6 +175,7 @@ export default class extends React.Component {
             tags={tags}
             checked={checked}
             toggleCheck={this._toggleCheck}
+            onPressTag={this._onPressTag}
           />
         </View>
       </TouchableHighlight>
@@ -163,16 +210,13 @@ export default class extends React.Component {
   render () {
     const {
       dates,
-      filter,
       navigation: {state: {routeName}},
       schedule,
       selectedDate,
       selectDate,
       goToSchedule,
-      updateFilter,
       style
     } = this.props
-    const headerBgColor = Colors.secondary.DARK_BLUE
 
     // Animated states
     const transform = [{scale: this.state.scaleAnim}]
@@ -181,8 +225,6 @@ export default class extends React.Component {
       inputRange: [SCALE_MIN_FACTOR, 1],
       outputRange: [0.5, 1]
     })
-
-    const {modalVisible} = this.state
 
     const isEmpty = !schedule || schedule.length === 0
     return (
@@ -230,42 +272,13 @@ export default class extends React.Component {
         </Animated.View>
 
         <Modal
-          animationType={Platform.OS === 'ios' ? 'slide' : 'fade'}
-          transparent={false}
-          visible={modalVisible}
+          animationType={this._modalName === MODAL_TAGPOPOVER
+            ? 'fade' : 'slide'}
+          transparent={this._modalName === MODAL_TAGPOPOVER}
+          visible={this.state.modalVisible}
           onRequestClose={() => this._setModalVisible(false)}
         >
-          {(() => {
-            if (this._showMap) {
-              return (
-                <Map
-                  onDone={tags => { this._setModalVisible(false) }}
-                  headerProps={{
-                    isModal: true,
-                    style: {backgroundColor: headerBgColor}
-                  }}
-                />
-              )
-            }
-
-            if (this._showFilter) {
-              return (
-                <Filter
-                  filter={filter}
-                  // Only calcuate tags when visible
-                  tags={modalVisible ? this._getUniqueTags() : []}
-                  headerProps={{
-                    isModal: true,
-                    style: {backgroundColor: headerBgColor}
-                  }}
-                  onDone={tags => {
-                    updateFilter(tags)
-                    this._setModalVisible(false)
-                  }}
-                />
-              )
-            }
-          })()}
+          {this._renderModalContent()}
         </Modal>
       </View>
     )

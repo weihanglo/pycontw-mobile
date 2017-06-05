@@ -51,7 +51,7 @@ const TAGS_COLORS = {
   ADMIN: primary.DARK_BLUE,
   COM: primary.MIDDLE_BLUE,
   CORE: primary.ACCENT_YELLOW,
-  DATA: primary.DARK_BLUE,
+  DATA: secondary.DARK_BLUE,
   EDU: primary.ACCENT_ORANGE,
   EMBED: primary.ACCENT_YELLOW,
   FIN: primary.LIGHT_BLUE,
