@@ -55,21 +55,49 @@ export default class extends React.Component {
 
   _modalName
   _modalTagParams
+  _firstLaunch = true
 
   componentWillReceiveProps (nextProps) {
-    const {fetchSchedule, selectedDate, syncCompleted, isFetching} = nextProps
+    const {
+      dates,
+      fetchSchedule,
+      selectedDate,
+      selectDate,
+      syncCompleted,
+      isFetching
+    } = nextProps
 
+    // If current date matches one of the dates, go to that page (only do once).
+    if (this._firstLaunch && dates) {
+      this._firstLaunch = false
+
+      const current = new Date()
+      const found = dates.find(date => {
+        const d = new Date(date)
+        return d.getDate() === current.getDate() &&
+          d.getMonth() === current.getMonth() &&
+          d.getFullYear() === current.getFullYear()
+      })
+
+      if (found) {
+        selectDate(found)
+      }
+    }
+
+    // Below are data-fetching section...
+    // If is fetching data now, just do noting and return
     if (isFetching) {
       return
     }
 
+    // If the latest sync is just completed, then we shall update data.
     if (syncCompleted && !this.props.syncCompleted) {
       fetchSchedule(selectedDate)
       return
     }
 
+    // If users select different date tab, update it.
     if (selectedDate !== this.props.selectedDate) {
-      this._changeDate = true
       fetchSchedule(selectedDate)
     }
   }
