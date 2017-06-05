@@ -66,7 +66,7 @@ export default class extends React.Component {
     return {
       top: `${y / height * 100}%`,
       left: `${x / width * 100}%`,
-      backgroundColor: Colors.colorForTag(tag)
+      opacity: 0
     }
   }
 
@@ -123,7 +123,8 @@ const styles = StyleSheet.create({
   popover: {
     position: 'absolute',
     padding: 8,
-    borderRadius: 8
+    borderRadius: 8,
+    elevation: 2
   },
   text: {
     color: 'white'
