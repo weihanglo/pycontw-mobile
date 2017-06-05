@@ -21,9 +21,10 @@ The open source conference app for [PyCon Taiwan 2017][pycontw-website]. Powered
 - **Async Actions**: [Redux Thunk][redux-thunk]
 - **Internationalization**: [React Native i18n][react-native-i18n] & [Moment.js][momentjs]
 - **Other Native Modules**:
+  - [React Native Device Info][react-native-device-info]
   - [React Native SVG][react-native-svg]
-  - [React Native Vector Icons][react-native-vector-icons]
   - [React Native Splash Screen][react-native-splash-screen]
+  - [React Native Vector Icons][react-native-vector-icons]
 
 
 ## Installation
@@ -53,22 +54,19 @@ The open source conference app for [PyCon Taiwan 2017][pycontw-website]. Powered
 
 <!-- links -->
 
-
-[google-play]: https://play.google.com/store/apps/details?id=com.pycontwmobile
 [app-store]: https://itunes.apple.com/app/pycontw-17/id1244168803
-
-[react-native-started]: https://facebook.github.io/react-native/docs/getting-started.html
-
-[pycontw-website]: https://tw.pycon.org/
-
-[standardjs]: https://standardjs.com
+[google-play]: https://play.google.com/store/apps/details?id=com.pycontwmobile
 [momentjs]: https://momentjs.com/
-[react-native]: https://facebook.github.io/react-native/
-[react-native-vector-icons]: https://github.com/oblador/react-native-vector-icons
-[react-native-svg]: https://github.com/react-native-community/react-native-svg
-[react-native-splash-screen]: https://github.com/crazycodeboy/react-native-splash-screen
-[react-navigation]: https://reactnavigation.org/
+[pycontw-website]: https://tw.pycon.org/
+[react-native-device-info]: https://github.com/rebeccahughes/react-native-device-info
 [react-native-i18n]: https://github.com/AlexanderZaytsev/react-native-i18n
+[react-native-splash-screen]: https://github.com/crazycodeboy/react-native-splash-screen
+[react-native-started]: https://facebook.github.io/react-native/docs/getting-started.html
+[react-native-svg]: https://github.com/react-native-community/react-native-svg
+[react-native-vector-icons]: https://github.com/oblador/react-native-vector-icons
+[react-native]: https://facebook.github.io/react-native/
+[react-navigation]: https://reactnavigation.org/
 [react-redux]: https://github.com/reactjs/react-redux
-[redux]: https://github.com/reactjs/redux
 [redux-thunk]: https://github.com/gaearon/redux-thunk
+[redux]: https://github.com/reactjs/redux
+[standardjs]: https://standardjs.com

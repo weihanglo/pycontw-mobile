@@ -11,12 +11,13 @@ import {
   View,
   ViewPropTypes
 } from 'react-native'
+import DeviceInfo from 'react-native-device-info'
 
 import * as Colors from '../../common/PyColors'
 import WebView from '../../common/PyWebView'
 import Header from '../../common/PyHeader'
 import Map from '../../common/PyMap'
-import {Heading2} from '../../common/PyText'
+import {Heading2, Text} from '../../common/PyText'
 import Slogan from './Slogan'
 import GradientLine from './GradientLine'
 import Cell from './Cell'
@@ -45,18 +46,19 @@ export default class extends React.Component {
   _animate = () => {
     const {delay, timing} = Animated
     Animated.sequence([
-      delay(250),
+      delay(350),
       timing(this.state.widthAnim, {
         toValue: 1,
         easing: Easing.elastic(1.5),
-        duration: 500
+        duration: 350
       }),
-      delay(250),
+      delay(200),
       timing(this.state.opacityAnim, {
         toValue: 1,
-        easing: Easing.linear
+        easing: Easing.linear,
+        duration: 200
       }),
-      delay(300)
+      delay(150)
     ]).start(() => this.setState({showInfo: true}))
   }
 
@@ -122,6 +124,11 @@ export default class extends React.Component {
             <Cell key={item.title} onPress={this._onPressCell}{...item} />
           ))}
           {showInfo && <Footer />}
+          {showInfo && (
+            <Text style={styles.appVersion}>
+              Version: {DeviceInfo.getVersion()}.{DeviceInfo.getBuildNumber()}
+            </Text>
+          )}
 
         </ScrollView>
 
@@ -170,5 +177,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // HACK: add border for android to hide overflowing content
     borderWidth: 0
+  },
+  appVersion: {
+    marginTop: 80,
+    textAlign: 'center',
+    color: Colors.LIGHT_TEXT
   }
 })
