@@ -167,8 +167,12 @@ export default class extends React.Component {
     const checked = !!this.props.favoriteEvents[eventId]
     // HACK to check type is `CUSTOM`
     const tags = this.props.tagMapping[eventId] || [type.toUpperCase()]
+
+    const isCustom = type.toUpperCase() === 'CUSTOM'
     return (
-      <TouchableHighlight onPress={() => this._onCellPress(item)}>
+      <TouchableHighlight
+        onPress={isCustom ? null : () => this._onCellPress(item)}
+      >
         <View>
           <Cell
             {...item}

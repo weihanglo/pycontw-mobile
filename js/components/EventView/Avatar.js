@@ -26,7 +26,7 @@ export default function EventAvatar ({speakers, style, showSpeaker, ...props}) {
           key={speaker.name}
         >
           <View style={styles.avatarWrapper}>
-            <Avatar uri={speaker.photoURL} text={speaker.name} />
+            <Avatar size={100} uri={speaker.photoURL} text={speaker.name} />
             <View>
               <SmallText
                 numberOfLines={speaker.name.length > 12 ? 3 : 2}

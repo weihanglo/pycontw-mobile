@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingVertical: 12
   },
-  avatarSetion: {
+  avatarSection: {
     paddingVertical: 8,
     paddingHorizontal: '10%'
   },
