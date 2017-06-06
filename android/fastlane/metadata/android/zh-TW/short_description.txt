@@ -1,1 +1,1 @@
- 完全開源的 Pycon Taiwan 2017 議程 App
+ 完全開源的 PyCon Taiwan 2017 議程 App
