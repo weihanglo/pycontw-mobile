@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {AppState, Platform, StatusBar} from 'react-native'
+import {AppState, BackHandler, Platform, StatusBar} from 'react-native'
 import {connect} from 'react-redux'
-import {addNavigationHelpers} from 'react-navigation'
+import {addNavigationHelpers, NavigationActions} from 'react-navigation'
 import SplashScreen from 'react-native-splash-screen'
 
 import {syncLocal, syncRemote} from './actions/syncData'
@@ -42,14 +42,40 @@ class App extends React.Component {
   }
 
   componentDidMount () {
+    // Handle App state changes
     AppState.addEventListener('change', this._onChangeAppState)
-    // Load all initial dadta
+
+    // Handle Hardware Back Button
+    BackHandler.addEventListener('hardwareBackPress',
+      this._onPressHardwareBack
+    )
+
+    // Load all initial data
     this.props.dispatch(syncLocal())
     this.props.dispatch(syncRemote())
   }
 
   componentWillUnmount () {
     AppState.removeEventListener('change', this._onChangeAppState)
+    BackHandler.removeEventListener('hardwareBackPress')
+  }
+
+  _onPressHardwareBack = () => {
+    const {dispatch, navState} = this.props
+
+    // If StackNavigator in each tab push to another screen, back to previous.
+    const currentIndex = navState.routes[navState.index].index
+    if (currentIndex > 0) {
+      dispatch(NavigationActions.back())
+      return true
+    }
+
+    if (currentIndex === 0 && navState.index > 0) {
+      dispatch(NavigationActions.navigate({routeName: 'Schedule'}))
+      return true
+    }
+
+    return false
   }
 
   _onChangeAppState = nextAppState => {
@@ -74,6 +100,10 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({navState, syncState}) => ({navState, syncState})
+const mapStateToProps = ({
+  navState,
+  syncState,
+  modalState
+}) => ({navState, syncState, modalState})
 
 export default connect(mapStateToProps)(App)
