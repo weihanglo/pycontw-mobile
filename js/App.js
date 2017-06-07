@@ -8,6 +8,7 @@ import SplashScreen from 'react-native-splash-screen'
 import {syncLocal, syncRemote} from './actions/syncData'
 import {fetchDates} from './actions/fetchDates'
 import {fetchTagMapping} from './actions/fetchTagMapping'
+import {loadFavorites} from './actions/loadFavorites'
 
 import AppNavigator from './navigators/AppNavigator'
 
@@ -38,6 +39,7 @@ class App extends React.Component {
       SplashScreen.hide()
       dispatch(fetchDates())
       dispatch(fetchTagMapping())
+      dispatch(loadFavorites())
     }
   }
 
