@@ -1,11 +1,11 @@
 import React from 'react'
 import {StackNavigator} from 'react-navigation'
-import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import * as Colors from '../common/PyColors'
 import {SmallText} from '../common/PyText'
 import ScheduleList from '../containers/MyScheduleList'
 import EventView from '../containers/EventView'
+import MyIcon from './tabBarIcons/MyIcon'
 import I18n from '../i18n'
 
 const My = StackNavigator({
@@ -24,7 +24,7 @@ My.navigationOptions = ({navigation: {state}}) => {
   const color = Colors.colorForRoute(state.routeName)
   return {
     tabBarIcon: ({focused, tintColor}) => ( // eslint-disable-line
-      <Icon name='face' size={30} color={focused ? color : tintColor} />
+      <MyIcon size={30} color={focused ? color : tintColor} />
     ),
     tabBarLabel: ({focused, tintColor}) => ( // eslint-disable-line
       <SmallText

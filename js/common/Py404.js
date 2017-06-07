@@ -1,4 +1,5 @@
 // This presentational + container component
+// This component is no longer used in production.
 import React from 'react'
 import PropTypes from 'prop-types'
 import {

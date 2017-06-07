@@ -37,8 +37,8 @@ export function colorForLocation (loc) {
 const ROUTE_COLORS = {
   Schedule: secondary.ACCENT_GREEN,
   ScheduleList: secondary.ACCENT_GREEN,
-  My: primary.ACCENT_ORANGE,
-  MyScheduleList: primary.ACCENT_ORANGE,
+  My: secondary.MIDDLE_BLUE,
+  MyScheduleList: secondary.MIDDLE_BLUE,
   About: primary.ACCENT_YELLOW,
   AboutView: primary.ACCENT_YELLOW
 }
