@@ -4,8 +4,8 @@
 
 [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-<a href="https://play.google.com/store/apps/details?id=com.pycontwmobile"><img alt="Get it on Google Play" src=".github/google-play.png" width="155px"></a>
-<a href="https://itunes.apple.com/app/pycontw-17/id1244168803"><img alt="Download on the App Store" src="https://cdn.rawgit.com/weihanglo/pycontw-mobile/master/.github/app-store.svg" ></a> 
+<a href="https://play.google.com/store/apps/details?id=com.pycontwmobile"><img alt="Get it on Google Play" src=".github/google-play.png" width="135px"></a>
+<a href="https://itunes.apple.com/app/pycontw-17/id1244168803"><img alt="Download on the App Store" src="https://cdn.rawgit.com/weihanglo/pycontw-mobile/master/.github/app-store.svg" ></a>
 
 The open source conference app for [PyCon Taiwan 2017][pycontw-website]. Powered by [React Native][react-native] and other brilliant tools.
 
