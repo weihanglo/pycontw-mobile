@@ -37,7 +37,7 @@ export default class extends React.Component {
       style
     } = this.props
 
-    const rightItem = (
+    const leftItem = (
       <TouchableOpacity onPress={onDone}>
         <LargeText style={styles.item}>{I18n.t('Done')}</LargeText>
       </TouchableOpacity>
@@ -49,7 +49,7 @@ export default class extends React.Component {
         <StatusBar translucent={false} />
         <Header
           centerItem={I18n.t('Map')}
-          rightItem={rightItem}
+          leftItem={leftItem}
           titleColor={Colors.LIGHT_TEXT}
           style={{backgroundColor: Colors.primary.MIDDLE_BLUE}}
           isModal

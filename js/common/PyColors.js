@@ -31,7 +31,7 @@ const LOCATION_COLORS = {
 }
 
 export function colorForLocation (loc) {
-  return LOCATION_COLORS[loc]
+  return LOCATION_COLORS[loc] || secondary.MIDDLE_BLUE
 }
 
 const ROUTE_COLORS = {
@@ -44,7 +44,7 @@ const ROUTE_COLORS = {
 }
 
 export function colorForRoute (routeName) {
-  return ROUTE_COLORS[routeName]
+  return ROUTE_COLORS[routeName] || secondary.ACCENT_GREEN
 }
 
 const TAGS_COLORS = {
@@ -75,5 +75,5 @@ const TAGS_COLORS = {
 }
 
 export function colorForTag (tag) {
-  return TAGS_COLORS[tag]
+  return TAGS_COLORS[tag] || primary.LIGHT_BLUE
 }
